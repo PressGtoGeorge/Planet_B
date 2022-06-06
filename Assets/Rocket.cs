@@ -79,7 +79,7 @@ public class Rocket : MonoBehaviour
 
             exitingPassengers.RemoveAt(0);
 
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(6f);
         }
 
         yield break;

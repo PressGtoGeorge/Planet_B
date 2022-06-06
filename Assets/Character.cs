@@ -39,6 +39,8 @@ public class Character : MonoBehaviour
     private bool goodPower;
     private bool goodMobility;
 
+    private bool satisfied;
+
     // speeds for different mobility options
     private float defaultSpeed = 3f;
     private float bikeSpeed = 4f;
@@ -82,15 +84,27 @@ public class Character : MonoBehaviour
 
     private IEnumerator CreateNeed()
     {
-        int random = Random.Range(0, 6);
+        wantsFood = false;
+        wantsPower = false;
+        wantsMobility = false;
+
+        if (satisfied)
+        {
+            satisfied = false;
+            int time = Random.Range(10, 21);
+
+            yield return new WaitForSeconds(time);
+        }
+
+        int random = Random.Range(0, 5);
         int duration;
 
-        if (random <= 2)
+        if (random <= 1)
         {
             wantsFood = true;
             duration = 60;
         }
-        else if (random <= 4)
+        else if (random <= 3)
         {
             wantsPower = true;
             duration = 60;
@@ -129,6 +143,7 @@ public class Character : MonoBehaviour
         }
         else
         {
+            satisfied = true;
             StartCoroutine(CreateNeed());
         }
 
@@ -171,6 +186,10 @@ public class Character : MonoBehaviour
     private void GoToRocket(int currentGridSpace)
     {
         if (currentGridSpace != 0) return;
+
+        wantsFood = false;
+        wantsPower = false;
+        wantsMobility = false;
 
         onPlanet_A = !onPlanet_A;
         goingToRocket = false;

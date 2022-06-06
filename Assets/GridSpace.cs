@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class GridSpace : MonoBehaviour
 {
-    public bool occupied = false;
+    public bool occupied;
     public GameObject building;
 }

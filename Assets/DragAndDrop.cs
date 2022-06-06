@@ -74,7 +74,7 @@ public class DragAndDrop : MonoBehaviour
 
             levelingUp = false;
         }
-        else if (currentGridSpace.GetComponent<GridSpace>().building.GetComponent<Building>().name == gameObject.GetComponent<Building>().name && currentGridSpace.GetComponent<GridSpace>().building.GetComponent<Building>().level < 2)
+        else if (currentGridSpace.GetComponent<GridSpace>().building.GetComponent<Building>().buildingName == gameObject.GetComponent<Building>().buildingName && currentGridSpace.GetComponent<GridSpace>().building.GetComponent<Building>().level < 2)
         {
             // mark building for level up
             currentGridSpaceIndicator.transform.position = currentGridSpace.transform.position;

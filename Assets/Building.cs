@@ -33,10 +33,14 @@ public class Building : MonoBehaviour
     private Stack<GameObject> storedProducts = new Stack<GameObject>();
 
     public Ecosystem ecosystem;
+    public bool startOnPlanet;
 
     void Start()
     {
         maximumStorage = 4;
+
+        if (startOnPlanet) ecosystem = transform.parent.GetComponent<Ecosystem>();
+
         if ((house || spaceStation) == false)
         {
             ecosystem.AddGas(1); // for building the building
@@ -44,7 +48,7 @@ public class Building : MonoBehaviour
 
             StartCoroutine(Production());
         }
-         
+        
         if (field) ecosystem.fields.Add(gameObject);
 
         Debug.Log("Building build.");

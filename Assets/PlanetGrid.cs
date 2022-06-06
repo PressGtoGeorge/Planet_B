@@ -20,6 +20,8 @@ public class PlanetGrid : MonoBehaviour
 
     public GameObject housePrefab;
 
+    public GameObject treePrefab;
+
     private void Start()
     {
         planetRadius = transform.GetChild(0).localScale.x / 2f;
@@ -42,6 +44,7 @@ public class PlanetGrid : MonoBehaviour
             newRocket.transform.parent = transform;
         }
 
+        CreateTrees();
     }
 
     void CreateGrid()
@@ -102,6 +105,57 @@ public class PlanetGrid : MonoBehaviour
             Debug.LogError("No matching space found.");
             return null;
         }
+    }
+
+    private void CreateTrees()
+    {
+        // int treesOnLeftSide = Random.Range(0, 12);
+        // int treesOnRightSide = 11 - treesOnLeftSide;
+
+        int treesOnLeftSide = 3;
+        int treesOnRightSide = 2;
+
+        int[] treesLeft = GetUniqueRandomArray(1, (gridSize / 2) - 1, treesOnLeftSide);
+        int[] treesRight = GetUniqueRandomArray((gridSize / 2) + 1, gridSize - 1, treesOnRightSide);
+
+        foreach (int i in treesLeft)
+        {
+            GameObject newTree = Instantiate(treePrefab, gridSpaces[i].transform);
+            newTree.transform.parent = transform;
+            newTree.transform.localScale = Vector3.one * 0.6f;
+
+            gridSpaces[i].GetComponent<GridSpace>().occupied = true;
+            gridSpaces[i].GetComponent<GridSpace>().building = newTree;
+        }
+
+        foreach (int i in treesRight)
+        {
+            GameObject newTree = Instantiate(treePrefab, gridSpaces[i].transform);
+            newTree.transform.parent = transform;
+            newTree.transform.localScale = Vector3.one * 0.6f;
+
+            gridSpaces[i].GetComponent<GridSpace>().occupied = true;
+            gridSpaces[i].GetComponent<GridSpace>().building = newTree;
+        }
+    }
+
+    // copied from stackoverflow to have less work
+    private int[] GetUniqueRandomArray(int min, int max, int count)
+    {
+        int[] result = new int[count];
+        List<int> numbersInOrder = new List<int>();
+        for (var x = min; x < max; x++)
+        {
+            numbersInOrder.Add(x);
+        }
+        for (var x = 0; x < count; x++)
+        {
+            var randomIndex = Random.Range(0, numbersInOrder.Count);
+            result[x] = numbersInOrder[randomIndex];
+            numbersInOrder.RemoveAt(randomIndex);
+        }
+
+        return result;
     }
 
     public Vector3 GetSpaceStationPosition()

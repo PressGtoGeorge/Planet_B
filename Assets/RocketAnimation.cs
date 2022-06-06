@@ -44,10 +44,12 @@ public class RocketAnimation : MonoBehaviour
 
     private void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.K))
         {
             StartAnimation();
         }
+        */
     }
 
     public void StartAnimation()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Population : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class Population : MonoBehaviour
     private List<GameObject> characters = new List<GameObject>();
 
     public List<Color> tierColors = new List<Color>();
+
+    public List<Text> counters = new List<Text>();
+    private int[] numbers = new int[4];
 
     void Start()
     {
@@ -52,21 +56,29 @@ public class Population : MonoBehaviour
     public void Create1()
     {
         CreateCharacter(1, false);
+        numbers[0]++;
+        counters[0].text = numbers[0].ToString();
     }
 
     public void Create2()
     {
         CreateCharacter(2, false);
+        numbers[1]++;
+        counters[1].text = numbers[1].ToString();
     }
 
     public void Create3()
     {
         CreateCharacter(3, false);
+        numbers[2]++;
+        counters[2].text = numbers[2].ToString();
     }
 
     public void Create4()
     {
         CreateCharacter(4, false);
+        numbers[3]++;
+        counters[3].text = numbers[3].ToString();
     }
 
     private IEnumerator CreateTestCharacter()
