@@ -1,0 +1,112 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlanetGrid : MonoBehaviour
+{
+    private float planetRadius;
+
+    public int gridSize;
+    public float angleBetweenSpaces;
+
+    private float gridSpaceSize = 0.6f;
+
+    public GameObject gridSpacePrefab;
+    public GameObject gridSpaceEdgePrefab;
+    public List<GameObject> gridSpaces = new List<GameObject>();
+
+    public GameObject spaceStationPrefab;
+    public GameObject rocketPrefab;
+
+    public GameObject housePrefab;
+
+    private void Start()
+    {
+        planetRadius = transform.GetChild(0).localScale.x / 2f;
+        CreateGrid();
+
+        GameObject newSpaceStation = Instantiate(spaceStationPrefab, gridSpaces[0].transform);
+        newSpaceStation.transform.parent = transform;
+        gridSpaces[0].GetComponent<GridSpace>().occupied = true;
+        gridSpaces[0].GetComponent<GridSpace>().building = newSpaceStation;
+
+        GameObject newHouse = Instantiate(housePrefab, gridSpaces[gridSize / 2].transform);
+        newHouse.transform.parent = transform;
+        newHouse.transform.localScale = Vector3.one;
+        gridSpaces[gridSize / 2].GetComponent<GridSpace>().occupied = true;
+        gridSpaces[gridSize / 2].GetComponent<GridSpace>().building = newHouse;
+
+        if (gameObject.tag == "Planet_A")
+        {
+            GameObject newRocket = Instantiate(rocketPrefab, gridSpaces[0].transform);
+            newRocket.transform.parent = transform;
+        }
+
+    }
+
+    void CreateGrid()
+    {
+        angleBetweenSpaces = 360f / gridSize;
+
+        for (int i = 0; i < gridSize; i++)
+        {
+            GameObject newSpace = Instantiate(gridSpacePrefab, transform);
+            newSpace.transform.localPosition = new Vector3(0, planetRadius, 0);
+            newSpace.transform.localScale = Vector3.one * gridSpaceSize;
+            newSpace.transform.parent = null;
+
+            // create new gridSpaceEdge
+            float newAngle = angleBetweenSpaces * 0.5f;
+
+            transform.Rotate(Vector3.forward, newAngle);
+            GameObject newEdge = Instantiate(gridSpaceEdgePrefab, transform);
+            newEdge.transform.localPosition = new Vector3(0, planetRadius, 0);
+            newEdge.transform.parent = null;
+            transform.Rotate(Vector3.forward, (-1f) * newAngle);
+            newEdge.transform.parent = newSpace.transform;
+            // end section
+
+            gridSpaces.Add(newSpace);
+            transform.Rotate(Vector3.forward, angleBetweenSpaces);
+        }
+
+        transform.rotation = Quaternion.identity;
+
+        foreach (GameObject gridSpace in gridSpaces)
+        {
+            gridSpace.transform.parent = transform;
+        }
+    }
+
+    public GameObject NextGridSpace(Vector3 otherPosition)
+    {
+        GameObject nextGridSpace = null;
+        float minDistance = 42069f;
+
+        foreach (GameObject gridSpace in gridSpaces)
+        {
+            float distance = (gridSpace.transform.position - otherPosition).magnitude;
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                nextGridSpace = gridSpace;
+            }
+        }
+        
+        if (nextGridSpace != null)
+        {
+            return nextGridSpace;
+        }
+        else
+        {
+            Debug.LogError("No matching space found.");
+            return null;
+        }
+    }
+
+    public Vector3 GetSpaceStationPosition()
+    {
+        return gridSpaces[0].transform.position;
+    }
+
+}
