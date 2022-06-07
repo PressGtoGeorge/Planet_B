@@ -34,6 +34,7 @@ public class Building : MonoBehaviour
 
     public Ecosystem ecosystem;
     public bool startOnPlanet;
+    private float buildingCost = 12f;
 
     void Start()
     {
@@ -43,7 +44,7 @@ public class Building : MonoBehaviour
 
         if ((house || spaceStation) == false)
         {
-            ecosystem.AddGas(1); // for building the building
+            ecosystem.AddGas(buildingCost); // for building the building
             Produce();
 
             StartCoroutine(Production());
