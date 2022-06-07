@@ -9,7 +9,7 @@ public class PlanetGrid : MonoBehaviour
     public int gridSize;
     public float angleBetweenSpaces;
 
-    private float gridSpaceSize = 0.6f;
+    private float gridSpaceSize = 1f;
 
     public GameObject gridSpacePrefab;
     public GameObject gridSpaceEdgePrefab;

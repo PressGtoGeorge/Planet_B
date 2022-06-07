@@ -67,14 +67,36 @@ public class DragAndDrop : MonoBehaviour
 
         // mark next grid space
         GameObject currentGridSpace = planetGrid.NextGridSpace(transform.position);
-        if (currentGridSpace.GetComponent<GridSpace>().occupied == false)
+
+        // see if building on space could be leveled up
+        bool occupied = currentGridSpace.GetComponent<GridSpace>().occupied;
+        bool sameBuildingType = false;
+        bool belowLevelThree = false;
+        bool growingTree = false;
+
+
+        if (occupied)
+        {
+            sameBuildingType = (currentGridSpace.GetComponent<GridSpace>().building.GetComponent<Building>().buildingName == gameObject.GetComponent<Building>().buildingName);
+            belowLevelThree = (currentGridSpace.GetComponent<GridSpace>().building.GetComponent<Building>().level < 2);
+
+            if (currentGridSpace.GetComponent<GridSpace>().building.GetComponent<Building>().tree)
+            {
+                growingTree = currentGridSpace.GetComponent<GridSpace>().building.GetComponent<Trees>().growing;
+            }
+        }
+
+        bool fitForLevelUp = sameBuildingType && belowLevelThree && (growingTree == false);
+        // end section
+
+        if (occupied == false)
         {
             currentGridSpaceIndicator.transform.position = currentGridSpace.transform.position;
             currentGridSpaceIndicator.transform.localScale = Vector3.one * 1f;
 
             levelingUp = false;
         }
-        else if (currentGridSpace.GetComponent<GridSpace>().building.GetComponent<Building>().buildingName == gameObject.GetComponent<Building>().buildingName && currentGridSpace.GetComponent<GridSpace>().building.GetComponent<Building>().level < 2)
+        else if (fitForLevelUp)
         {
             // mark building for level up
             currentGridSpaceIndicator.transform.position = currentGridSpace.transform.position;
@@ -99,19 +121,28 @@ public class DragAndDrop : MonoBehaviour
         if (dragging) dragging = false;
 
         GameObject currentGridSpace = planetGrid.NextGridSpace(transform.position);
+        bool occupied = currentGridSpace.GetComponent<GridSpace>().occupied;
 
-        if (currentGridSpace.GetComponent<GridSpace>().occupied && levelingUp == false)
+        if (occupied && levelingUp == false)
         {
             Destroy(gameObject);
             return;
         }
-        else if (currentGridSpace.GetComponent<GridSpace>().occupied && levelingUp == true)
+        else if (occupied && levelingUp == true)
         {
-            currentGridSpace.GetComponent<GridSpace>().building.GetComponent<Building>().LevelUp();
+            if (currentGridSpace.GetComponent<GridSpace>().building.GetComponent<Building>().tree == false)
+            {
+                currentGridSpace.GetComponent<GridSpace>().building.GetComponent<Building>().LevelUp();
+            }
+            else
+            {
+                currentGridSpace.GetComponent<GridSpace>().building.GetComponent<Trees>().StartGrowth();
+            }
+            
             Destroy(gameObject);
             return;
         }
-        else if (currentGridSpace.GetComponent<GridSpace>().occupied == false && levelingUp == false)
+        else if (occupied == false && levelingUp == false)
         {
             currentGridSpace.GetComponent<GridSpace>().occupied = true;
         }
@@ -123,8 +154,6 @@ public class DragAndDrop : MonoBehaviour
         transform.position = currentGridSpace.transform.position;
         transform.parent = planet_B.transform;
 
-
-
         // disable indicator
         currentGridSpaceIndicator.SetActive(false);
 
@@ -132,11 +161,11 @@ public class DragAndDrop : MonoBehaviour
         currentGridSpace.GetComponent<GridSpace>().building = gameObject;
 
         // creater pointer from building to ecosystem
-        gameObject.GetComponent<Building>().enabled = true;
-        gameObject.GetComponent<Building>().ecosystem = transform.parent.GetComponent<Ecosystem>();
+        if (currentGridSpace.GetComponent<GridSpace>().building.GetComponent<Building>().tree == false) 
+            gameObject.GetComponent<Building>().enabled = true;
+        else gameObject.GetComponent<Trees>().enabled = true;
 
-        // snap to planet radius
-        // gameObject.transform.position = planet_a.transform.position - targetDir * planetRadius;
+        gameObject.GetComponent<Building>().ecosystem = transform.parent.GetComponent<Ecosystem>();
     }
 
     private void RotateTowardsSurface(GameObject currentGridSpace)

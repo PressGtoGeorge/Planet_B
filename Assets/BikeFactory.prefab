@@ -198,9 +198,13 @@ MonoBehaviour:
   - 120
   - 60
   - 30
-  gasPerProduct: 1
+  gasPerProductOnLevel:
+  - 1
+  - 1.5
+  - 2
   storedAmount: 0
   ecosystem: {fileID: 0}
+  startOnPlanet: 0
 --- !u!1 &4699346937750441632
 GameObject:
   m_ObjectHideFlags: 0

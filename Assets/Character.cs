@@ -40,12 +40,16 @@ public class Character : MonoBehaviour
     private bool goodMobility;
 
     private bool satisfied;
+    private int lowEndSatisfactionDuration = 10;
+    private int highEndSatisfactionDuration = 31;
 
     // speeds for different mobility options
     private float defaultSpeed = 3f;
     private float bikeSpeed = 4f;
     private float carSpeed = 5f;
     private float mountSpeed = 5f;
+
+    private int vehicleDuration = 180;
 
     // variables for rocket travel
     private bool goingToRocket;
@@ -91,12 +95,21 @@ public class Character : MonoBehaviour
         if (satisfied)
         {
             satisfied = false;
-            int time = Random.Range(10, 21);
+            int time = Random.Range(lowEndSatisfactionDuration, highEndSatisfactionDuration);
 
             yield return new WaitForSeconds(time);
         }
 
-        int random = Random.Range(0, 5);
+        int random;
+        if (speed == defaultSpeed) 
+        {
+            random = Random.Range(0, 5);
+        }
+        else
+        {
+            random = Random.Range(0, 4); // to avoid somebody with vehicle to want a new one
+        }
+
         int duration;
 
         if (random <= 1)
@@ -129,7 +142,6 @@ public class Character : MonoBehaviour
         }
 
         coolDownIndicator.fillAmount = 0f;
-        SetSpeed(defaultSpeed);
 
         // create new need if satisfied or go to blackmarket/rocket if not
         if (wantsFood || wantsPower || wantsMobility)
@@ -242,6 +254,7 @@ public class Character : MonoBehaviour
                 Debug.Log("Passed: " + newName);
             }
 
+            if (tier == 1) WaterTree(currentGridSpace);
             if (goingToRocket) GoToRocket(currentGridSpace);
             Consume(currentGridSpace);
         }
@@ -298,6 +311,8 @@ public class Character : MonoBehaviour
                 thoughtBubble.SetActive(false);
 
                 SetSpeed(bikeSpeed);
+
+                StartCoroutine(ResetVehicleAfter(vehicleDuration));
             }
 
             if (goodMobility == false && buildingScript.carFactory && buildingScript.storedAmount > 0)
@@ -307,8 +322,29 @@ public class Character : MonoBehaviour
                 thoughtBubble.SetActive(false);
 
                 SetSpeed(carSpeed);
+                StartCoroutine(ResetVehicleAfter(vehicleDuration));
             }
         }
+    }
+
+    private void WaterTree(int currentGridSpace)
+    {
+        if (onSurface == false || goingToRocket) return;
+        GameObject building = planetGrid.gridSpaces[currentGridSpace].GetComponent<GridSpace>().building;
+        Trees treeScript;
+
+        if (building == null || building.GetComponent<Building>().tree == false) return;
+        else treeScript = building.GetComponent<Trees>();
+
+        treeScript.SpeedUpGrowth();
+    }
+
+    private IEnumerator ResetVehicleAfter(int duration)
+    {
+        yield return new WaitForSeconds(duration);
+
+        SetSpeed(defaultSpeed);
+        yield break;
     }
 
     private void SetupPlanetVariables()
@@ -327,8 +363,8 @@ public class Character : MonoBehaviour
         distanceBetweenGridSpaces = planetGrid.angleBetweenSpaces;
     }
 
-    // after leaving rocket
-    public void UpdateCharacterAfterLanding()
+
+    public void UpdateCharacterAfterLanding() // after leaving rocket
     {
         GameObject currentPlanet;
 

@@ -25,7 +25,7 @@ public class Building : MonoBehaviour
 
     public float[] productionTimeOnLevel;
 
-    public int gasPerProduct;
+    public float[] gasPerProductOnLevel;
 
     [HideInInspector] public int storedAmount;
     private int maximumStorage;
@@ -120,13 +120,13 @@ public class Building : MonoBehaviour
             InstantiateProduct();
         }
 
-        ecosystem.AddGas(gasPerProduct);
+        ecosystem.AddGas(gasPerProductOnLevel[level]);
     }
 
     private void InstantiateProduct()
     {
         GameObject newProduct = Instantiate(productPrefab, transform);
-        newProduct.transform.localPosition += Vector3.up * storedAmount * 0.1f;
+        newProduct.transform.localPosition += Vector3.up * storedAmount * 0.25f;
 
         storedProducts.Push(newProduct);
 
