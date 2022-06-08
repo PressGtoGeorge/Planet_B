@@ -10,7 +10,7 @@ public class SwitchPlanet : MonoBehaviour
     private GameObject planet_B;
 
     private bool moving;
-    private float speed = 0.12f;
+    private float speed = 40f;
 
     private void Start()
     {
@@ -46,8 +46,8 @@ public class SwitchPlanet : MonoBehaviour
 
         while (currentDistance < goalDistance)
         {
-            transform.parent.position += (goalPos - startPos).normalized * speed;
-            currentDistance += speed;
+            transform.parent.position += (goalPos - startPos).normalized * speed * Time.unscaledDeltaTime;
+            currentDistance += speed * Time.unscaledDeltaTime;
 
             yield return null;
         }

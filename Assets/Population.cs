@@ -51,6 +51,8 @@ public class Population : MonoBehaviour
         newChar.GetComponent<Character>().positionSinceLastGridSpace = angle % gameObject.GetComponent<PlanetGrid>().angleBetweenSpaces;
 
         newChar.transform.GetChild(0).GetComponent<SpriteRenderer>().color = tierColors[tier - 1];
+
+        newChar.GetComponent<Character>().logging = true;
     }
 
     public void Create1()

@@ -22,6 +22,13 @@ public class PlanetGrid : MonoBehaviour
 
     public GameObject treePrefab;
 
+    // blackmarket variables
+    public GameObject blackmarketStandPrefab;
+    public int[] standPositions = { 4, 12, 20 };
+    // public int[] foodEdges = { 0, 8 };
+    // public int[] powerEdges = { 8, 16 };
+    // public int[] mobilityEdges = { 16, 24 };
+
     private void Start()
     {
         planetRadius = transform.GetChild(0).localScale.x / 2f;
@@ -45,6 +52,37 @@ public class PlanetGrid : MonoBehaviour
         }
 
         CreateTrees();
+
+        for (int i = 0; i < 3; i++)
+        {
+            GameObject newBlackmarketStand = Instantiate(blackmarketStandPrefab, gridSpaces[standPositions[i]].transform);
+            newBlackmarketStand.transform.parent = transform;
+
+            switch (i)
+            {
+                case 0:
+                    newBlackmarketStand.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.red;
+                    break;
+                case 1:
+                    newBlackmarketStand.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.black;
+                    break;
+                case 2:
+                    newBlackmarketStand.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.blue;
+                    break;
+            }
+
+            newBlackmarketStand.transform.GetChild(1).position = gridSpaces[standPositions[i] - 4].transform.position;
+
+            if (standPositions[i] + 4 < 24)
+            {
+                newBlackmarketStand.transform.GetChild(2).position = gridSpaces[standPositions[i] + 4].transform.position;
+
+            }
+            else
+            {
+                newBlackmarketStand.transform.GetChild(2).position = gridSpaces[0].transform.position;
+            }
+        }
     }
 
     void CreateGrid()

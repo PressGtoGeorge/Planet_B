@@ -54,6 +54,10 @@ public class Character : MonoBehaviour
     // variables for rocket travel
     private bool goingToRocket;
 
+    private bool goingToBlackmarket;
+    private int blackmarketStandPosition;
+    private int blackmarketGasPerProduct = 10;
+
     // visualising needs and time left to fulfill
     public GameObject thoughtBubble;
     public Image coolDownIndicator;
@@ -151,7 +155,12 @@ public class Character : MonoBehaviour
                 thoughtBubble.SetActive(false);
                 goingToRocket = true;
             }
-            else GoToBlackmarket();
+            else
+            {
+                thoughtBubble.SetActive(false);
+                goingToBlackmarket = true;
+                FindBlackmarketStand();
+            }
         }
         else
         {
@@ -160,6 +169,22 @@ public class Character : MonoBehaviour
         }
 
         yield break;
+    }
+
+    private void FindBlackmarketStand()
+    {
+        if (wantsFood)
+        {
+            blackmarketStandPosition = 0;
+        }
+        else if (wantsPower)
+        {
+            blackmarketStandPosition = 8;
+        }
+        else if (wantsMobility)
+        {
+            blackmarketStandPosition = 16;
+        }
     }
 
     private void UpdateThoughtBubble()
@@ -209,21 +234,51 @@ public class Character : MonoBehaviour
         Debug.Log("Entering rocket. If it works.");
     }
 
-    private void GoToBlackmarket()
+    private void GoToBlackmarket(int currentGridSpace)
     {
-        // placeholder function
-        GameObject currentPlanet;
+        if (onSurface)
+        {
+            GameObject currentPlanet;
 
-        if (onPlanet_A) currentPlanet = planet_A;
-        else currentPlanet = planet_B;
+            if (onPlanet_A) currentPlanet = planet_A;
+            else currentPlanet = planet_B;
 
-        currentPlanet.GetComponent<Ecosystem>().AddGas(4);
+            // check when char is over part that fits need
+            if (currentGridSpace > blackmarketStandPosition && currentGridSpace <= blackmarketStandPosition + 8)
+            {
+                onSurface = false;
+                transform.Rotate(Vector3.forward, 180f);
 
-        wantsFood = false;
-        wantsPower = false;
-        wantsMobility = false;
+                currentPlanet.GetComponent<Ecosystem>().AddGas(blackmarketGasPerProduct);
 
-        StartCoroutine(CreateNeed());
+                // check if riding hamster
+                if (wantsMobility)
+                {
+                    SetSpeed(mountSpeed);
+                    StartCoroutine(ResetVehicleAfter(vehicleDuration));
+                }
+
+                wantsFood = false;
+                wantsPower = false;
+                wantsMobility = false;
+            }
+            else
+            {
+                currentPlanet.GetComponent<Ecosystem>().AddGas(0.5f);
+            }
+        }
+        else
+        {
+            // check if character can get blackmarket product
+            if (currentGridSpace == blackmarketStandPosition)
+            {
+                onSurface = true;
+                transform.Rotate(Vector3.forward, 180f);
+
+                goingToBlackmarket = false;
+                StartCoroutine(CreateNeed());
+            }
+        }
     }
 
     void Update()
@@ -249,20 +304,22 @@ public class Character : MonoBehaviour
 
             if (logging)
             {
-                if (planetGrid.gridSpaces[currentGridSpace].GetComponent<GridSpace>().building == null) return;
-                string newName = planetGrid.gridSpaces[currentGridSpace].GetComponent<GridSpace>().building.GetComponent<Building>().buildingName;
-                Debug.Log("Passed: " + newName);
+                Debug.Log(currentGridSpace);
+                // if (planetGrid.gridSpaces[currentGridSpace].GetComponent<GridSpace>().building == null) return;
+                // string newName = planetGrid.gridSpaces[currentGridSpace].GetComponent<GridSpace>().building.GetComponent<Building>().buildingName;
+                // Debug.Log("Passed: " + newName);
             }
 
             if (tier == 1) WaterTree(currentGridSpace);
             if (goingToRocket) GoToRocket(currentGridSpace);
+            if (goingToBlackmarket) GoToBlackmarket(currentGridSpace);
             Consume(currentGridSpace);
         }
     }
 
     private void Consume(int currentGridSpace)
     {
-        if (onSurface == false || goingToRocket) return;
+        if (onSurface == false || goingToRocket || goingToBlackmarket) return;
         GameObject building = planetGrid.gridSpaces[currentGridSpace].GetComponent<GridSpace>().building;
         Building buildingScript;
 

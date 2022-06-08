@@ -52,7 +52,7 @@ public class Building : MonoBehaviour
         
         if (field) ecosystem.fields.Add(gameObject);
 
-        Debug.Log("Building build.");
+        // Debug.Log("Building build.");
     }
 
     void Update()

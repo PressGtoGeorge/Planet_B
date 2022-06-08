@@ -11,6 +11,8 @@ public class RotatePlanet : MonoBehaviour
 
     private int gridSize;
 
+    public bool rotating = false;
+
     private void Start()
     {
         gridSize = gameObject.GetComponent<PlanetGrid>().gridSize;
@@ -18,7 +20,7 @@ public class RotatePlanet : MonoBehaviour
 
     void Update()
     {
-        if (collapsed == false) transform.Rotate(Vector3.forward, speed * Time.deltaTime);
+        if (collapsed == false && rotating) transform.Rotate(Vector3.forward, speed * Time.deltaTime);
 
         if (Input.GetKeyDown(KeyCode.L) && collapsing == false)
         {
