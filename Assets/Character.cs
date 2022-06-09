@@ -23,8 +23,6 @@ public class Character : MonoBehaviour
     private int gridSize;
     private float distanceBetweenGridSpaces;
 
-    private float speed = 3f;
-
     public float currentPosition; // tracks current position on globe from 0 to 360 degrees
     public float positionSinceLastGridSpace;
 
@@ -44,6 +42,8 @@ public class Character : MonoBehaviour
     private int highEndSatisfactionDuration = 31;
 
     // speeds for different mobility options
+    private float speed;
+
     private float defaultSpeed = 3f;
     private float bikeSpeed = 4f;
     private float carSpeed = 5f;
@@ -52,7 +52,7 @@ public class Character : MonoBehaviour
     private int vehicleDuration = 180;
 
     // variables for rocket travel
-    private bool goingToRocket;
+    public bool goingToRocket;
 
     private bool goingToBlackmarket;
     private int blackmarketStandPosition;
@@ -62,6 +62,28 @@ public class Character : MonoBehaviour
     public GameObject thoughtBubble;
     public Image coolDownIndicator;
 
+    // variables for spawning new characters
+    public float[] newNpcsPerPass;
+    private List<int[]> spawnChancesAfterYears = new List<int[]>();
+
+    public int[] spawnChanceAfter_0;
+    public int[] spawnChanceAfter_1;
+    public int[] spawnChanceAfter_2;
+    public int[] spawnChanceAfter_3;
+    public int[] spawnChanceAfter_4;
+    public int[] spawnChanceAfter_5;
+    public int[] spawnChanceAfter_6;
+    public int[] spawnChanceAfter_7;
+
+    // variables for replacing characters that leave with rocket
+    private List<int[]> replacementCharacterTierChances = new List<int[]>();
+
+    public int[] replacementCharacterTierChance_1;
+    public int[] replacementCharacterTierChance_2;
+    public int[] replacementCharacterTierChance_3;
+
+    public bool stationary; // true if a character does never use the rocket
+
     void Start()
     {
         planet_A = GameObject.FindGameObjectWithTag("Planet_A");
@@ -70,11 +92,28 @@ public class Character : MonoBehaviour
         radiusPlanet_A = planet_A.transform.GetChild(0).localScale.x / 2f;
         radiusPlanet_B = planet_B.transform.GetChild(0).localScale.x / 2f;
 
-        // speed = 3f;
+        speed = defaultSpeed;
+        /*
+        speed = 3f;
         if (onPlanet_A)
         {
             speed *= radiusPlanet_B / radiusPlanet_A; // assuming planet_B is bigger
         }
+        */
+
+        spawnChancesAfterYears.Add(spawnChanceAfter_0);
+        spawnChancesAfterYears.Add(spawnChanceAfter_1);
+        spawnChancesAfterYears.Add(spawnChanceAfter_2);
+        spawnChancesAfterYears.Add(spawnChanceAfter_3);
+        spawnChancesAfterYears.Add(spawnChanceAfter_4);
+        spawnChancesAfterYears.Add(spawnChanceAfter_5);
+        spawnChancesAfterYears.Add(spawnChanceAfter_6);
+        spawnChancesAfterYears.Add(spawnChanceAfter_7);
+
+        replacementCharacterTierChances.Add(replacementCharacterTierChance_1);
+        replacementCharacterTierChances.Add(replacementCharacterTierChance_2);
+        replacementCharacterTierChances.Add(replacementCharacterTierChance_3);
+
 
         SetupPlanetVariables();
         SetupConsumerVariables();
@@ -87,11 +126,12 @@ public class Character : MonoBehaviour
         if (movingRight) directionMultiplier = (-1);
         else directionMultiplier = 1;
 
-        StartCoroutine(CreateNeed());
+        if (goingToRocket == false) StartCoroutine(CreateNeed());
     }
 
     private IEnumerator CreateNeed()
     {
+        // yield break;
         wantsFood = false;
         wantsPower = false;
         wantsMobility = false;
@@ -154,6 +194,7 @@ public class Character : MonoBehaviour
             {
                 thoughtBubble.SetActive(false);
                 goingToRocket = true;
+                if (onPlanet_A == false) CreateReplacementCharacters();
             }
             else
             {
@@ -222,16 +263,80 @@ public class Character : MonoBehaviour
 
     private void GoToRocket(int currentGridSpace)
     {
-        if (currentGridSpace != 0) return;
+        if (currentGridSpace != 0 || stationary) return;
 
         wantsFood = false;
         wantsPower = false;
         wantsMobility = false;
 
-        onPlanet_A = !onPlanet_A;
+
+        if (onPlanet_A == false) stationary = true;
         goingToRocket = false;
         planetGrid.gridSpaces[0].GetComponent<GridSpace>().building.GetComponent<SpaceStation>().AddEnteringPassenger(gameObject);
-        Debug.Log("Entering rocket. If it works.");
+
+        planetGrid.gameObject.GetComponent<Population>().characters.Remove(gameObject);
+        if (onPlanet_A == false) planetGrid.gameObject.GetComponent<Population>().UpdateCharacterCounter(tier, -1); // placeholder ?
+
+        onPlanet_A = !onPlanet_A;
+        // Debug.Log("Entering rocket.");
+    }
+
+    private void CreateReplacementCharacters()
+    {
+        Population planet_A_Population = planet_A.GetComponent<Population>();
+        Population planet_B_Population = planet_B.GetComponent<Population>();
+        
+        if (planet_B_Population.characters.Count < planet_B_Population.maxPopulation - planet_B_Population.populationComingWithNextRocket - 1)
+        {
+            // create two semi-random replacements
+
+            Debug.Log("create 2");
+
+            int[] replacementChances = replacementCharacterTierChances[tier - 1];
+
+            for (int i = 0; i < 2; i++) // placeholder, kinda
+            {
+                int random = Random.Range(0, 101);
+
+                if (random < replacementChances[0])
+                {
+                    planet_A_Population.CreateOnPlanet_A_Tier_1();
+                }
+                else if (random < replacementChances[0] + replacementChances[1])
+                {
+                    planet_A_Population.CreateOnPlanet_A_Tier_2();
+                }
+                else if (random < replacementChances[0] + replacementChances[1] + replacementChances[2])
+                {
+                    planet_A_Population.CreateOnPlanet_A_Tier_3();
+                }
+                else // if (random < replacementChances[0] + replacementChances[1] + replacementChances[2] + replacementChances[3])
+                {
+                    planet_A_Population.CreateOnPlanet_A_Tier_4();
+                }
+            }
+            planet_B_Population.populationComingWithNextRocket += 2;
+        }
+        else
+        {
+            Debug.Log("create 1");
+
+            // create replacement that is 1 tier worse
+            switch (tier)
+            {
+                case 1:
+                    planet_A_Population.CreateOnPlanet_A_Tier_2();
+                        break;
+                case 2:
+                    planet_A_Population.CreateOnPlanet_A_Tier_3();
+                    break;
+                case 3:
+                    planet_A_Population.CreateOnPlanet_A_Tier_4();
+                    break;
+            }
+
+            planet_B_Population.populationComingWithNextRocket += 1;
+        }
     }
 
     private void GoToBlackmarket(int currentGridSpace)
@@ -314,6 +419,24 @@ public class Character : MonoBehaviour
             if (goingToRocket) GoToRocket(currentGridSpace);
             if (goingToBlackmarket) GoToBlackmarket(currentGridSpace);
             Consume(currentGridSpace);
+            SpawnNewCharacters(currentGridSpace);
+        }
+    }
+
+    private void SpawnNewCharacters(int currentGridSpace)
+    {
+        if (currentGridSpace != (gridSize / 2) || goingToRocket || goingToBlackmarket || onPlanet_A) return;
+
+        RotatePlanet planetScript = planet_B.GetComponent<RotatePlanet>();
+        
+        int year = planetScript.yearsPassed;
+        if (year > 7) year = 7;
+        planetScript.charactersPassed++;
+
+        if (planetScript.charactersPassed >= (1 / newNpcsPerPass[year]))
+        {
+            planetScript.charactersPassed = 0;
+            planet_B.GetComponent<Population>().CreateCharacterWithChances(spawnChancesAfterYears[year]);
         }
     }
 
@@ -412,6 +535,7 @@ public class Character : MonoBehaviour
         else currentPlanet = planet_B;
 
         GameObject newParent = Instantiate(emptyGameObject, currentPlanet.transform);
+        newParent.transform.Rotate(Vector3.forward, 360f - currentPosition);
         transform.parent = newParent.transform;
         newParent.AddComponent<FlyIntoSpace>();
 

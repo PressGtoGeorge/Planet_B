@@ -13,6 +13,11 @@ public class RotatePlanet : MonoBehaviour
 
     public bool rotating = false;
 
+    private float yearDuration = 120f;
+    private float timePassedSinceLastYear;
+    public int yearsPassed = 0;
+    public int charactersPassed = 0;
+
     private void Start()
     {
         gridSize = gameObject.GetComponent<PlanetGrid>().gridSize;
@@ -22,6 +27,15 @@ public class RotatePlanet : MonoBehaviour
     {
         if (collapsed == false && rotating) transform.Rotate(Vector3.forward, speed * Time.deltaTime);
 
+        timePassedSinceLastYear += Time.deltaTime;
+        if (timePassedSinceLastYear >= yearDuration)
+        {
+            timePassedSinceLastYear -= yearDuration;
+            yearsPassed++;
+            // Debug.Log("Year: " + yearsPassed);
+        }
+
+        // placeholder
         if (Input.GetKeyDown(KeyCode.L) && collapsing == false)
         {
             StartCoroutine(Collapse());
@@ -68,7 +82,6 @@ public class RotatePlanet : MonoBehaviour
         }
 
         // decelerate
-
         currentSpeed = 360f;
         goalSpeed = 0f;
 

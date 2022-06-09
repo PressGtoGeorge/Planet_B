@@ -144,8 +144,11 @@ public class Building : MonoBehaviour
 
     public void LevelUp()
     {
-        if (level < 2) level++;
-
+        if (level > 2) return;
+        
+        level++;
+        if (tree == false) ecosystem.AddGas(buildingCost);
+        
         // placeholder
         transform.localScale += Vector3.up * 0.3f;
     }

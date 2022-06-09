@@ -77,7 +77,14 @@ public class Demolish : MonoBehaviour
             planetGrid.gameObject.GetComponent<Ecosystem>().fields.Remove(currentGridSpace.GetComponent<GridSpace>().building);
 
         // add gas for destruction
-        planetGrid.gameObject.GetComponent<Ecosystem>().AddGas(1);
+        if (currentGridSpace.GetComponent<GridSpace>().building.GetComponent<Building>().tree)
+        {
+            planetGrid.gameObject.GetComponent<Ecosystem>().AddGas(12);
+        }
+        else
+        {
+            planetGrid.gameObject.GetComponent<Ecosystem>().AddGas(1);
+        }
 
         // destroy pointer from gridspace to building
         Destroy(currentGridSpace.GetComponent<GridSpace>().building);

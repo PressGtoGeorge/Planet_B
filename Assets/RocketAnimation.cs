@@ -123,7 +123,7 @@ public class RocketAnimation : MonoBehaviour
         transform.rotation = qDir;
         transform.Rotate(Vector3.forward, 90f);
 
-        Debug.Log("In orbit.\nAnimation 1 finished.");
+        // Debug.Log("In orbit.\nAnimation 1 finished.");
 
         // second part of animation: rotate with rising radius around planet until reaching the middle between both planets
         // newParent.transform.parent = null;
@@ -143,7 +143,7 @@ public class RocketAnimation : MonoBehaviour
         tempDir = (transform.position - currentPlanet.transform.position).normalized;
         transform.position = currentPlanet.transform.position + tempDir * (goalHeight + planetRadius);
 
-        Debug.Log("Reached target height.\nAnimation 2 finished.");
+        // Debug.Log("Reached target height.\nAnimation 2 finished.");
 
         // wait for moment to turn onto the other planet
         Vector3 vectorBetweenPlanets = (planet_A.transform.position - planet_B.transform.position); // points from b to a
@@ -159,7 +159,7 @@ public class RocketAnimation : MonoBehaviour
             {
                 lastDotProduct = 0f;
 
-                Debug.Log("Switch point passed.\nAnimation 3 finished.");
+                // Debug.Log("Switch point passed.\nAnimation 3 finished.");
                 break;
             }
             else
@@ -222,7 +222,7 @@ public class RocketAnimation : MonoBehaviour
         tempDir = (transform.position - currentPlanet.transform.position).normalized;
         transform.position = currentPlanet.transform.position + tempDir * (goalHeight + planetRadius);
 
-        Debug.Log("Reached target height.\nAnimation 4 finished.");
+        // Debug.Log("Reached target height.\nAnimation 4 finished.");
 
         // look for position of space station
         Vector3 spaceStationPosition;
@@ -239,7 +239,7 @@ public class RocketAnimation : MonoBehaviour
             {
                 lastDotProduct = 0f;
 
-                Debug.Log("Found space station.\nAnimation 5 finished.");
+                // Debug.Log("Found space station.\nAnimation 5 finished.");
                 break;
             }
             else
@@ -272,7 +272,7 @@ public class RocketAnimation : MonoBehaviour
         // fix position
         transform.position += (transform.up) * (lastCircleRadius - currentPos);
 
-        Debug.Log("Prepared final circle.\nAnimation 6 finished.");
+        // Debug.Log("Prepared final circle.\nAnimation 6 finished.");
 
         // do final circle until above space station
         transform.parent = null;
@@ -290,7 +290,12 @@ public class RocketAnimation : MonoBehaviour
         }
 
         // fix rotation
-        transform.parent.Rotate(Vector3.forward, goalAngle - currentAngle);
+        // transform.parent.Rotate(Vector3.forward, goalAngle - currentAngle); // change this
+        Vector3 vectorBetweenSpaceStationAndCore = (spaceStationPosition - currentPlanet.transform.position);
+
+        qDir = new Quaternion();
+        qDir.SetLookRotation(Vector3.forward, (-1f) * vectorBetweenSpaceStationAndCore);
+        transform.rotation = qDir;
 
         // fix position
         if (currentPlanet.GetComponent<RotatePlanet>().collapsing == false && currentPlanet.GetComponent<RotatePlanet>().collapsed == false)
@@ -298,7 +303,7 @@ public class RocketAnimation : MonoBehaviour
             spaceStationPosition = currentPlanet.GetComponent<PlanetGrid>().GetSpaceStationPosition();
             transform.position = currentPlanet.transform.position + (spaceStationPosition - currentPlanet.transform.position).normalized * (planetRadius + goalHeight + lastCircleRadius);
         }
-        Debug.Log("Over space station.\nAnimation 7 finished.");
+        // Debug.Log("Over space station.\nAnimation 7 finished.");
 
         // land rocket on space station
         float undergroundAmount = 0.5f;
@@ -321,7 +326,7 @@ public class RocketAnimation : MonoBehaviour
             // rotate 180
             transform.Rotate(Vector3.forward, 180);
 
-            Debug.Log("Rocket in space station.\nAnimation 8 finished.");
+            // Debug.Log("Rocket in space station.\nAnimation 8 finished.");
 
             // redeploy rocket on space station
 
@@ -347,7 +352,7 @@ public class RocketAnimation : MonoBehaviour
         startingOnPlanet_A = !startingOnPlanet_A;
         flying = false;
 
-        Debug.Log("Rocket ready for new take off.\nAnimation 9 finished.");
+        // Debug.Log("Rocket ready for new take off.\nAnimation 9 finished.");
 
         gameObject.GetComponent<Rocket>().StartTravelSchedule();
 

@@ -1523,7 +1523,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -53.9, y: 86.1}
+  m_AnchoredPosition: {x: -123.6, y: 52.2}
   m_SizeDelta: {x: 30, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &663230210
@@ -2883,7 +2883,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -53.3, y: 60.7}
+  m_AnchoredPosition: {x: -122.999985, y: 26.800007}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1029292025
@@ -3170,7 +3170,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -88.6, y: 60.7}
+  m_AnchoredPosition: {x: -158.29999, y: 27.500008}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1145644767
@@ -3540,6 +3540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterPrefab: {fileID: 6409922237126398591, guid: 6898a9d42ea99a94db413df70defbb0e, type: 3}
+  characters: []
   tierColors:
   - {r: 0.06587124, g: 1, b: 0, a: 1}
   - {r: 0.9707701, g: 1, b: 0, a: 1}
@@ -3550,6 +3551,8 @@ MonoBehaviour:
   - {fileID: 1307519272}
   - {fileID: 1145644767}
   - {fileID: 1029292025}
+  maxPopulation: 24
+  populationComingWithNextRocket: 0
 --- !u!4 &1313065682
 Transform:
   m_ObjectHideFlags: 0
@@ -3580,6 +3583,8 @@ MonoBehaviour:
   collapsing: 0
   collapsed: 0
   rotating: 0
+  yearsPassed: 0
+  charactersPassed: 0
 --- !u!114 &1313065684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4336,8 +4341,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterPrefab: {fileID: 6409922237126398591, guid: 6898a9d42ea99a94db413df70defbb0e, type: 3}
-  tierColors: []
+  characters: []
+  tierColors:
+  - {r: 0.029056365, g: 0.4716981, b: 0, a: 1}
+  - {r: 0.735849, g: 0.6954495, b: 0, a: 1}
+  - {r: 0.7830189, g: 0.46059936, b: 0, a: 1}
+  - {r: 0.6415094, g: 0, b: 0, a: 1}
   counters: []
+  maxPopulation: 24
+  populationComingWithNextRocket: 0
 --- !u!4 &1480055751
 Transform:
   m_ObjectHideFlags: 0
@@ -4368,6 +4380,8 @@ MonoBehaviour:
   collapsing: 0
   collapsed: 0
   rotating: 0
+  yearsPassed: 0
+  charactersPassed: 0
 --- !u!114 &1480055753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4472,7 +4486,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -89.2, y: 86.1}
+  m_AnchoredPosition: {x: -158.9, y: 52.9}
   m_SizeDelta: {x: 30, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1632617807

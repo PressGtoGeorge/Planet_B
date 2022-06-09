@@ -60,7 +60,7 @@ public class Rocket : MonoBehaviour
         if (gameObject.GetComponent<RocketAnimation>().OnPlanet_A()) currentPlanet = planet_A;
         else currentPlanet = planet_B;
 
-        foreach(GameObject passenger in enteringPassengers)
+        foreach (GameObject passenger in enteringPassengers)
         {
             // currentSpaceStation.AddExitingPassenger(passenger);
             exitingPassengers.Add(passenger);
@@ -76,6 +76,14 @@ public class Rocket : MonoBehaviour
             exitingPassengers[0].transform.localPosition = Vector3.zero;
 
             exitingPassengers[0].transform.GetChild(0).GetComponent<Character>().UpdateCharacterAfterLanding();
+
+            currentPlanet.GetComponent<Population>().characters.Add(exitingPassengers[0].transform.GetChild(0).gameObject);
+            if (currentPlanet == planet_B)
+            {
+                // placeholder ?
+                currentPlanet.GetComponent<Population>().UpdateCharacterCounter(exitingPassengers[0].transform.GetChild(0).GetComponent<Character>().tier, 1);
+                currentPlanet.GetComponent<Population>().populationComingWithNextRocket--;
+            }
 
             exitingPassengers.RemoveAt(0);
 
