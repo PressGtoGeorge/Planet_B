@@ -41,7 +41,7 @@ public class PlanetGrid : MonoBehaviour
 
         GameObject newHouse = Instantiate(housePrefab, gridSpaces[gridSize / 2].transform);
         newHouse.transform.parent = transform;
-        newHouse.transform.localScale = Vector3.one;
+        // newHouse.transform.localScale = Vector3.one;
         gridSpaces[gridSize / 2].GetComponent<GridSpace>().occupied = true;
         gridSpaces[gridSize / 2].GetComponent<GridSpace>().building = newHouse;
 

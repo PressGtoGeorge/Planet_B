@@ -291,6 +291,7 @@ public class RocketAnimation : MonoBehaviour
 
         // fix rotation
         // transform.parent.Rotate(Vector3.forward, goalAngle - currentAngle); // change this
+        spaceStationPosition = currentPlanet.GetComponent<PlanetGrid>().GetSpaceStationPosition();
         Vector3 vectorBetweenSpaceStationAndCore = (spaceStationPosition - currentPlanet.transform.position);
 
         qDir = new Quaternion();
