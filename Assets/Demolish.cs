@@ -11,10 +11,15 @@ public class Demolish : MonoBehaviour
     private GameObject planet_B;
     private PlanetGrid planetGrid;
 
+    private GameObject ui_background;
+    private bool over_UI;
+
     private void Start()
     {
         planet_B = GameObject.FindGameObjectWithTag("Planet_B");
         planetGrid = planet_B.GetComponent<PlanetGrid>();
+
+        ui_background = GameObject.FindGameObjectWithTag("UI_Background");
     }
 
     private void Update()
@@ -35,6 +40,9 @@ public class Demolish : MonoBehaviour
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.position = mousePosition;
 
+        // see if mouse is over UI background
+        over_UI = ui_background.GetComponent<Collider2D>().OverlapPoint(mousePosition);
+
         // mark next grid space
         GameObject currentGridSpace = planetGrid.NextGridSpace(transform.position);
         bool house = (currentGridSpace.GetComponent<GridSpace>().building != null && currentGridSpace.GetComponent<GridSpace>().building.GetComponent<Building>().house);
@@ -43,9 +51,9 @@ public class Demolish : MonoBehaviour
         // snap to rotation
         RotateTowardsSurface(currentGridSpace);
 
-        if (currentGridSpace.GetComponent<GridSpace>().occupied == true && house == false && spaceStation == false)
+        if (currentGridSpace.GetComponent<GridSpace>().occupied == true && house == false && spaceStation == false && over_UI == false)
         {
-            // für später, wenn art da ist
+            // placeholder
             // currentGridSpaceIndicator.GetComponent<SpriteRenderer>().sprite = currentGridSpace.GetComponent<GridSpace>().building.GetComponent<SpriteRenderer>().sprite; 
             
             currentGridSpaceIndicator.transform.position = currentGridSpace.transform.position;
@@ -64,7 +72,7 @@ public class Demolish : MonoBehaviour
         bool house = (currentGridSpace.GetComponent<GridSpace>().building != null && currentGridSpace.GetComponent<GridSpace>().building.GetComponent<Building>().house);
         bool spaceStation = (currentGridSpace.GetComponent<GridSpace>().building != null && currentGridSpace.GetComponent<GridSpace>().building.GetComponent<Building>().spaceStation);
 
-        if (currentGridSpace.GetComponent<GridSpace>().occupied == false || house == true || spaceStation == true)
+        if (currentGridSpace.GetComponent<GridSpace>().occupied == false || house == true || spaceStation == true || over_UI)
         {
             Destroy(gameObject);
             return;
@@ -77,14 +85,7 @@ public class Demolish : MonoBehaviour
             planetGrid.gameObject.GetComponent<Ecosystem>().fields.Remove(currentGridSpace.GetComponent<GridSpace>().building);
 
         // add gas for destruction
-        if (currentGridSpace.GetComponent<GridSpace>().building.GetComponent<Building>().tree)
-        {
-            planetGrid.gameObject.GetComponent<Ecosystem>().AddGas(12);
-        }
-        else
-        {
-            planetGrid.gameObject.GetComponent<Ecosystem>().AddGas(1);
-        }
+        planetGrid.gameObject.GetComponent<Ecosystem>().AddGas(1);
 
         // destroy pointer from gridspace to building
         Destroy(currentGridSpace.GetComponent<GridSpace>().building);

@@ -28,6 +28,7 @@ public class Trees : MonoBehaviour
     {
         growing = true;
         growingIndicator.SetActive(true);
+        gameObject.GetComponent<Building>().ecosystem.AddGas(12f);
 
         // yield return new WaitForSeconds(duration);
 

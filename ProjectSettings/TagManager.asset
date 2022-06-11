@@ -7,6 +7,7 @@ TagManager:
   - Planet_A
   - Planet_B
   - Rocket
+  - UI_Background
   layers:
   - Default
   - TransparentFX

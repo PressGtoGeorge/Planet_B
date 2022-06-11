@@ -12,15 +12,17 @@ public class DragAndDrop : MonoBehaviour
     private GameObject planet_B;
     private PlanetGrid planetGrid;
 
-    // private float planetRadius;
-
     private bool levelingUp;
+
+    private GameObject ui_background;
+    private bool over_UI;
 
     private void Start()
     {
         planet_B = GameObject.FindGameObjectWithTag("Planet_B");
         planetGrid = planet_B.GetComponent<PlanetGrid>();
-        // planetRadius = planet_B.transform.GetChild(0).localScale.x / 2f;
+
+        ui_background = GameObject.FindGameObjectWithTag("UI_Background");
     }
 
     private void Update()
@@ -68,12 +70,14 @@ public class DragAndDrop : MonoBehaviour
         // mark next grid space
         GameObject currentGridSpace = planetGrid.NextGridSpace(transform.position);
 
+        // see if mouse is over UI background
+        over_UI = ui_background.GetComponent<Collider2D>().OverlapPoint(mousePosition);
+
         // see if building on space could be leveled up
         bool occupied = currentGridSpace.GetComponent<GridSpace>().occupied;
         bool sameBuildingType = false;
         bool belowLevelThree = false;
         bool growingTree = false;
-
 
         if (occupied)
         {
@@ -89,14 +93,14 @@ public class DragAndDrop : MonoBehaviour
         bool fitForLevelUp = sameBuildingType && belowLevelThree && (growingTree == false);
         // end section
 
-        if (occupied == false)
+        if (occupied == false && over_UI == false)
         {
             currentGridSpaceIndicator.transform.position = currentGridSpace.transform.position;
             currentGridSpaceIndicator.transform.localScale = Vector3.one * 1f;
 
             levelingUp = false;
         }
-        else if (fitForLevelUp)
+        else if (fitForLevelUp && over_UI == false)
         {
             // mark building for level up
             currentGridSpaceIndicator.transform.position = currentGridSpace.transform.position;
@@ -123,12 +127,12 @@ public class DragAndDrop : MonoBehaviour
         GameObject currentGridSpace = planetGrid.NextGridSpace(transform.position);
         bool occupied = currentGridSpace.GetComponent<GridSpace>().occupied;
 
-        if (occupied && levelingUp == false)
+        if ((occupied && levelingUp == false) || over_UI)
         {
             Destroy(gameObject);
             return;
         }
-        else if (occupied && levelingUp == true)
+        else if ((occupied && levelingUp == true) && over_UI == false)
         {
             if (currentGridSpace.GetComponent<GridSpace>().building.GetComponent<Building>().tree == false)
             {
@@ -142,7 +146,7 @@ public class DragAndDrop : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        else if (occupied == false && levelingUp == false)
+        else if (occupied == false && levelingUp == false && over_UI == false)
         {
             currentGridSpace.GetComponent<GridSpace>().occupied = true;
         }

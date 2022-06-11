@@ -42,6 +42,7 @@ public class Character : MonoBehaviour
     private int highEndSatisfactionDuration = 31;
 
     // speeds for different mobility options
+    private bool moving = true;
     private float speed;
 
     private float defaultSpeed = 3f;
@@ -127,6 +128,7 @@ public class Character : MonoBehaviour
         else directionMultiplier = 1;
 
         if (goingToRocket == false) StartCoroutine(CreateNeed());
+        else thoughtBubble.SetActive(false);
     }
 
     private IEnumerator CreateNeed()
@@ -192,14 +194,18 @@ public class Character : MonoBehaviour
         {
             if ((wantsFood && goodFood) || (wantsPower && goodPower) || (wantsMobility && goodMobility))
             {
-                thoughtBubble.SetActive(false);
+                // thoughtBubble.SetActive(false);
                 goingToRocket = true;
+
+                UpdateThoughtBubble();
+
                 if (onPlanet_A == false) CreateReplacementCharacters();
             }
             else
             {
-                thoughtBubble.SetActive(false);
+                // thoughtBubble.SetActive(false);
                 goingToBlackmarket = true;
+                UpdateThoughtBubble();
                 FindBlackmarketStand();
             }
         }
@@ -230,9 +236,23 @@ public class Character : MonoBehaviour
 
     private void UpdateThoughtBubble()
     {
+        if (onPlanet_A)
+        {
+            thoughtBubble.SetActive(false);
+            return;
+        }
+
         int color = 0;
 
-        if (wantsFood && goodFood)
+        if (goingToRocket)
+        {
+            color = 6;
+        }
+        else if (goingToBlackmarket)
+        {
+            color = 7;
+        }
+        else if (wantsFood && goodFood)
         {
             color = 0;
         }
@@ -290,7 +310,7 @@ public class Character : MonoBehaviour
         {
             // create two semi-random replacements
 
-            Debug.Log("create 2");
+            // Debug.Log("create 2");
 
             int[] replacementChances = replacementCharacterTierChances[tier - 1];
 
@@ -319,7 +339,7 @@ public class Character : MonoBehaviour
         }
         else
         {
-            Debug.Log("create 1");
+            // Debug.Log("create 1");
 
             // create replacement that is 1 tier worse
             switch (tier)
@@ -393,6 +413,8 @@ public class Character : MonoBehaviour
 
     private void MoveAroundPlanet()
     {
+        if (moving == false) return;
+
         transform.parent.Rotate(Vector3.forward, speed * Time.deltaTime * directionMultiplier);
 
         currentPosition += speed * Time.deltaTime * directionMultiplier;
@@ -491,7 +513,6 @@ public class Character : MonoBehaviour
                 thoughtBubble.SetActive(false);
 
                 SetSpeed(bikeSpeed);
-
                 StartCoroutine(ResetVehicleAfter(vehicleDuration));
             }
 
@@ -516,7 +537,18 @@ public class Character : MonoBehaviour
         if (building == null || building.GetComponent<Building>().tree == false) return;
         else treeScript = building.GetComponent<Trees>();
 
-        treeScript.SpeedUpGrowth();
+        if (treeScript.growing)
+        {
+            treeScript.SpeedUpGrowth();
+            StartCoroutine(WaterAnimation());
+        }
+    }
+
+    private IEnumerator WaterAnimation()
+    {
+        moving = false;
+        yield return new WaitForSeconds(1.5f);
+        moving = true;
     }
 
     private IEnumerator ResetVehicleAfter(int duration)

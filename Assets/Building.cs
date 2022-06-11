@@ -24,7 +24,6 @@ public class Building : MonoBehaviour
     public int level;
 
     public float[] productionTimeOnLevel;
-
     public float[] gasPerProductOnLevel;
 
     [HideInInspector] public int storedAmount;
@@ -45,11 +44,13 @@ public class Building : MonoBehaviour
         if ((house || spaceStation) == false)
         {
             ecosystem.AddGas(buildingCost); // for building the building
-            Produce();
+            if (startOnPlanet == false) Produce();
+            if (powerPlant) Produce();
 
             StartCoroutine(Production());
         }
-        
+
+        if (startOnPlanet) ecosystem.AddGas((-1f) * buildingCost);
         if (field) ecosystem.fields.Add(gameObject);
 
         // Debug.Log("Building build.");
@@ -95,27 +96,23 @@ public class Building : MonoBehaviour
             }
 
             // use plants for animal production if possible
-
             if (availableCrops < 2) return;
 
-            int usedCrops = 0;
-
-            foreach (GameObject otherField in ecosystem.fields)
+            for (int i = 0; i < 2; i++)
             {
-                if (otherField.GetComponent<Building>().storedAmount >= 1 && usedCrops == 0)
+                GameObject fieldWithMostCrops = null;
+                int currentMostCrops = 0;
+
+                foreach (GameObject otherField in ecosystem.fields)
                 {
-                    for (int i = 0; i < otherField.GetComponent<Building>().storedAmount; i++)
+                    if (otherField.GetComponent<Building>().storedAmount > currentMostCrops)
                     {
-                        otherField.GetComponent<Building>().Consume();
-                        usedCrops++;
+                        currentMostCrops = otherField.GetComponent<Building>().storedAmount;
+                        fieldWithMostCrops = otherField;
                     }
-                    
                 }
-                else if (otherField.GetComponent<Building>().storedAmount >= 1 && usedCrops == 1)
-                {
-                    otherField.GetComponent<Building>().Consume();
-                    usedCrops++;
-                }
+
+                if (fieldWithMostCrops != null) fieldWithMostCrops.GetComponent<Building>().Consume();
             }
 
             InstantiateProduct();
@@ -148,7 +145,9 @@ public class Building : MonoBehaviour
         
         level++;
         if (tree == false) ecosystem.AddGas(buildingCost);
-        
+
+        Produce();
+
         // placeholder
         transform.localScale += Vector3.up * 0.3f;
     }
