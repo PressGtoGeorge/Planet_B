@@ -7,6 +7,7 @@ public class FlyIntoSpace : MonoBehaviour
 
     public void Fly()
     {
+        gameObject.SetActive(true);
         StartCoroutine(Flying());
     }
 

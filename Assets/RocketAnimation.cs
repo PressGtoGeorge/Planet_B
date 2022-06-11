@@ -354,7 +354,7 @@ public class RocketAnimation : MonoBehaviour
 
         // Debug.Log("Rocket ready for new take off.\nAnimation 9 finished.");
 
-        gameObject.GetComponent<Rocket>().StartTravelSchedule();
+        if (currentPlanet.GetComponent<RotatePlanet>().collapsed == false) gameObject.GetComponent<Rocket>().StartTravelSchedule();
 
         yield break;
     }

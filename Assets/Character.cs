@@ -447,7 +447,12 @@ public class Character : MonoBehaviour
 
     private void SpawnNewCharacters(int currentGridSpace)
     {
-        if (currentGridSpace != (gridSize / 2) || goingToRocket || goingToBlackmarket || onPlanet_A) return;
+        GameObject currentPlanet;
+
+        if (onPlanet_A) currentPlanet = planet_A;
+        else currentPlanet = planet_B;
+
+        if (currentGridSpace != (gridSize / 2) || goingToRocket || goingToBlackmarket || onPlanet_A || currentPlanet.GetComponent<RotatePlanet>().collapsed) return;
 
         RotatePlanet planetScript = planet_B.GetComponent<RotatePlanet>();
         
