@@ -43,14 +43,13 @@ public class Building : MonoBehaviour
 
         if ((house || spaceStation) == false)
         {
-            ecosystem.AddGas(buildingCost); // for building the building
+            if (tree == false) ecosystem.AddGas(buildingCost); // for building the building
             if (startOnPlanet == false) Produce();
             if (powerPlant) Produce();
 
             StartCoroutine(Production());
         }
 
-        if (startOnPlanet) ecosystem.AddGas((-1f) * buildingCost);
         if (field) ecosystem.fields.Add(gameObject);
 
         // Debug.Log("Building build.");
@@ -124,7 +123,9 @@ public class Building : MonoBehaviour
     private void InstantiateProduct()
     {
         GameObject newProduct = Instantiate(productPrefab, transform);
-        newProduct.transform.localPosition += Vector3.up * storedAmount * 0.25f;
+
+        newProduct.transform.localScale = Vector3.one;
+        newProduct.transform.localPosition += Vector3.up * -0.03f + Vector3.up * storedAmount * -0.06f;
 
         storedProducts.Push(newProduct);
 

@@ -92,6 +92,7 @@ public class RotatePlanet : MonoBehaviour
             yield return null;
         }
 
+        collapsing = false;
         collapsed = true;
     }
 }

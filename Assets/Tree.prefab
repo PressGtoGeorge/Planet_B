@@ -314,9 +314,9 @@ MonoBehaviour:
   - 60
   - 30
   gasPerProductOnLevel:
-  - -1
   - -1.5
-  - -2
+  - -2.25
+  - -4.5
   storedAmount: 0
   ecosystem: {fileID: 0}
   startOnPlanet: 0

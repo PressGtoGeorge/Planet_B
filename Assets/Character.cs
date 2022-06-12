@@ -57,7 +57,7 @@ public class Character : MonoBehaviour
 
     private bool goingToBlackmarket;
     private int blackmarketStandPosition;
-    private int blackmarketGasPerProduct = 10;
+    private int blackmarketGasPerProduct = 12;
 
     // visualising needs and time left to fulfill
     public GameObject thoughtBubble;
@@ -226,11 +226,11 @@ public class Character : MonoBehaviour
         }
         else if (wantsPower)
         {
-            blackmarketStandPosition = 8;
+            blackmarketStandPosition = 6;
         }
         else if (wantsMobility)
         {
-            blackmarketStandPosition = 16;
+            blackmarketStandPosition = 12;
         }
     }
 
@@ -303,6 +303,10 @@ public class Character : MonoBehaviour
 
     private void CreateReplacementCharacters()
     {
+        return; // placeholder
+
+        if (planet_B.GetComponent<RotatePlanet>().collapsing || planet_B.GetComponent<RotatePlanet>().collapsed) return;
+
         Population planet_A_Population = planet_A.GetComponent<Population>();
         Population planet_B_Population = planet_B.GetComponent<Population>();
         
@@ -369,7 +373,7 @@ public class Character : MonoBehaviour
             else currentPlanet = planet_B;
 
             // check when char is over part that fits need
-            if (currentGridSpace > blackmarketStandPosition && currentGridSpace <= blackmarketStandPosition + 8)
+            if (currentGridSpace > blackmarketStandPosition && (currentGridSpace <= blackmarketStandPosition + 6 || currentGridSpace == 0))
             {
                 onSurface = false;
                 transform.Rotate(Vector3.forward, 180f);
@@ -447,12 +451,8 @@ public class Character : MonoBehaviour
 
     private void SpawnNewCharacters(int currentGridSpace)
     {
-        GameObject currentPlanet;
-
-        if (onPlanet_A) currentPlanet = planet_A;
-        else currentPlanet = planet_B;
-
-        if (currentGridSpace != (gridSize / 2) || goingToRocket || goingToBlackmarket || onPlanet_A || currentPlanet.GetComponent<RotatePlanet>().collapsed) return;
+        return; // placeholder
+        if (currentGridSpace != (gridSize / 2) || goingToRocket || goingToBlackmarket || onPlanet_A || planet_B.GetComponent<RotatePlanet>().collapsed || planet_B.GetComponent<RotatePlanet>().collapsing) return;
 
         RotatePlanet planetScript = planet_B.GetComponent<RotatePlanet>();
         

@@ -16,7 +16,7 @@ public class Population : MonoBehaviour
     public int[] amountOfCharactersOfTier = new int[4];
 
     private int planet_B_startPopulation = 4;
-    public int maxPopulation = 24;
+    public int maxPopulation = 18;
 
     public int populationComingWithNextRocket = 0;
 
@@ -42,6 +42,8 @@ public class Population : MonoBehaviour
 
     private IEnumerator CreateStartCharacters()
     {
+        yield break; // placeholder
+
         if (onPlanet_A) yield break;
 
         // yield return new WaitForEndOfFrame();

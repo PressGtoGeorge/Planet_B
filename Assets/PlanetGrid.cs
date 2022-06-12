@@ -24,10 +24,7 @@ public class PlanetGrid : MonoBehaviour
 
     // blackmarket variables
     public GameObject blackmarketStandPrefab;
-    public int[] standPositions = { 4, 12, 20 };
-    // public int[] foodEdges = { 0, 8 };
-    // public int[] powerEdges = { 8, 16 };
-    // public int[] mobilityEdges = { 16, 24 };
+    public int[] standPositions; // = { 3, 9, 15 };
 
     private void Start()
     {
@@ -71,12 +68,11 @@ public class PlanetGrid : MonoBehaviour
                     break;
             }
 
-            newBlackmarketStand.transform.GetChild(1).position = gridSpaces[standPositions[i] - 4].transform.position;
+            newBlackmarketStand.transform.GetChild(1).position = gridSpaces[standPositions[i] - 3].transform.position;
 
-            if (standPositions[i] + 4 < 24)
+            if (standPositions[i] + 3 < 18)
             {
-                newBlackmarketStand.transform.GetChild(2).position = gridSpaces[standPositions[i] + 4].transform.position;
-
+                newBlackmarketStand.transform.GetChild(2).position = gridSpaces[standPositions[i] + 3].transform.position;
             }
             else
             {
@@ -150,7 +146,7 @@ public class PlanetGrid : MonoBehaviour
         // int treesOnLeftSide = Random.Range(0, 12);
         // int treesOnRightSide = 11 - treesOnLeftSide;
 
-        int treesOnLeftSide = 3;
+        int treesOnLeftSide = 2;
         int treesOnRightSide = 2;
 
         int[] treesLeft = GetUniqueRandomArray(1, (gridSize / 2) - 1, treesOnLeftSide);
@@ -160,7 +156,7 @@ public class PlanetGrid : MonoBehaviour
         {
             GameObject newTree = Instantiate(treePrefab, gridSpaces[i].transform);
             newTree.transform.parent = transform;
-            newTree.transform.localScale = Vector3.one * 0.6f;
+            newTree.transform.localScale = Vector3.one * 0.6f; // placeholder
 
             gridSpaces[i].GetComponent<GridSpace>().occupied = true;
             gridSpaces[i].GetComponent<GridSpace>().building = newTree;
@@ -170,7 +166,7 @@ public class PlanetGrid : MonoBehaviour
         {
             GameObject newTree = Instantiate(treePrefab, gridSpaces[i].transform);
             newTree.transform.parent = transform;
-            newTree.transform.localScale = Vector3.one * 0.6f;
+            newTree.transform.localScale = Vector3.one * 0.6f; // placeholder
 
             gridSpaces[i].GetComponent<GridSpace>().occupied = true;
             gridSpaces[i].GetComponent<GridSpace>().building = newTree;
