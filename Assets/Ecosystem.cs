@@ -31,4 +31,9 @@ public class Ecosystem : MonoBehaviour
         if (gasAmountText != null) gasAmountText.text = currentGas.ToString();
     }
 
+    public float GetCurrentGas()
+    {
+        return currentGas;
+    }
+
 }

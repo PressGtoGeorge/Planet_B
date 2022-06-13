@@ -57,7 +57,7 @@ public class Character : MonoBehaviour
 
     private bool goingToBlackmarket;
     private int blackmarketStandPosition;
-    private int blackmarketGasPerProduct = 12;
+    private int blackmarketGasPerProduct = 18;
 
     // visualising needs and time left to fulfill
     public GameObject thoughtBubble;
@@ -303,7 +303,7 @@ public class Character : MonoBehaviour
 
     private void CreateReplacementCharacters()
     {
-        return; // placeholder
+        // return; // placeholder
 
         if (planet_B.GetComponent<RotatePlanet>().collapsing || planet_B.GetComponent<RotatePlanet>().collapsed) return;
 
@@ -393,7 +393,7 @@ public class Character : MonoBehaviour
             }
             else
             {
-                currentPlanet.GetComponent<Ecosystem>().AddGas(0.5f);
+                currentPlanet.GetComponent<Ecosystem>().AddGas(1.5f);
             }
         }
         else
@@ -451,7 +451,7 @@ public class Character : MonoBehaviour
 
     private void SpawnNewCharacters(int currentGridSpace)
     {
-        return; // placeholder
+        // return; // placeholder
         if (currentGridSpace != (gridSize / 2) || goingToRocket || goingToBlackmarket || onPlanet_A || planet_B.GetComponent<RotatePlanet>().collapsed || planet_B.GetComponent<RotatePlanet>().collapsing) return;
 
         RotatePlanet planetScript = planet_B.GetComponent<RotatePlanet>();

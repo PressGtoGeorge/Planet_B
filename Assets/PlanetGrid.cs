@@ -156,7 +156,7 @@ public class PlanetGrid : MonoBehaviour
         {
             GameObject newTree = Instantiate(treePrefab, gridSpaces[i].transform);
             newTree.transform.parent = transform;
-            newTree.transform.localScale = Vector3.one * 0.6f; // placeholder
+            // newTree.transform.localScale = Vector3.one * 0.6f; // placeholder
 
             gridSpaces[i].GetComponent<GridSpace>().occupied = true;
             gridSpaces[i].GetComponent<GridSpace>().building = newTree;
@@ -166,7 +166,7 @@ public class PlanetGrid : MonoBehaviour
         {
             GameObject newTree = Instantiate(treePrefab, gridSpaces[i].transform);
             newTree.transform.parent = transform;
-            newTree.transform.localScale = Vector3.one * 0.6f; // placeholder
+            // newTree.transform.localScale = Vector3.one * 0.6f; // placeholder
 
             gridSpaces[i].GetComponent<GridSpace>().occupied = true;
             gridSpaces[i].GetComponent<GridSpace>().building = newTree;

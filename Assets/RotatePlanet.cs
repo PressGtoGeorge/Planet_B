@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RotatePlanet : MonoBehaviour
 {
-    private float speed = 2f;
+    private float speed = 2.5f;
 
     public bool collapsing;
     public bool collapsed;
