@@ -24,7 +24,7 @@ public class Ecosystem : MonoBehaviour
     public void AddGas(float amount)
     {
         currentGas += amount;
-        // currentGas = (int)Mathf.Clamp(currentGas, startGas, endGas);
+        currentGas = Mathf.Clamp(currentGas, (-1f) * Mathf.Infinity, endGas);
 
         currentTemp = startTemp + 0.0035f * currentGas;
         // Debug.Log(currentGas);
