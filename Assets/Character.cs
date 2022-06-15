@@ -71,10 +71,7 @@ public class Character : MonoBehaviour
     public int[] spawnChanceAfter_1;
     public int[] spawnChanceAfter_2;
     public int[] spawnChanceAfter_3;
-    public int[] spawnChanceAfter_4;
-    public int[] spawnChanceAfter_5;
-    public int[] spawnChanceAfter_6;
-    public int[] spawnChanceAfter_7;
+
 
     // variables for replacing characters that leave with rocket
     private List<int[]> replacementCharacterTierChances = new List<int[]>();
@@ -106,10 +103,6 @@ public class Character : MonoBehaviour
         spawnChancesAfterYears.Add(spawnChanceAfter_1);
         spawnChancesAfterYears.Add(spawnChanceAfter_2);
         spawnChancesAfterYears.Add(spawnChanceAfter_3);
-        spawnChancesAfterYears.Add(spawnChanceAfter_4);
-        spawnChancesAfterYears.Add(spawnChanceAfter_5);
-        spawnChancesAfterYears.Add(spawnChanceAfter_6);
-        spawnChancesAfterYears.Add(spawnChanceAfter_7);
 
         replacementCharacterTierChances.Add(replacementCharacterTierChance_1);
         replacementCharacterTierChances.Add(replacementCharacterTierChance_2);
@@ -452,12 +445,12 @@ public class Character : MonoBehaviour
     private void SpawnNewCharacters(int currentGridSpace)
     {
         // return; // placeholder
-        if (currentGridSpace != (gridSize / 2) || goingToRocket || goingToBlackmarket || onPlanet_A || planet_B.GetComponent<RotatePlanet>().collapsed || planet_B.GetComponent<RotatePlanet>().collapsing) return;
+        if (currentGridSpace != (gridSize / 2) || goingToRocket /*|| goingToBlackmarket*/ || onPlanet_A || planet_B.GetComponent<RotatePlanet>().collapsed || planet_B.GetComponent<RotatePlanet>().collapsing) return;
 
         RotatePlanet planetScript = planet_B.GetComponent<RotatePlanet>();
         
         int year = planetScript.yearsPassed;
-        if (year > 7) year = 7;
+        if (year > 3) year = 3;
         planetScript.charactersPassed++;
 
         if (planetScript.charactersPassed >= (1 / newNpcsPerPass[year]))

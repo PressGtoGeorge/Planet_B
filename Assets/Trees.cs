@@ -27,23 +27,42 @@ public class Trees : MonoBehaviour
     private IEnumerator GrowTree()
     {
         growing = true;
-        growingIndicator.SetActive(true);
+        // growingIndicator.SetActive(true); // placeholder
         gameObject.GetComponent<Building>().ecosystem.AddGas(4f);
 
+        int level = gameObject.GetComponent<Building>().level + 1;
+        int type = gameObject.GetComponent<TreeSprite>().nextType;
+
+        GameObject newTree = transform.GetChild(level).gameObject;
+        newTree.SetActive(true);
+
+        Sprite sapplingSprite = gameObject.GetComponent<TreeSprite>().sappling[type / 2];
+        newTree.GetComponent<SpriteRenderer>().sprite = sapplingSprite;
+
         // yield return new WaitForSeconds(duration);
+
+        float halfTime = growthDuration / 2f;
 
         while (timer < growthDuration)
         {
             timer += Time.deltaTime;
+            if (timer >= halfTime) 
+            {
+                newTree.GetComponent<SpriteRenderer>().sprite = gameObject.GetComponent<TreeSprite>().growing[type];
+                halfTime = 0;
+            }
             yield return null;
         }
 
         timer = 0f;
 
+        newTree.GetComponent<SpriteRenderer>().sprite = gameObject.GetComponent<TreeSprite>().fullyGrown[type];
+
         if (gameObject.GetComponent<Building>().enabled == false)
         {
+            gameObject.GetComponent<Building>().level++; // drag-and-drop-trees start on level -1
             gameObject.GetComponent<Building>().enabled = true;
-            transform.localScale += Vector3.up * 0.3f; // placeholder
+            // transform.localScale += Vector3.up * 0.3f; // placeholder
         }
         else
         {
@@ -51,7 +70,7 @@ public class Trees : MonoBehaviour
         }
 
         growing = false;
-        growingIndicator.SetActive(false);
+        // growingIndicator.SetActive(false); // placeholder
 
         yield break;
     }

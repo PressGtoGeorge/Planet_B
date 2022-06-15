@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class RotatePlanet : MonoBehaviour
 {
-    private float speed = 2.5f;
+    private bool scaledTime = false;
+    private float deltaTime;
+    private float speed = 2f;
 
     public bool collapsing;
     public bool collapsed;
@@ -25,9 +27,11 @@ public class RotatePlanet : MonoBehaviour
 
     void Update()
     {
-        if (collapsed == false && rotating) transform.Rotate(Vector3.forward, speed * Time.deltaTime);
+        SetDeltaTime();
 
-        timePassedSinceLastYear += Time.deltaTime;
+        if (collapsed == false && rotating) transform.Rotate(Vector3.forward, speed * deltaTime);
+
+        timePassedSinceLastYear += Time.deltaTime; // always unscaled
         if (timePassedSinceLastYear >= yearDuration)
         {
             timePassedSinceLastYear -= yearDuration;
@@ -55,8 +59,8 @@ public class RotatePlanet : MonoBehaviour
 
         while (currentSpeed < goalSpeed)
         {
-            currentSpeed += acceleration * Time.deltaTime;
-            transform.Rotate(Vector3.forward, currentSpeed * Time.deltaTime);
+            currentSpeed += acceleration * Time.unscaledDeltaTime; // always unscaled
+            transform.Rotate(Vector3.forward, currentSpeed * Time.unscaledDeltaTime); // always unscaled
             yield return null;
         }
 
@@ -66,7 +70,7 @@ public class RotatePlanet : MonoBehaviour
 
         while (transform.childCount > (gridSize + 1))
         {
-            timer += Time.deltaTime;
+            timer += deltaTime;
             if (timer >= goalTime)
             {
                 timer = 0f;
@@ -77,7 +81,7 @@ public class RotatePlanet : MonoBehaviour
                 if (element.GetComponent<FlyIntoSpace>() != null) element.GetComponent<FlyIntoSpace>().Fly();
             }
 
-            transform.Rotate(Vector3.forward, goalSpeed * Time.deltaTime);
+            transform.Rotate(Vector3.forward, goalSpeed * Time.unscaledDeltaTime); // always unscaled
             yield return null;
         }
 
@@ -87,12 +91,24 @@ public class RotatePlanet : MonoBehaviour
 
         while (currentSpeed > goalSpeed)
         {
-            currentSpeed -= acceleration * Time.deltaTime;
-            transform.Rotate(Vector3.forward, currentSpeed * Time.deltaTime);
+            currentSpeed -= acceleration * deltaTime;
+            transform.Rotate(Vector3.forward, currentSpeed * Time.unscaledDeltaTime); // always unscaled
             yield return null;
         }
 
         collapsing = false;
         collapsed = true;
+    }
+
+    private void SetDeltaTime()
+    {
+        if (scaledTime)
+        {
+            deltaTime = Time.deltaTime;
+        }
+        else
+        {
+            deltaTime = Time.unscaledDeltaTime;
+        }
     }
 }

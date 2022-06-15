@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlanetForeground : MonoBehaviour
 {
+    private bool overPlanet;
+    private bool overPlanetLastFrame;
+
     private SpriteRenderer renderer2d;
     private SpriteRenderer cloudRenderer2d;
 
@@ -20,17 +23,59 @@ public class PlanetForeground : MonoBehaviour
     private void Update()
     {
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        bool overPlanet = collider2d.OverlapPoint(mousePosition);
 
-        if (overPlanet)
+        overPlanet = collider2d.OverlapPoint(mousePosition);
+
+        if (overPlanet && overPlanetLastFrame == false)
         {
-            renderer2d.enabled = false;
-            cloudRenderer2d.enabled = false;
+            StopAllCoroutines();
+            StartCoroutine(FadeOut());
         }
-        else
+        else if (overPlanet == false && overPlanetLastFrame)
         {
-            renderer2d.enabled = true;
-            cloudRenderer2d.enabled = true;
+            StopAllCoroutines();
+            StartCoroutine(FadeIn());
         }
+
+        overPlanetLastFrame = overPlanet;
     }
+
+    private IEnumerator FadeOut()
+    {
+        float trans = renderer2d.GetComponent<SpriteRenderer>().color.a;
+
+        while (trans > 0)
+        {
+            trans -= 0.75f * Time.unscaledDeltaTime;
+            trans = Mathf.Clamp(trans, 0, 1);
+            Color col = renderer2d.GetComponent<SpriteRenderer>().color;
+            col.a = trans;
+            renderer2d.GetComponent<SpriteRenderer>().color = col;
+            cloudRenderer2d.GetComponent<SpriteRenderer>().color = col;
+
+            yield return null;
+        }
+
+        yield break;
+    }
+
+    private IEnumerator FadeIn()
+    {
+        float trans = renderer2d.GetComponent<SpriteRenderer>().color.a;
+
+        while (trans < 1)
+        {
+            trans += 0.75f * Time.unscaledDeltaTime;
+            trans = Mathf.Clamp(trans, 0, 1);
+            Color col = renderer2d.GetComponent<SpriteRenderer>().color;
+            col.a = trans;
+            renderer2d.GetComponent<SpriteRenderer>().color = col;
+            cloudRenderer2d.GetComponent<SpriteRenderer>().color = col;
+
+            yield return null;
+        }
+
+        yield break;
+    }
+
 }

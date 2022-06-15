@@ -145,11 +145,15 @@ public class Building : MonoBehaviour
         if (level > 2) return;
         
         level++;
-        if (tree == false) ecosystem.AddGas(buildingCost);
+
+        if (tree == false)
+        {
+            ecosystem.AddGas(buildingCost);
+        }
 
         Produce();
 
         // placeholder
-        transform.localScale += Vector3.up * 0.3f;
+        // transform.localScale += Vector3.up * 0.3f;
     }
 }

@@ -20,8 +20,8 @@ public class FlyIntoSpace : MonoBehaviour
 
         while (currentDistance < goalDistance)
         {
-            currentDistance += speed * Time.deltaTime;
-            transform.position += transform.up * speed * Time.deltaTime;
+            currentDistance += speed * Time.unscaledDeltaTime;
+            transform.position += transform.up * speed * Time.unscaledDeltaTime;
             yield return null;
         }
 

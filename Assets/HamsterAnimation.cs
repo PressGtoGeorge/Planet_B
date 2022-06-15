@@ -9,6 +9,7 @@ public class HamsterAnimation : MonoBehaviour
     public Rotate wheelRotation;
 
     private bool sweating;
+    private bool stressed;
 
     private void Start()
     {
@@ -21,6 +22,12 @@ public class HamsterAnimation : MonoBehaviour
         {
             sweating = true;
             animator.SetBool("sweating", true);
+            wheelRotation.speed *= 2.5f;
+        }
+        else if (stressed == false && ecosystem.GetCurrentGas() > 666)
+        {
+            stressed = true;
+            animator.SetBool("stressed", true);
             wheelRotation.speed *= 2.5f;
         }
     }
