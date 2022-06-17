@@ -35,9 +35,21 @@ public class Ecosystem : MonoBehaviour
         if (gasAmountText != null) gasAmountText.text = currentGas.ToString();
     }
 
-    private void Update0() // for testing, remove 0 and return AddGas()
+    private void Update() // for testing, remove 0 and return AddGas()
     {
         currentGas = test;
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            test += 30;
+            AddGas(30);
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            test -= 30;
+            AddGas(-30);
+        }
     }
 
     public float GetCurrentGas()

@@ -27,6 +27,10 @@ public class PlanetVisuals : MonoBehaviour
     private bool overPlanetLastFrame;
 
     private bool passedSwitchPoint;
+    private bool justSwitched;
+
+    private bool fading;
+    private bool fadingWhileJustSwitched;
 
     Coroutine fadeIn;
     Coroutine fadeOut;
@@ -45,7 +49,7 @@ public class PlanetVisuals : MonoBehaviour
 
     void Update()
     {
-        UpdatePlanetVisuals();
+        UpdatePlanetVisuals(false);
         UpdateForegroundTransparency();
         UpdateGridSpaceEdges();
     }
@@ -174,49 +178,51 @@ public class PlanetVisuals : MonoBehaviour
 
         overPlanet = collider2d.OverlapPoint(mousePosition);
 
-        if (overPlanet && overPlanetLastFrame == false)
+        if (overPlanet && overPlanetLastFrame == false && fadingWhileJustSwitched == false)
         {
             if (fadeIn != null) StopCoroutine(fadeIn);
             fadeOut = StartCoroutine(FadeOut());
         }
-        else if (overPlanet == false && overPlanetLastFrame)
+        else if (overPlanet == false && overPlanetLastFrame && fadingWhileJustSwitched == false)
         {
             if (fadeOut != null) StopCoroutine(fadeOut);
             fadeIn = StartCoroutine(FadeIn());
         }
 
-        overPlanetLastFrame = overPlanet;
+        if (fadingWhileJustSwitched == false) overPlanetLastFrame = overPlanet;
     }
 
     private IEnumerator FadeOut()
     {
-        SpriteRenderer foreGround0;
+        fading = true;
+
+        SpriteRenderer foreground0;
         SpriteRenderer cloud0;
 
-        SpriteRenderer foreGround1;
+        SpriteRenderer foreground1;
         SpriteRenderer cloud1;
 
         if (passedSwitchPoint == false)
         {
-            foreGround0 = foregrounds[0];
+            foreground0 = foregrounds[0];
             cloud0 = clouds[0];
 
-            foreGround1 = foregrounds[1];
+            foreground1 = foregrounds[1];
             cloud1 = clouds[1];
         }
         else
         {
-            foreGround0 = foregrounds[1];
+            foreground0 = foregrounds[1];
             cloud0 = clouds[1];
 
-            foreGround1 = foregrounds[2];
+            foreground1 = foregrounds[2];
             cloud1 = clouds[2];
         }
 
         float cloud0trans = cloud0.color.a;
         float cloud1trans = cloud1.color.a;
 
-        float foreGround0trans = foreGround0.color.a;
+        float foreGround0trans = foreground0.color.a;
 
         float startCloud0trans = cloud0trans;
         float startCloud1trans = cloud1trans;
@@ -234,30 +240,65 @@ public class PlanetVisuals : MonoBehaviour
             foreGround0trans = Mathf.Clamp(foreGround0trans, 0, 1);
 
             Color col = Color.white;
+
             col.a = foreGround0trans;
-            foreGround0.color = col;
+            foreground0.color = col;
+            // foregroundInactive.color = col;
+            // cloudInactive.color = col;
 
             col.a = cloud0trans;
             cloud0.color = col;
 
             col.a = cloud1trans;
-
-            foreGround1.color = col;
+            foreground1.color = col;
             cloud1.color = col;
 
             yield return null;
         }
 
+        fading = false;
+        fadingWhileJustSwitched = false;
+
+        UpdatePlanetVisuals(true);
+
+        // keep foreground faded out
         while (true)
         {
+            // update foreground and clouds in case switchpoint gets passed while faded out
+            if (justSwitched)
+            {
+                if (passedSwitchPoint == false)
+                {
+                    foreground0 = foregrounds[0];
+                    cloud0 = clouds[0];
+
+                    foreground1 = foregrounds[1];
+                    cloud1 = clouds[1];
+                }
+                else
+                {
+                    foreground0 = foregrounds[1];
+                    cloud0 = clouds[1];
+
+                    foreground1 = foregrounds[2];
+                    cloud1 = clouds[2];
+                }
+            }
+
+            justSwitched = false;
+
             Color col = Color.white;
             col.a = 0;
 
-            foreGround0.color = col;
+            foreground0.color = col;
             cloud0.color = col;
 
-            foreGround1.color = col;
+            foreground1.color = col;
             cloud1.color = col;
+
+            // foregroundInactive.color = col;
+            // cloudInactive.color = col;
+
             yield return null;
         }
 
@@ -266,10 +307,12 @@ public class PlanetVisuals : MonoBehaviour
 
     private IEnumerator FadeIn()
     {
+        fading = true;
+
         SpriteRenderer foreground0;
         SpriteRenderer cloud0;
 
-        SpriteRenderer foreGround1;
+        SpriteRenderer foreground1;
         SpriteRenderer cloud1;
 
         if (passedSwitchPoint == false)
@@ -277,7 +320,7 @@ public class PlanetVisuals : MonoBehaviour
             foreground0 = foregrounds[0];
             cloud0 = clouds[0];
 
-            foreGround1 = foregrounds[1];
+            foreground1 = foregrounds[1];
             cloud1 = clouds[1];
         }
         else
@@ -285,7 +328,7 @@ public class PlanetVisuals : MonoBehaviour
             foreground0 = foregrounds[1];
             cloud0 = clouds[1];
 
-            foreGround1 = foregrounds[2];
+            foreground1 = foregrounds[2];
             cloud1 = clouds[2];
         }
 
@@ -310,33 +353,48 @@ public class PlanetVisuals : MonoBehaviour
             foreground0trans = Mathf.Clamp(foreground0trans, 0, 1);
 
             Color col = Color.white;
+
             col.a = foreground0trans;
             foreground0.color = col;
+            // foregroundInactive.color = col;
+            // cloudInactive.color = col;
 
             col.a = cloud0trans;
             cloud0.color = col;
 
             col.a = cloud1trans;
-            
-            foreGround1.color = col;
+            foreground1.color = col;
             cloud1.color = col;
 
             yield return null;
         }
 
+        fading = false;
+        fadingWhileJustSwitched = false;
+
+        UpdatePlanetVisuals(true);
+
         yield break;
     }
 
-    private void UpdatePlanetVisuals()
+    private void UpdatePlanetVisuals(bool skipReturn)
     {
         float currentGas = ecosystem.GetCurrentGas();
 
-        if (lastGas == currentGas) return;
+        if (skipReturn == false && lastGas == currentGas) return;
 
         if (currentGas < switchPoint_0)
         {
             if (passedSwitchPoint == true) // if switching from above switchpoint to below
             {
+                justSwitched = true;
+
+                if (fading)
+                {
+                    fadingWhileJustSwitched = true;
+                    return;
+                }
+
                 foregrounds[0].enabled = true;
                 clouds[0].enabled = true;
                 backgrounds[0].enabled = true;
@@ -346,7 +404,7 @@ public class PlanetVisuals : MonoBehaviour
                 clouds[2].enabled = false;
                 backgrounds[2].enabled = false;
                 skys[2].enabled = false;
-
+                
                 foregrounds[0].color = Color.white;
                 clouds[0].color = Color.white;
                 backgrounds[0].color = Color.white;
@@ -380,10 +438,18 @@ public class PlanetVisuals : MonoBehaviour
         {
             if (passedSwitchPoint == false) // if switching from below switchpoint to above
             {
+                justSwitched = true;
+
+                if (fading)
+                {
+                    fadingWhileJustSwitched = true;
+                    return;
+                }
+
                 foregrounds[0].enabled = false;
                 clouds[0].enabled = false;
-                backgrounds[0].enabled = true;
-                skys[0].enabled = true;
+                backgrounds[0].enabled = false;
+                skys[0].enabled = false;
 
                 foregrounds[2].enabled = true;
                 clouds[2].enabled = true;

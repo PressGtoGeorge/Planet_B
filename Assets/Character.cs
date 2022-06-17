@@ -19,7 +19,7 @@ public class Character : MonoBehaviour
     private float radiusPlanet_A;
     private float radiusPlanet_B;
 
-    private float surfacePathDepth = 0.22f;
+    private float surfacePathDepth = 0.225f;
     private float blackmarketPathDepth = 0.8f;
 
     private List<SpriteRenderer> characterRenderer = new List<SpriteRenderer>();
@@ -622,7 +622,6 @@ public class Character : MonoBehaviour
 
         // next part is necessary because of unity bug? or i am overlooking something
         transform.localRotation = Quaternion.identity;
-        transform.localPosition = Vector3.up * radiusPlanet_A;
 
         MoveToSurface();
     }
