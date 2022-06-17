@@ -19,6 +19,11 @@ public class Character : MonoBehaviour
     private float radiusPlanet_A;
     private float radiusPlanet_B;
 
+    private float surfacePathDepth = 0.22f;
+    private float blackmarketPathDepth = 0.8f;
+
+    private List<SpriteRenderer> characterRenderer = new List<SpriteRenderer>();
+
     public PlanetGrid planetGrid;
     private int gridSize;
     private float distanceBetweenGridSpaces;
@@ -91,13 +96,6 @@ public class Character : MonoBehaviour
         radiusPlanet_B = planet_B.transform.GetChild(0).localScale.x / 2f;
 
         speed = defaultSpeed;
-        /*
-        speed = 3f;
-        if (onPlanet_A)
-        {
-            speed *= radiusPlanet_B / radiusPlanet_A; // assuming planet_B is bigger
-        }
-        */
 
         spawnChancesAfterYears.Add(spawnChanceAfter_0);
         spawnChancesAfterYears.Add(spawnChanceAfter_1);
@@ -108,6 +106,8 @@ public class Character : MonoBehaviour
         replacementCharacterTierChances.Add(replacementCharacterTierChance_2);
         replacementCharacterTierChances.Add(replacementCharacterTierChance_3);
 
+        characterRenderer.Add(transform.GetChild(0).GetComponent<SpriteRenderer>()); // placeholder
+        characterRenderer.Add(transform.GetChild(1).GetComponent<SpriteRenderer>()); // placeholder
 
         SetupPlanetVariables();
         SetupConsumerVariables();
@@ -371,6 +371,8 @@ public class Character : MonoBehaviour
                 onSurface = false;
                 transform.Rotate(Vector3.forward, 180f);
 
+                MoveToBlackmarket();
+
                 currentPlanet.GetComponent<Ecosystem>().AddGas(blackmarketGasPerProduct);
 
                 // check if riding hamster
@@ -396,6 +398,8 @@ public class Character : MonoBehaviour
             {
                 onSurface = true;
                 transform.Rotate(Vector3.forward, 180f);
+
+                MoveToSurface();
 
                 goingToBlackmarket = false;
                 StartCoroutine(CreateNeed());
@@ -569,9 +573,35 @@ public class Character : MonoBehaviour
         transform.parent = newParent.transform;
         newParent.AddComponent<FlyIntoSpace>();
 
+        MoveToSurface();
+
         planetGrid = currentPlanet.GetComponent<PlanetGrid>();
         gridSize = planetGrid.gridSize;
         distanceBetweenGridSpaces = planetGrid.angleBetweenSpaces;
+    }
+
+    private void MoveToSurface()
+    {
+        transform.localPosition = Vector3.up * (radiusPlanet_A - surfacePathDepth);
+
+        foreach(SpriteRenderer renderer in characterRenderer)
+        {
+            renderer.sortingOrder = 410;
+        }
+
+        thoughtBubble.SetActive(true);
+    }
+
+    private void MoveToBlackmarket()
+    {
+        transform.localPosition = Vector3.up * (radiusPlanet_A - blackmarketPathDepth);
+        
+        foreach (SpriteRenderer renderer in characterRenderer)
+        {
+            renderer.sortingOrder = 210;
+        }
+
+        thoughtBubble.SetActive(false);
     }
 
 
@@ -592,7 +622,9 @@ public class Character : MonoBehaviour
 
         // next part is necessary because of unity bug? or i am overlooking something
         transform.localRotation = Quaternion.identity;
-        transform.localPosition = Vector3.up * radiusPlanet_A; // because both have same radius
+        transform.localPosition = Vector3.up * radiusPlanet_A;
+
+        MoveToSurface();
     }
 
     private void SetupConsumerVariables()
