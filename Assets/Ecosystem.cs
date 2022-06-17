@@ -26,7 +26,6 @@ public class Ecosystem : MonoBehaviour
 
     public void AddGas(float amount)
     {
-        // return;
         currentGas += amount;
         currentGas = Mathf.Clamp(currentGas, (-1f) * Mathf.Infinity, endGas);
 
@@ -35,7 +34,7 @@ public class Ecosystem : MonoBehaviour
         if (gasAmountText != null) gasAmountText.text = currentGas.ToString();
     }
 
-    private void Update() // for testing, remove 0 and return AddGas()
+    private void Update0() // for testing, remove 0
     {
         currentGas = test;
 
