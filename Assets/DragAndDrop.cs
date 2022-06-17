@@ -24,6 +24,10 @@ public class DragAndDrop : MonoBehaviour
     private GameObject lastGridSpace;
     private Sprite originalIndicatorSprite;
 
+    // for windwheels
+    private Sprite originalIndicatorSpriteWheel;
+    private Vector3[] windWheelOffset = new Vector3[3];
+
     private void Start()
     {
         planet_B = GameObject.FindGameObjectWithTag("Planet_B");
@@ -48,6 +52,15 @@ public class DragAndDrop : MonoBehaviour
 
         originalIndicatorSprite = currentGridSpaceIndicator.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite;
 
+        if (buildingScript.windWheel)
+        {
+            originalIndicatorSpriteWheel = currentGridSpaceIndicator.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().sprite;
+            
+            windWheelOffset[0] = transform.GetChild(0).GetChild(0).localPosition;
+            windWheelOffset[1] = transform.GetChild(1).GetChild(0).localPosition;
+            windWheelOffset[2] = transform.GetChild(2).GetChild(0).localPosition;
+        }
+
         foreach (SpriteRenderer renderer in spriteRenderers)
         {
             renderer.sortingOrder += 10000;
@@ -62,31 +75,7 @@ public class DragAndDrop : MonoBehaviour
             if (Input.GetMouseButtonUp(0)) ReleaseElement();
         }
     }
-    /*
-    public void OnMouseDown()
-    {
-        // startOffset = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
 
-        transform.parent = null;
-        // transform.rotation = Quaternion.identity;
-
-        // update gridspace if necessary
-        if (planetGrid.NextGridSpace(transform.position).transform.position == transform.position)
-        {
-            planetGrid.NextGridSpace(transform.position).GetComponent<GridSpace>().occupied = false;
-        }
-    }
-    
-    private void OnMouseUp()
-    {
-        ReleaseElement();
-    }
-    
-    void OnMouseDrag()
-    {
-        FollowMouse();
-    }
-    */
     private void FollowMouse()
     {
         // enable indicator
@@ -130,7 +119,16 @@ public class DragAndDrop : MonoBehaviour
             currentGridSpaceIndicator.transform.position = currentGridSpace.transform.position;
             // currentGridSpaceIndicator.transform.localScale = Vector3.one * 1f; // placeholder
 
-            if (gameObject.GetComponent<Building>().tree == false)
+            if (buildingScript.windWheel == true)
+            {
+                currentGridSpaceIndicator.transform.localPosition += Vector3.right * (0.22f);
+                currentGridSpaceIndicator.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = originalIndicatorSprite;
+                currentGridSpaceIndicator.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().sprite = originalIndicatorSpriteWheel;
+
+                currentGridSpaceIndicator.transform.GetChild(0).GetChild(0).localPosition = windWheelOffset[0];
+            }
+
+            if (gameObject.GetComponent<Building>().tree == false && gameObject.GetComponent<Building>().windWheel == false)
             {
                 currentGridSpaceIndicator.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = originalIndicatorSprite;
                 transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = originalIndicatorSprite;
@@ -159,6 +157,14 @@ public class DragAndDrop : MonoBehaviour
                 {
                     currentGridSpaceIndicator.transform.position = currentBuilding.transform.GetChild(2).position;
                 }
+
+                if (buildingScript.windWheel)
+                {
+                    currentGridSpaceIndicator.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = currentBuilding.transform.GetChild(level + 1).GetComponent<SpriteRenderer>().sprite;
+                    currentGridSpaceIndicator.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().sprite = currentBuilding.transform.GetChild(level + 1).GetChild(0).GetComponent<SpriteRenderer>().sprite;
+                    
+                    currentGridSpaceIndicator.transform.GetChild(0).GetChild(0).localPosition = windWheelOffset[level + 1];
+                }
             }
             else
             {
@@ -181,14 +187,20 @@ public class DragAndDrop : MonoBehaviour
 
             levelingUp = true;
         }
-        else
+        else // if drag and drop fails
         {
             currentGridSpaceIndicator.SetActive(false);
 
-            if (gameObject.GetComponent<Building>().tree == false)
+            if (buildingScript.tree == false)
             {
                 currentGridSpaceIndicator.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = originalIndicatorSprite;
                 transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = originalIndicatorSprite;
+
+                if (buildingScript.windWheel)
+                {
+                    currentGridSpaceIndicator.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().sprite = originalIndicatorSpriteWheel;
+                    currentGridSpaceIndicator.transform.GetChild(0).GetChild(0).localPosition = windWheelOffset[0];
+                }
             }
 
             foreach (SpriteRenderer renderer in spriteRenderers)
@@ -198,7 +210,6 @@ public class DragAndDrop : MonoBehaviour
 
             levelingUp = false;
         }
-
 
         // snap to rotation
         RotateTowardsSurface(currentGridSpace);

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5903448541837651640}
   - component: {fileID: 874381494092650057}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TreeSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 301
+  m_SortingOrder: 303
   m_Sprite: {fileID: 21300000, guid: a72e95ee16fb4de4aa880277a2f8454a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -92,7 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5477060389604317616}
   - component: {fileID: 639833232931337783}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TreeSprite (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,7 +174,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3449670430575777336}
   - component: {fileID: 4725115581502191697}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TreeSprite (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,7 +256,7 @@ GameObject:
   m_Component:
   - component: {fileID: 939524133670310330}
   - component: {fileID: 163028029742600646}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: IndicatorSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -341,7 +341,7 @@ GameObject:
   - component: {fileID: -2948691702806923947}
   - component: {fileID: 4619977416763269594}
   - component: {fileID: -8360835904564097088}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TreeOnPlanetStart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -454,7 +454,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a131fbeaadda38d44a2afa07226b4841, type: 3}
   - {fileID: 21300000, guid: 8b61d49f82659624da9b1c3b71fe6f44, type: 3}
   - {fileID: 21300000, guid: 21d1986fd321ead4cb93890e5bc14bdc, type: 3}
-  type: 000000000000000000000000
   nextType: 0
 --- !u!1 &8096192670208714673
 GameObject:
@@ -466,7 +465,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5727664756996895449}
   - component: {fileID: 3062675766116610415}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GrowingSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -548,7 +547,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6585241225222010738}
   - component: {fileID: 225469343342065844}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CurrentSpaceIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}

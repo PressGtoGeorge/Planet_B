@@ -24,7 +24,7 @@ public class PlanetGrid : MonoBehaviour
 
     // blackmarket variables
     public GameObject blackmarketStandPrefab;
-    public int[] standPositions; // = { 3, 9, 15 };
+    public int[] standPositions;
 
     private void Start()
     {
@@ -102,6 +102,11 @@ public class PlanetGrid : MonoBehaviour
             transform.Rotate(Vector3.forward, (-1f) * newAngle);
             newEdge.transform.parent = newSpace.transform;
             // end section
+
+            if (gameObject.tag == "Planet_B")
+            {
+                gameObject.GetComponent<PlanetVisuals>().gridSpaceEdges.Add(newEdge);
+            }
 
             gridSpaces.Add(newSpace);
             transform.Rotate(Vector3.forward, angleBetweenSpaces);

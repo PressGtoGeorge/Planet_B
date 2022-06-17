@@ -11,24 +11,45 @@ public class HamsterAnimation : MonoBehaviour
     private bool sweating;
     private bool stressed;
 
+    private float wheelOriginalSpeed;
+
     private void Start()
     {
         animator = gameObject.GetComponent<Animator>();
+        wheelOriginalSpeed = wheelRotation.speed;
     }
 
     private void Update()
     {
-        if (sweating == false && ecosystem.GetCurrentGas() > 333)
+        if ((sweating || stressed) && ecosystem.GetCurrentGas() <= 333)
+        {
+            sweating = false;
+            stressed = false;
+
+            animator.SetBool("sweating", false);
+            animator.SetBool("stressed", false);
+
+            wheelRotation.speed = wheelOriginalSpeed;
+        }
+        else if ((sweating == false) && ecosystem.GetCurrentGas() > 333 && ecosystem.GetCurrentGas() <= 666)
         {
             sweating = true;
+            stressed = false;
+
             animator.SetBool("sweating", true);
-            wheelRotation.speed *= 2.5f;
+            animator.SetBool("stressed", false);
+
+            wheelRotation.speed = wheelOriginalSpeed * 2.5f;
         }
         else if (stressed == false && ecosystem.GetCurrentGas() > 666)
         {
+            sweating = false;
             stressed = true;
+
+            animator.SetBool("sweating", false);
             animator.SetBool("stressed", true);
-            wheelRotation.speed *= 2.5f;
+
+            wheelRotation.speed = wheelOriginalSpeed * 2.5f * 2.5f;
         }
     }
 }

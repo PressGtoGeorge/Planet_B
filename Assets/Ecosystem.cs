@@ -9,26 +9,35 @@ public class Ecosystem : MonoBehaviour
     private float startTemp = 37.5f;
 
     private float currentGas;
-    private int startGas = 0;
+    public int startGas;
     private int endGas = 1000;
 
     public List<GameObject> fields = new List<GameObject>();
 
     public Text gasAmountText;
 
+    [Range(0, 1000)] public float test;
+
     void Start()
     {
         currentTemp = startTemp;
+        currentGas = startGas;
     }
 
     public void AddGas(float amount)
     {
+        // return;
         currentGas += amount;
         currentGas = Mathf.Clamp(currentGas, (-1f) * Mathf.Infinity, endGas);
 
         currentTemp = startTemp + 0.0035f * currentGas;
         // Debug.Log(currentGas);
         if (gasAmountText != null) gasAmountText.text = currentGas.ToString();
+    }
+
+    private void Update0() // for testing, remove 0 and return AddGas()
+    {
+        currentGas = test;
     }
 
     public float GetCurrentGas()

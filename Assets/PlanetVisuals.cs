@@ -28,9 +28,15 @@ public class PlanetVisuals : MonoBehaviour
 
     private bool passedSwitchPoint;
 
-    private bool fading;
+    Coroutine fadeIn;
+    Coroutine fadeOut;
 
-    public float test;
+    // list of elementst that divide gridspaces
+    public List<GameObject> gridSpaceEdges = new List<GameObject>();
+
+    private bool thornsActive;
+    private bool changingEdges;
+    private float switchEdgeSpeed = 2f;
 
     private void Start()
     {
@@ -41,6 +47,125 @@ public class PlanetVisuals : MonoBehaviour
     {
         UpdatePlanetVisuals();
         UpdateForegroundTransparency();
+        UpdateGridSpaceEdges();
+    }
+
+    private void UpdateGridSpaceEdges()
+    {
+        float currentGas = ecosystem.GetCurrentGas();
+
+        if (currentGas >= 800 && thornsActive == false && changingEdges == false)
+        {
+            // change to thorns
+            StartCoroutine(ChangeToThorns());
+        }
+        else if (currentGas < 700 && thornsActive == true && changingEdges == false)
+        {
+            // change to dandis
+            StartCoroutine(ChangeToDandis());
+        }
+    }
+
+    private IEnumerator ChangeToThorns()
+    {
+        changingEdges = true;
+        float trans = 1f;
+
+        while (trans > 0)
+        {
+            trans -= switchEdgeSpeed * Time.unscaledDeltaTime;
+            trans = Mathf.Clamp(trans, 0, 1);
+
+            foreach (GameObject edge in gridSpaceEdges)
+            {
+                Color col = Color.white;
+                col.a = trans;
+
+                edge.transform.GetChild(0).GetComponent<SpriteRenderer>().color = col;
+            }
+
+            yield return null;
+        }
+
+        List<Sprite> thorns = gridSpaceEdges[0].GetComponent<GridSpaceEdge>().thornSprites;
+
+        foreach (GameObject edge in gridSpaceEdges)
+        {
+            int random = Random.Range(0, thorns.Count);
+
+            edge.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = thorns[random];
+        }
+
+        while (trans < 1)
+        {
+            trans += switchEdgeSpeed * Time.unscaledDeltaTime;
+            trans = Mathf.Clamp(trans, 0, 1);
+
+            foreach (GameObject edge in gridSpaceEdges)
+            {
+                Color col = Color.white;
+                col.a = trans;
+
+                edge.transform.GetChild(0).GetComponent<SpriteRenderer>().color = col;
+            }
+
+            yield return null;
+        }
+
+        changingEdges = false;
+        thornsActive = true;
+        yield break;
+    }
+
+    private IEnumerator ChangeToDandis()
+    {
+        changingEdges = true;
+        float trans = 1f;
+
+        while (trans > 0)
+        {
+            trans -= switchEdgeSpeed * Time.unscaledDeltaTime;
+            trans = Mathf.Clamp(trans, 0, 1);
+
+            foreach (GameObject edge in gridSpaceEdges)
+            {
+                Color col = Color.white;
+                col.a = trans;
+
+                edge.transform.GetChild(0).GetComponent<SpriteRenderer>().color = col;
+            }
+
+            yield return null;
+        }
+
+        List<Sprite> dandis = gridSpaceEdges[0].GetComponent<GridSpaceEdge>().dandiSprites;
+
+        foreach (GameObject edge in gridSpaceEdges)
+        {
+            int random = Random.Range(0, dandis.Count);
+
+            edge.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = dandis[random];
+        }
+
+        while (trans < 1)
+        {
+            trans += switchEdgeSpeed * Time.unscaledDeltaTime;
+            trans = Mathf.Clamp(trans, 0, 1);
+
+            foreach (GameObject edge in gridSpaceEdges)
+            {
+                Color col = Color.white;
+                col.a = trans;
+
+                edge.transform.GetChild(0).GetComponent<SpriteRenderer>().color = col;
+            }
+
+            yield return null;
+        }
+
+        changingEdges = false;
+        thornsActive = false;
+        yield break;
     }
 
     private void UpdateForegroundTransparency()
@@ -51,13 +176,13 @@ public class PlanetVisuals : MonoBehaviour
 
         if (overPlanet && overPlanetLastFrame == false)
         {
-            StopAllCoroutines();
-            StartCoroutine(FadeOut());
+            if (fadeIn != null) StopCoroutine(fadeIn);
+            fadeOut = StartCoroutine(FadeOut());
         }
         else if (overPlanet == false && overPlanetLastFrame)
         {
-            StopAllCoroutines();
-            StartCoroutine(FadeIn());
+            if (fadeOut != null) StopCoroutine(fadeOut);
+            fadeIn = StartCoroutine(FadeIn());
         }
 
         overPlanetLastFrame = overPlanet;
@@ -65,9 +190,6 @@ public class PlanetVisuals : MonoBehaviour
 
     private IEnumerator FadeOut()
     {
-
-        fading = true;
-
         SpriteRenderer foreGround0;
         SpriteRenderer cloud0;
 
@@ -126,8 +248,6 @@ public class PlanetVisuals : MonoBehaviour
             yield return null;
         }
 
-        fading = false;
-
         while (true)
         {
             Color col = Color.white;
@@ -146,8 +266,6 @@ public class PlanetVisuals : MonoBehaviour
 
     private IEnumerator FadeIn()
     {
-        fading = true;
-
         SpriteRenderer foreground0;
         SpriteRenderer cloud0;
 
@@ -206,16 +324,12 @@ public class PlanetVisuals : MonoBehaviour
             yield return null;
         }
 
-        fading = false;
-
         yield break;
     }
 
     private void UpdatePlanetVisuals()
     {
         float currentGas = ecosystem.GetCurrentGas();
-
-        // currentGas = test;
 
         if (lastGas == currentGas) return;
 
@@ -262,7 +376,7 @@ public class PlanetVisuals : MonoBehaviour
             skys[0].color = col;
             clouds[0].color = col;
         }
-        else if (currentGas < switchPoint_1)
+        else // if (currentGas <= switchPoint_1)
         {
             if (passedSwitchPoint == false) // if switching from below switchpoint to above
             {

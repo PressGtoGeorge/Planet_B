@@ -46,7 +46,7 @@ public class PlanetForeground : MonoBehaviour
 
         while (trans > 0)
         {
-            trans -= 0.75f * Time.unscaledDeltaTime;
+            trans -= 1f * Time.unscaledDeltaTime;
             trans = Mathf.Clamp(trans, 0, 1);
             Color col = renderer2d.GetComponent<SpriteRenderer>().color;
             col.a = trans;
@@ -65,7 +65,7 @@ public class PlanetForeground : MonoBehaviour
 
         while (trans < 1)
         {
-            trans += 0.75f * Time.unscaledDeltaTime;
+            trans += 1f * Time.unscaledDeltaTime;
             trans = Mathf.Clamp(trans, 0, 1);
             Color col = renderer2d.GetComponent<SpriteRenderer>().color;
             col.a = trans;

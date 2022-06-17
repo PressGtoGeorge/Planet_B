@@ -4,21 +4,18 @@ using UnityEngine;
 
 public class GridSpaceEdge : MonoBehaviour
 {
-    public List<Sprite> sprites = new List<Sprite>();
-    private SpriteRenderer renderer;
+    public List<Sprite> dandiSprites = new List<Sprite>();
+    public List<Sprite> thornSprites = new List<Sprite>();
+
+    private SpriteRenderer spriteRenderer;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        renderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
-        int random = Random.Range(0, sprites.Count);
+        spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        int random = Random.Range(0, dandiSprites.Count);
 
-        renderer.sprite = sprites[random];
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        spriteRenderer.sprite = dandiSprites[random];
     }
 }

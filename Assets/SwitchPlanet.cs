@@ -56,6 +56,8 @@ public class SwitchPlanet : MonoBehaviour
         transform.parent.position += (goalPos - startPos).normalized * (goalDistance - currentDistance); // setting position directly screws up clear flags ???
         onPlanet_A = !onPlanet_A;
 
+        yield return new WaitForEndOfFrame(); // this seems to fix a rare bug that stops the button from working?
+
         moving = false;
     }
 }

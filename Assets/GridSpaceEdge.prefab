@@ -44,11 +44,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcb0d25cec70ce543891ba3bbe047e4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprites:
+  dandiSprites:
   - {fileID: 21300000, guid: 42964ec40d3ddc84b9b47e8867aa2177, type: 3}
   - {fileID: 21300000, guid: 704145600aeb90443adc63f84ec56223, type: 3}
   - {fileID: 21300000, guid: 5c2bf590b3367cd4ab64c6a91e7fa60c, type: 3}
   - {fileID: 21300000, guid: 913341d6089a5644088117b7c9e798ec, type: 3}
+  thornSprites:
+  - {fileID: 21300000, guid: 973b04bab88bd304c972ae380ea3e683, type: 3}
+  - {fileID: 21300000, guid: aa96295c28511b14f842c79a7596b6aa, type: 3}
+  - {fileID: 21300000, guid: 43f6025627b6f5a4391c407768fde4d0, type: 3}
+  - {fileID: 21300000, guid: 215ae1273f100c1489af29b376a55a5c, type: 3}
 --- !u!1 &8903648748956101880
 GameObject:
   m_ObjectHideFlags: 0
