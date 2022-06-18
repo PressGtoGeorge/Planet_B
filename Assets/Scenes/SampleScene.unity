@@ -1152,9 +1152,9 @@ MonoBehaviour:
   ecosystem: {fileID: 1480055754}
   wheelRotation: {fileID: 916818779}
   wheelSounds:
-  - {fileID: 8300000, guid: 3164625d0af90524f89c2faebb1a6049, type: 3}
-  - {fileID: 8300000, guid: 46495aa759181d445882d45cc893b54c, type: 3}
-  - {fileID: 8300000, guid: 63516d66624ee474a9ee24079fa1cf2e, type: 3}
+  - {fileID: 8300000, guid: be058361a81aeb344a5c76836a387155, type: 3}
+  - {fileID: 8300000, guid: cebbdd520247a414296c8b7be0bd2f5c, type: 3}
+  - {fileID: 8300000, guid: bab13faac439e45449752a0e69c3688d, type: 3}
   smallHamster: 0
 --- !u!95 &213724881
 Animator:
@@ -1815,11 +1815,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 3164625d0af90524f89c2faebb1a6049, type: 3}
+  m_audioClip: {fileID: 8300000, guid: be058361a81aeb344a5c76836a387155, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0
+  m_Volume: 0.2
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -4971,9 +4971,9 @@ MonoBehaviour:
   ecosystem: {fileID: 1313065685}
   wheelRotation: {fileID: 307216270}
   wheelSounds:
-  - {fileID: 8300000, guid: 3164625d0af90524f89c2faebb1a6049, type: 3}
-  - {fileID: 8300000, guid: 46495aa759181d445882d45cc893b54c, type: 3}
-  - {fileID: 8300000, guid: 63516d66624ee474a9ee24079fa1cf2e, type: 3}
+  - {fileID: 8300000, guid: be058361a81aeb344a5c76836a387155, type: 3}
+  - {fileID: 8300000, guid: cebbdd520247a414296c8b7be0bd2f5c, type: 3}
+  - {fileID: 8300000, guid: bab13faac439e45449752a0e69c3688d, type: 3}
   smallHamster: 0
 --- !u!1 &785675231
 GameObject:
@@ -5719,11 +5719,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 3164625d0af90524f89c2faebb1a6049, type: 3}
+  m_audioClip: {fileID: 8300000, guid: be058361a81aeb344a5c76836a387155, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

@@ -589,7 +589,7 @@ public class Character : MonoBehaviour
             renderer.flipX = true;
         }
 
-        thoughtBubble.SetActive(true);
+        if (onPlanet_A == false) thoughtBubble.SetActive(true);
     }
 
     private void MoveToBlackmarket()
