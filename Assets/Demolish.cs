@@ -14,12 +14,16 @@ public class Demolish : MonoBehaviour
     private GameObject ui_background;
     private bool over_UI;
 
+    private AudioSource destroySource;
+
     private void Start()
     {
         planet_B = GameObject.FindGameObjectWithTag("Planet_B");
         planetGrid = planet_B.GetComponent<PlanetGrid>();
 
         ui_background = GameObject.FindGameObjectWithTag("UI_Background");
+
+        destroySource = GameObject.FindGameObjectWithTag("DestroySound").GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -77,6 +81,8 @@ public class Demolish : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
+        destroySource.Play();
 
         currentGridSpace.GetComponent<GridSpace>().occupied = false;
 

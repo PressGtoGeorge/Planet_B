@@ -20,7 +20,7 @@ public class Character : MonoBehaviour
     private float radiusPlanet_B;
 
     private float surfacePathDepth = 0.225f;
-    private float blackmarketPathDepth = 0.8f;
+    private float blackmarketPathDepth = 0.925f;
 
     private List<SpriteRenderer> characterRenderer = new List<SpriteRenderer>();
 
@@ -107,7 +107,6 @@ public class Character : MonoBehaviour
         replacementCharacterTierChances.Add(replacementCharacterTierChance_3);
 
         characterRenderer.Add(transform.GetChild(0).GetComponent<SpriteRenderer>()); // placeholder
-        characterRenderer.Add(transform.GetChild(1).GetComponent<SpriteRenderer>()); // placeholder
 
         SetupPlanetVariables();
         SetupConsumerVariables();
@@ -586,7 +585,8 @@ public class Character : MonoBehaviour
 
         foreach(SpriteRenderer renderer in characterRenderer)
         {
-            renderer.sortingOrder = 410;
+            renderer.sortingOrder = 410 + tier;
+            renderer.flipX = true;
         }
 
         thoughtBubble.SetActive(true);
@@ -598,7 +598,8 @@ public class Character : MonoBehaviour
         
         foreach (SpriteRenderer renderer in characterRenderer)
         {
-            renderer.sortingOrder = 210;
+            renderer.sortingOrder = 210 + tier;
+            renderer.flipX = false;
         }
 
         thoughtBubble.SetActive(false);

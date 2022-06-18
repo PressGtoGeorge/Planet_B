@@ -9,7 +9,7 @@ public class Ecosystem : MonoBehaviour
     private float startTemp = 37.5f;
 
     private float currentGas;
-    public int startGas;
+    public int startGas = 0;
     private int endGas = 1000;
 
     public List<GameObject> fields = new List<GameObject>();

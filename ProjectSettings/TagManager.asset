@@ -8,6 +8,7 @@ TagManager:
   - Planet_B
   - Rocket
   - UI_Background
+  - DestroySound
   layers:
   - Default
   - TransparentFX

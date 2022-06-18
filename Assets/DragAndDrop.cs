@@ -28,6 +28,8 @@ public class DragAndDrop : MonoBehaviour
     private Sprite originalIndicatorSpriteWheel;
     private Vector3[] windWheelOffset = new Vector3[3];
 
+    public AudioSource dropSource;
+
     private void Start()
     {
         planet_B = GameObject.FindGameObjectWithTag("Planet_B");
@@ -65,6 +67,8 @@ public class DragAndDrop : MonoBehaviour
         {
             renderer.sortingOrder += 10000;
         }
+
+        dropSource = gameObject.GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -257,6 +261,8 @@ public class DragAndDrop : MonoBehaviour
         }
         else if ((occupied && levelingUp == true) && over_UI == false)
         {
+            currentBuilding.GetComponent<AudioSource>().Play();
+
             if (currentBuilding.GetComponent<Building>().tree)
             {
                 currentBuilding.GetComponent<TreeSprite>().nextType = gameObject.GetComponent<TreeSprite>().nextType;
@@ -275,6 +281,8 @@ public class DragAndDrop : MonoBehaviour
         }
         else if (occupied == false && levelingUp == false && over_UI == false)
         {
+            dropSource.Play();
+
             currentGridSpace.GetComponent<GridSpace>().occupied = true;
         }
 

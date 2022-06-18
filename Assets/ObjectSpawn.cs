@@ -6,10 +6,18 @@ public class ObjectSpawn : MonoBehaviour
 {
     public GameObject prefab;
 
-    private void OnMouseDown()
+    private AudioSource dragSource;
+
+    private void Start()
     {
-        GameObject newTree = Instantiate(prefab, transform);
-        newTree.transform.parent = null;
+        dragSource = transform.parent.GetComponent<AudioSource>();
     }
 
+    private void OnMouseDown()
+    {
+        GameObject newObject = Instantiate(prefab, transform);
+        newObject.transform.parent = null;
+
+        dragSource.Play();
+    }
 }

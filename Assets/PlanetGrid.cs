@@ -50,6 +50,7 @@ public class PlanetGrid : MonoBehaviour
 
         CreateTrees();
 
+        /*
         for (int i = 0; i < 3; i++)
         {
             GameObject newBlackmarketStand = Instantiate(blackmarketStandPrefab, gridSpaces[standPositions[i]].transform);
@@ -79,6 +80,7 @@ public class PlanetGrid : MonoBehaviour
                 newBlackmarketStand.transform.GetChild(2).position = gridSpaces[0].transform.position;
             }
         }
+        */
     }
 
     void CreateGrid()

@@ -10,12 +10,16 @@ public class SwitchPlanet : MonoBehaviour
     private GameObject planet_B;
 
     private bool moving;
-    private float speed = 40f;
+    private float speed = 20f;
+
+    private AudioSource switchSource;
 
     private void Start()
     {
         planet_A = GameObject.FindGameObjectWithTag("Planet_A");
         planet_B = GameObject.FindGameObjectWithTag("Planet_B");
+
+        switchSource = gameObject.GetComponent<AudioSource>();
     }
 
     private void OnMouseDown()
@@ -26,6 +30,8 @@ public class SwitchPlanet : MonoBehaviour
     private IEnumerator Move()
     {
         moving = true;
+
+        switchSource.Play();
 
         Vector3 goalPos;
         Vector3 startPos;
