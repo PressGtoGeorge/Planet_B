@@ -34,7 +34,11 @@ public class HamsterAnimation : MonoBehaviour
             animator.SetBool("stressed", false);
 
             wheelRotation.speed = wheelOriginalSpeed;
-            if (smallHamster == false) wheelRotation.gameObject.GetComponent<AudioSource>().clip = wheelSounds[0];
+            if (smallHamster == false)
+            {
+                wheelRotation.gameObject.GetComponent<AudioSource>().clip = wheelSounds[0];
+                wheelRotation.gameObject.GetComponent<AudioSource>().Play();
+            }
         }
         else if ((sweating == false) && ecosystem.GetCurrentGas() > 333 && ecosystem.GetCurrentGas() <= 666)
         {
@@ -45,7 +49,11 @@ public class HamsterAnimation : MonoBehaviour
             animator.SetBool("stressed", false);
 
             wheelRotation.speed = wheelOriginalSpeed * 2.5f;
-            if (smallHamster == false) wheelRotation.gameObject.GetComponent<AudioSource>().clip = wheelSounds[1];
+            if (smallHamster == false)
+            {
+                wheelRotation.gameObject.GetComponent<AudioSource>().clip = wheelSounds[1];
+                wheelRotation.gameObject.GetComponent<AudioSource>().Play();
+            }
         }
         else if (stressed == false && ecosystem.GetCurrentGas() > 666)
         {
@@ -56,7 +64,11 @@ public class HamsterAnimation : MonoBehaviour
             animator.SetBool("stressed", true);
 
             wheelRotation.speed = wheelOriginalSpeed * 2.5f * 2.5f;
-            if (smallHamster == false) wheelRotation.gameObject.GetComponent<AudioSource>().clip = wheelSounds[2];
+            if (smallHamster == false)
+            {
+                wheelRotation.gameObject.GetComponent<AudioSource>().clip = wheelSounds[2];
+                wheelRotation.gameObject.GetComponent<AudioSource>().Play();
+            }
         }
     }
 }
