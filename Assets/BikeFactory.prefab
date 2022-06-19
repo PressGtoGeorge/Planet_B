@@ -70,7 +70,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 300
+  m_SortingOrder: 401
   m_Sprite: {fileID: 21300000, guid: b76ad09f3d5761c4da4063fb88cc192c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -217,6 +217,7 @@ MonoBehaviour:
   currentGridSpaceIndicator: {fileID: 7053737824290739389}
   spriteRenderers:
   - {fileID: 4699346937915733950}
+  dropSource: {fileID: 0}
 --- !u!114 &-398810373475361932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -430,7 +431,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 300
+  m_SortingOrder: 400
   m_Sprite: {fileID: 21300000, guid: c53fdda8c0cede045a19efc941d288d8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -512,7 +513,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 300
+  m_SortingOrder: 402
   m_Sprite: {fileID: 21300000, guid: fa24483b310c36649956de65ac17f762, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

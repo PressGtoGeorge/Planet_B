@@ -12,6 +12,9 @@ public class PlanetForeground : MonoBehaviour
 
     private Collider2D collider2d;
 
+    public AudioSource wheelSource;
+    private float maxVolume = 0.2f;
+
     private void Start()
     {
         renderer2d = gameObject.GetComponent<SpriteRenderer>();
@@ -53,8 +56,13 @@ public class PlanetForeground : MonoBehaviour
             renderer2d.GetComponent<SpriteRenderer>().color = col;
             cloudRenderer2d.GetComponent<SpriteRenderer>().color = col;
 
+            wheelSource.volume += maxVolume * Time.unscaledDeltaTime;
+            wheelSource.volume = Mathf.Clamp(wheelSource.volume, 0, maxVolume);
+
             yield return null;
         }
+
+        wheelSource.volume = maxVolume;
 
         yield break;
     }
@@ -72,8 +80,13 @@ public class PlanetForeground : MonoBehaviour
             renderer2d.GetComponent<SpriteRenderer>().color = col;
             cloudRenderer2d.GetComponent<SpriteRenderer>().color = col;
 
+            wheelSource.volume -= maxVolume * Time.unscaledDeltaTime;
+            wheelSource.volume = Mathf.Clamp(wheelSource.volume, 0, maxVolume);
+
             yield return null;
         }
+
+        wheelSource.volume = 0;
 
         yield break;
     }

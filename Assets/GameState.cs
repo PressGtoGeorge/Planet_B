@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class GameState : MonoBehaviour
 {
     public Slider gameSpeedSlider;
-    // private float gameSpeed = 1f;
+
+    public static int totalCharacters = 0;
 
     public void ChangeGameSpeed()
     {

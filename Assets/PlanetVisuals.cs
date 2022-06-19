@@ -42,6 +42,9 @@ public class PlanetVisuals : MonoBehaviour
     private bool changingEdges;
     private float switchEdgeSpeed = 2f;
 
+    public AudioSource wheelSource;
+    private float maxVolume = 0.2f;
+
     private void Start()
     {
         ecosystem = gameObject.GetComponent<Ecosystem>();
@@ -253,8 +256,13 @@ public class PlanetVisuals : MonoBehaviour
             foreground1.color = col;
             cloud1.color = col;
 
+            wheelSource.volume += maxVolume * Time.unscaledDeltaTime;
+            wheelSource.volume = Mathf.Clamp(wheelSource.volume, 0, maxVolume);
+
             yield return null;
         }
+
+        wheelSource.volume = maxVolume;
 
         fading = false;
         fadingWhileJustSwitched = false;
@@ -366,8 +374,13 @@ public class PlanetVisuals : MonoBehaviour
             foreground1.color = col;
             cloud1.color = col;
 
+            wheelSource.volume -= maxVolume * Time.unscaledDeltaTime;
+            wheelSource.volume = Mathf.Clamp(wheelSource.volume, 0, maxVolume);
+
             yield return null;
         }
+
+        wheelSource.volume = 0;
 
         fading = false;
         fadingWhileJustSwitched = false;

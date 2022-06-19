@@ -144,7 +144,7 @@ public class Population : MonoBehaviour
         characters.Add(newChar);
 
         // placeholder
-        newChar.transform.GetChild(0).GetComponent<SpriteRenderer>().color = tierColors[tier - 1];
+        // newChar.transform.GetChild(0).GetComponent<SpriteRenderer>().color = tierColors[tier - 1];
         // newChar.GetComponent<Character>().logging = true;
     }
 

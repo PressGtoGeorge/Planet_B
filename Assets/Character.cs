@@ -87,6 +87,10 @@ public class Character : MonoBehaviour
 
     public bool stationary; // true if a character does never use the rocket
 
+    private int characterNumber; // for sorting every character into their own layer to avoid conflicts
+
+    private Animator animator;
+
     void Start()
     {
         planet_A = GameObject.FindGameObjectWithTag("Planet_A");
@@ -121,6 +125,15 @@ public class Character : MonoBehaviour
 
         if (goingToRocket == false) StartCoroutine(CreateNeed());
         else thoughtBubble.SetActive(false);
+
+        // place character and thoughbubble in seperate sortingOrder to avoid conflicts
+        GameState.totalCharacters++;
+        if (GameState.totalCharacters >= 150) GameState.totalCharacters = 0;
+        characterNumber = GameState.totalCharacters;
+        MoveToSurface();
+
+        SetThoughtBubbleSortOrder();
+        SetupAnimation();
     }
 
     private IEnumerator CreateNeed()
@@ -585,7 +598,7 @@ public class Character : MonoBehaviour
 
         foreach(SpriteRenderer renderer in characterRenderer)
         {
-            renderer.sortingOrder = 410 + tier;
+            renderer.sortingOrder = 510 + characterNumber;
             renderer.flipX = true;
         }
 
@@ -598,7 +611,7 @@ public class Character : MonoBehaviour
         
         foreach (SpriteRenderer renderer in characterRenderer)
         {
-            renderer.sortingOrder = 210 + tier;
+            renderer.sortingOrder = 210 + characterNumber;
             renderer.flipX = false;
         }
 
@@ -625,6 +638,7 @@ public class Character : MonoBehaviour
         transform.localRotation = Quaternion.identity;
 
         MoveToSurface();
+        SetupAnimation();
     }
 
     private void SetupConsumerVariables()
@@ -671,6 +685,35 @@ public class Character : MonoBehaviour
                     goodMobility = true;
                     break;
             }
+        }
+    }
+
+    private void SetThoughtBubbleSortOrder()
+    {
+        SpriteRenderer thoughBubbleBackground = transform.GetChild(1).GetComponent<SpriteRenderer>();
+        SpriteRenderer thoughBubbleSymbol = transform.GetChild(1).GetChild(0).GetComponent<SpriteRenderer>();
+        Canvas percentCanvas = transform.GetChild(1).GetChild(1).GetComponent<Canvas>();
+
+        thoughBubbleBackground.sortingOrder += characterNumber * 10;
+        thoughBubbleSymbol.sortingOrder += characterNumber * 10;
+        percentCanvas.sortingOrder += characterNumber * 10;
+    }
+
+    private void SetupAnimation()
+    {
+        animator = transform.GetChild(0).GetComponent<Animator>();
+
+        switch (tier)
+        {
+            case 2:
+                animator.SetBool("tier2", true);
+                break;
+            case 3:
+                animator.SetBool("tier3", true);
+                break;
+            case 4:
+                animator.SetBool("tier4", true);
+                break;
         }
     }
 
