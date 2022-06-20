@@ -528,6 +528,7 @@ public class Character : MonoBehaviour
 
                 SetSpeed(bikeSpeed);
                 StartCoroutine(ResetVehicleAfter(vehicleDuration));
+                animator.SetBool("bike", true);
             }
 
             if (goodMobility == false && buildingScript.carFactory && buildingScript.storedAmount > 0)
@@ -569,6 +570,7 @@ public class Character : MonoBehaviour
     {
         yield return new WaitForSeconds(duration);
 
+        animator.SetBool("bike", false);
         SetSpeed(defaultSpeed);
         yield break;
     }
