@@ -219,7 +219,7 @@ public class DragAndDrop : MonoBehaviour
         RotateTowardsSurface(currentGridSpace);
 
         // make buildings reappear if levelup was denied
-        if (lastGridSpace != null && lastGridSpace != currentGridSpace)
+        if (lastGridSpace != null && (lastGridSpace != currentGridSpace || over_UI))
         {
             int lastLevel = lastGridSpace.GetComponent<GridSpace>().building.GetComponent<Building>().level;
             lastGridSpace.GetComponent<GridSpace>().building.transform.GetChild(lastLevel).GetComponent<SpriteRenderer>().enabled = true;
@@ -233,6 +233,7 @@ public class DragAndDrop : MonoBehaviour
             tree = currentBuilding.GetComponent<Building>().tree;
             windWheel = currentBuilding.GetComponent<Building>().windWheel;
         }
+
         if (currentBuilding != null && tree == false && windWheel == false) // && lastGridSpace != currentGridSpace) 
             lastGridSpace = currentGridSpace;
         else 
