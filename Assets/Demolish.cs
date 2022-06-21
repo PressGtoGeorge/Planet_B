@@ -16,6 +16,8 @@ public class Demolish : MonoBehaviour
 
     private AudioSource destroySource;
 
+    private GameState gameState;
+
     private void Start()
     {
         planet_B = GameObject.FindGameObjectWithTag("Planet_B");
@@ -24,12 +26,15 @@ public class Demolish : MonoBehaviour
         ui_background = GameObject.FindGameObjectWithTag("UI_Background");
 
         destroySource = GameObject.FindGameObjectWithTag("DestroySound").GetComponent<AudioSource>();
+
+        gameState = GameObject.FindGameObjectWithTag("GameState").GetComponent<GameState>();
     }
 
     private void Update()
     {
         if (dragging)
         {
+            GameState.dragging = true;
             FollowMouse();
             if (Input.GetMouseButtonUp(0)) DestroyElement();
         }
@@ -70,7 +75,12 @@ public class Demolish : MonoBehaviour
 
     private void DestroyElement()
     {
-        if (dragging) dragging = false;
+        if (dragging)
+        {
+            dragging = false;
+            GameState.dragging = false;
+            gameState.FadeInAllButtons();
+        }
 
         GameObject currentGridSpace = planetGrid.NextGridSpace(transform.position);
         bool house = (currentGridSpace.GetComponent<GridSpace>().building != null && currentGridSpace.GetComponent<GridSpace>().building.GetComponent<Building>().house);

@@ -9,6 +9,7 @@ TagManager:
   - Rocket
   - UI_Background
   - DestroySound
+  - GameState
   layers:
   - Default
   - TransparentFX

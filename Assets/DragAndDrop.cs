@@ -30,6 +30,8 @@ public class DragAndDrop : MonoBehaviour
 
     public AudioSource dropSource;
 
+    private GameState gameState;
+
     private void Start()
     {
         planet_B = GameObject.FindGameObjectWithTag("Planet_B");
@@ -69,12 +71,15 @@ public class DragAndDrop : MonoBehaviour
         }
 
         dropSource = gameObject.GetComponent<AudioSource>();
+
+        gameState = GameObject.FindGameObjectWithTag("GameState").GetComponent<GameState>();
     }
 
     private void Update()
     {
         if (dragging)
         {
+            GameState.dragging = true;
             FollowMouse();
             if (Input.GetMouseButtonUp(0)) ReleaseElement();
         }
@@ -242,7 +247,12 @@ public class DragAndDrop : MonoBehaviour
 
     private void ReleaseElement()
     {
-        if (dragging) dragging = false;
+        if (dragging)
+        {
+            dragging = false;
+            GameState.dragging = false;
+            gameState.FadeInAllButtons();
+        }
 
         foreach (SpriteRenderer renderer in spriteRenderers)
         {
