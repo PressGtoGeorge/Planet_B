@@ -6,6 +6,7 @@ public class ButtonAnimation : MonoBehaviour
 {
     private Collider2D collider2d;
     private SpriteRenderer backgroundRenderer;
+    private SpriteRenderer textRenderer;
 
     private bool overButton;
     private bool overButtonLastFrame;
@@ -16,6 +17,7 @@ public class ButtonAnimation : MonoBehaviour
     {
         collider2d = gameObject.GetComponent<Collider2D>();
         backgroundRenderer = transform.GetChild(0).GetChild(3).GetComponent<SpriteRenderer>();
+        textRenderer = transform.GetChild(0).GetChild(5).GetComponent<SpriteRenderer>();
 
         gameState = GameObject.FindGameObjectWithTag("GameState").GetComponent<GameState>();
         gameState.spawnButtons.Add(gameObject);
@@ -63,6 +65,9 @@ public class ButtonAnimation : MonoBehaviour
             col.a = trans;
             backgroundRenderer.GetComponent<SpriteRenderer>().color = col;
 
+            col.a = 1 - trans;
+            textRenderer.GetComponent<SpriteRenderer>().color = col;
+
             yield return null;
         }
 
@@ -80,6 +85,9 @@ public class ButtonAnimation : MonoBehaviour
             Color col = backgroundRenderer.GetComponent<SpriteRenderer>().color;
             col.a = trans;
             backgroundRenderer.GetComponent<SpriteRenderer>().color = col;
+
+            col.a = 1 - trans;
+            textRenderer.GetComponent<SpriteRenderer>().color = col;
 
             yield return null;
         }
