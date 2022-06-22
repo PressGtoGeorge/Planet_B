@@ -58,6 +58,11 @@ public class RocketAnimation : MonoBehaviour
         StartCoroutine(Animation());
     }
 
+    public void StopAnimation()
+    {
+        StopAllCoroutines();
+    }
+
     private IEnumerator Animation()
     {
         flying = true;
@@ -355,7 +360,7 @@ public class RocketAnimation : MonoBehaviour
 
         // Debug.Log("Rocket ready for new take off.\nAnimation 9 finished.");
 
-        if (currentPlanet.GetComponent<RotatePlanet>().collapsed == false) gameObject.GetComponent<Rocket>().StartTravelSchedule();
+        if (currentPlanet.GetComponent<RotatePlanet>().collapsed == false && currentPlanet.GetComponent<RotatePlanet>().collapsing == false) gameObject.GetComponent<Rocket>().StartTravelSchedule();
 
         yield break;
     }

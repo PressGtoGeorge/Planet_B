@@ -724,4 +724,9 @@ public class Character : MonoBehaviour
     {
         speed = newSpeed;
     }
+
+    public void SetMoving(bool move)
+    {
+        moving = move;
+    }
 }

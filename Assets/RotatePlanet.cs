@@ -21,6 +21,7 @@ public class RotatePlanet : MonoBehaviour
     public int charactersPassed = 0;
 
     private Ecosystem ecosystem;
+    private GameObject rocket;
 
     private void Start()
     {
@@ -51,13 +52,26 @@ public class RotatePlanet : MonoBehaviour
         // placeholder
         if (Input.GetKeyDown(KeyCode.L) && collapsing == false)
         {
-            // StartCoroutine(Collapse());
+            StartCoroutine(Collapse());
         }
+
+        StartCoroutine(GetRocket());
+    }
+
+    private IEnumerator GetRocket()
+    {
+        yield return new WaitForEndOfFrame();
+        rocket = GameObject.FindGameObjectWithTag("Rocket");
     }
 
     private IEnumerator Collapse()
     {
+        if (gameObject.tag == "Planet_A") yield break;
+
         collapsing = true;
+
+        // make rocket fly into outer space
+        rocket.GetComponent<FlyIntoSpace>().Fly();
 
         // start rotating with acceleration
 

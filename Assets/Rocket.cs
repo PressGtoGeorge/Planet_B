@@ -70,6 +70,8 @@ public class Rocket : MonoBehaviour
 
         while (exitingPassengers.Count > 0)
         {
+            if (currentPlanet.GetComponent<RotatePlanet>().collapsing || currentPlanet.GetComponent<RotatePlanet>().collapsed) yield break;
+
             exitingPassengers[0].SetActive(true);
             exitingPassengers[0].transform.parent = currentPlanet.transform;
             exitingPassengers[0].transform.localRotation = Quaternion.identity;
