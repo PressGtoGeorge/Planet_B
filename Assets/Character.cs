@@ -247,42 +247,43 @@ public class Character : MonoBehaviour
             return;
         }
 
-        int color = 0;
+        int type = 0;
 
         if (goingToRocket)
         {
-            color = 6;
+            type = 6;
         }
         else if (goingToBlackmarket)
         {
-            color = 7;
+            type = 7;
         }
         else if (wantsFood && goodFood)
         {
-            color = 0;
+            type = 0;
         }
         else if (wantsFood && goodFood == false)
         {
-            color = 1;
+            type = 1;
         }
         else if (wantsPower && goodPower)
         {
-            color = 2;
+            type = 2;
         }
         else if (wantsPower && goodPower == false)
         {
-            color = 3;
+            type = 3;
         }
         else if (wantsMobility && goodMobility)
         {
-            color = 4;
+            type = 4;
         }
         else if (wantsMobility && goodMobility == false)
         {
-            color = 5;
+            type = 5;
         }
 
-        thoughtBubble.transform.GetChild(0).GetComponent<SpriteRenderer>().color = thoughtBubble.GetComponent<ThoughtBubble>().colors[color];
+        // thoughtBubble.transform.GetChild(0).GetComponent<SpriteRenderer>().color = thoughtBubble.GetComponent<ThoughtBubble>().colors[color];
+        thoughtBubble.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = thoughtBubble.GetComponent<ThoughtBubble>().symbols[type];
         thoughtBubble.SetActive(true);
     }
 

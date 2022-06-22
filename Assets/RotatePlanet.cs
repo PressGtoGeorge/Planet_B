@@ -13,12 +13,14 @@ public class RotatePlanet : MonoBehaviour
 
     private int gridSize;
 
-    public bool rotating = false;
+    public bool rotating;
 
     private float yearDuration = 120f;
     private float timePassedSinceLastYear;
     public int yearsPassed = 0;
     public int charactersPassed = 0;
+
+    private Ecosystem ecosystem;
 
     private void Start()
     {
@@ -27,6 +29,8 @@ public class RotatePlanet : MonoBehaviour
 
     void Update()
     {
+        ecosystem = gameObject.GetComponent<Ecosystem>();
+
         SetDeltaTime();
 
         if (collapsed == false && rotating) transform.Rotate(Vector3.forward, speed * deltaTime);
@@ -39,10 +43,15 @@ public class RotatePlanet : MonoBehaviour
             // Debug.Log("Year: " + yearsPassed);
         }
 
+        if (ecosystem.GetCurrentGas() >= 1000 && collapsing == false && collapsed == false)
+        {
+            StartCoroutine(Collapse());
+        }
+
         // placeholder
         if (Input.GetKeyDown(KeyCode.L) && collapsing == false)
         {
-            StartCoroutine(Collapse());
+            // StartCoroutine(Collapse());
         }
     }
 

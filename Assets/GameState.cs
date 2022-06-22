@@ -12,6 +12,11 @@ public class GameState : MonoBehaviour
 
     public List<GameObject> spawnButtons = new List<GameObject>();
 
+    private void Start()
+    {
+        Time.timeScale = 1;
+    }
+
     public void ChangeGameSpeed()
     {
         float newGameSpeed = gameSpeedSlider.value;

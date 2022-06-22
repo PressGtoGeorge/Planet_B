@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 4163881272220063078}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
+  m_LocalScale: {x: 1.4, y: 1.4, z: 1}
   m_Children: []
   m_Father: {fileID: 4650151371566161836}
   m_RootOrder: 0
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 1001
   m_Sprite: {fileID: -2135585597343286014, guid: eed45a33cd08446c8b88325cf82fc52f, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -455,8 +455,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7379508152195682683}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.82, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 1.4, y: 1.4, z: 1}
   m_Children:
   - {fileID: 649253979857142930}
   - {fileID: 3679348129175615176}
@@ -526,12 +526,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 068f8a902928ce547aeb928065f7c886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colors:
-  - {r: 0.91372555, g: 0.7294118, b: 0.2627451, a: 1}
-  - {r: 0.7254902, g: 0.24313727, b: 0.19607845, a: 1}
-  - {r: 0.48235297, g: 0.48235297, b: 0.48235297, a: 1}
-  - {r: 0.27450982, g: 0.27450982, b: 0.27450982, a: 1}
-  - {r: 0.1137255, g: 0.4431373, b: 0.09019608, a: 1}
-  - {r: 0.28627452, g: 0.69411767, b: 0.9921569, a: 1}
-  - {r: 0.9921569, g: 1, b: 0, a: 1}
-  - {r: 0.50980395, g: 0.32156864, b: 0.1254902, a: 1}
+  symbols:
+  - {fileID: 21300000, guid: 98583f257d9764c498bd153deb3dde6c, type: 3}
+  - {fileID: 21300000, guid: c7604dc5248eb4545af36e03bc7eb1d0, type: 3}
+  - {fileID: 21300000, guid: c26de271eddd9634fbbbfe868b09aa55, type: 3}
+  - {fileID: 21300000, guid: 4e57a9a58bc7bf541887ae74f7c83f56, type: 3}
+  - {fileID: 21300000, guid: 539d3f4592782fe42af3a3c84033afb7, type: 3}
+  - {fileID: 21300000, guid: 7d88b4959227d144f9fb4d4cd68e014a, type: 3}
+  - {fileID: 21300000, guid: 696953b6ebb5e1248a857e7832b81e20, type: 3}
+  - {fileID: 21300000, guid: c77a68723cfa173439f9a640a950c437, type: 3}
