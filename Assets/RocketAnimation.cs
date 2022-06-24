@@ -17,8 +17,8 @@ public class RocketAnimation : MonoBehaviour
 
     private float distanceBetweenPlanetCores;
 
-    private float defaultSpeed = 2f; // 0.8f;
-    private float driftSpeed = 0.6f;
+    private float defaultSpeed = 1f; // 0.8f;
+    private float driftSpeed = 0.3f;
     private bool startingOnPlanet_A = true;
 
     private float lastDotProduct = 0f; // for determining switch point
