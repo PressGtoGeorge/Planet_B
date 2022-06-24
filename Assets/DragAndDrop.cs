@@ -104,6 +104,10 @@ public class DragAndDrop : MonoBehaviour
         // see if mouse is over UI background
         over_UI = ui_background.GetComponent<Collider2D>().OverlapPoint(mousePosition);
 
+        // see if planet is collapsed. no building if collapsed
+        bool collapsed = planet_B.GetComponent<RotatePlanet>().collapsed || planet_B.GetComponent<RotatePlanet>().collapsing;
+
+
         // see if building on space could be leveled up
         bool sameBuildingType = false;
         bool belowLevelThree = false;
@@ -123,7 +127,7 @@ public class DragAndDrop : MonoBehaviour
         bool fitForLevelUp = sameBuildingType && belowLevelThree && (growingTree == false);
         // end section
 
-        if (occupied == false && over_UI == false)
+        if (occupied == false && over_UI == false && collapsed == false)
         {
             currentGridSpaceIndicator.transform.position = currentGridSpace.transform.position;
             // currentGridSpaceIndicator.transform.localScale = Vector3.one * 1f; // placeholder
@@ -150,7 +154,7 @@ public class DragAndDrop : MonoBehaviour
 
             levelingUp = false;
         }
-        else if (fitForLevelUp && over_UI == false)
+        else if (fitForLevelUp && over_UI == false && collapsed == false)
         {
             // mark building for level up
 
@@ -265,12 +269,15 @@ public class DragAndDrop : MonoBehaviour
         GameObject currentBuilding = null;
         if (occupied) currentBuilding = currentGridSpace.GetComponent<GridSpace>().building;
 
-        if ((occupied && levelingUp == false) || over_UI)
+        // see if planet is collapsed. no building if collapsed
+        bool collapsed = planet_B.GetComponent<RotatePlanet>().collapsed || planet_B.GetComponent<RotatePlanet>().collapsing;
+
+        if ((occupied && levelingUp == false) || over_UI || collapsed)
         {
             Destroy(gameObject);
             return;
         }
-        else if ((occupied && levelingUp == true) && over_UI == false)
+        else if ((occupied && levelingUp == true) && over_UI == false && collapsed == false)
         {
             currentBuilding.GetComponent<AudioSource>().Play();
 
@@ -290,7 +297,7 @@ public class DragAndDrop : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        else if (occupied == false && levelingUp == false && over_UI == false)
+        else if (occupied == false && levelingUp == false && over_UI == false && collapsed == false)
         {
             dropSource.Play();
 
