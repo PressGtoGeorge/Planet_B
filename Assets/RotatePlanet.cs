@@ -52,7 +52,7 @@ public class RotatePlanet : MonoBehaviour
         // placeholder
         if (Input.GetKeyDown(KeyCode.L) && collapsing == false)
         {
-            // StartCoroutine(Collapse());
+            StartCoroutine(Collapse());
         }
 
         StartCoroutine(GetRocket());
@@ -78,7 +78,7 @@ public class RotatePlanet : MonoBehaviour
         float currentSpeed = 0;
         float goalSpeed = 360f;
 
-        float acceleration = 120f;
+        float acceleration = 40f;
 
         while (currentSpeed < goalSpeed)
         {
@@ -89,7 +89,7 @@ public class RotatePlanet : MonoBehaviour
 
         // make objects on planet fly into space
         float timer = 0f;
-        float goalTime = 0.1f;
+        float goalTime = 0.2f;
 
         while (transform.childCount > (gridSize + 1))
         {
