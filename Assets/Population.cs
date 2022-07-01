@@ -25,6 +25,7 @@ public class Population : MonoBehaviour
         if (gameObject.tag == "Planet_A")
         {
             onPlanet_A = true;
+            CreateStartCharacters_A();
         }
         else
         {
@@ -38,6 +39,42 @@ public class Population : MonoBehaviour
         }
         */
         StartCoroutine(CreateStartCharacters());
+    }
+
+    private void CreateStartCharacters_A()
+    {
+        for (int i = 0; i < 18; i++)
+        {
+            GameObject newChar = Instantiate(characterPrefab, transform);
+            Character charScript = newChar.GetComponent<Character>();
+
+            charScript.onPlanet_A = true;
+            charScript.onSurface = true;
+            // charScript.logging = true;
+            charScript.movingRight = true;
+            charScript.stationary = true;
+
+            charScript.startingSpace = i;
+
+            int random = Random.Range(0, 6);
+
+            if (random == 0)
+            {
+                charScript.tier = 1;
+            }
+            else if (random == 1)
+            {
+                charScript.tier = 2;
+            }
+            else if (random <= 4)
+            {
+                charScript.tier = 3;
+            }
+            else
+            {
+                charScript.tier = 4;
+            }
+        }
     }
 
     private IEnumerator CreateStartCharacters()
@@ -122,7 +159,7 @@ public class Population : MonoBehaviour
         yield break;
     }
 
-    public void CreateCharacterAtHouse(byte tier, bool planet_A)
+    public void CreateCharacterAtHouse(byte tier, bool planet_A, bool toRocket)
     {
         if (tier < 1 || tier > 4) return;
         GameObject newChar = Instantiate(characterPrefab, transform);
@@ -139,7 +176,7 @@ public class Population : MonoBehaviour
 
         newCharScript.currentPosition = angle;
         newCharScript.positionSinceLastGridSpace = angle % gameObject.GetComponent<PlanetGrid>().angleBetweenSpaces;
-        if (planet_A) newCharScript.goingToRocket = true;
+        if (planet_A && toRocket) newCharScript.goingToRocket = true;
 
         characters.Add(newChar);
 
@@ -150,25 +187,25 @@ public class Population : MonoBehaviour
 
     public void CreateOnPlanet_B_Tier_1()
     {
-        CreateCharacterAtHouse(1, false);
+        CreateCharacterAtHouse(1, false, false);
         UpdateCharacterCounter(1, 1);
     }
 
     public void CreateOnPlanet_B_Tier_2()
     {
-        CreateCharacterAtHouse(2, false);
+        CreateCharacterAtHouse(2, false, false);
         UpdateCharacterCounter(2, 1);
     }
 
     public void CreateOnPlanet_B_Tier_3()
     {
-        CreateCharacterAtHouse(3, false);
+        CreateCharacterAtHouse(3, false, false);
         UpdateCharacterCounter(3, 1);
     }
 
     public void CreateOnPlanet_B_Tier_4()
     {
-        CreateCharacterAtHouse(4, false);
+        CreateCharacterAtHouse(4, false, false);
         UpdateCharacterCounter(4, 1);
     }
 
@@ -180,22 +217,22 @@ public class Population : MonoBehaviour
 
     public void CreateOnPlanet_A_Tier_1()
     {
-        CreateCharacterAtHouse(1, true);
+        CreateCharacterAtHouse(1, true, true);
     }
 
     public void CreateOnPlanet_A_Tier_2()
     {
-        CreateCharacterAtHouse(2, true);
+        CreateCharacterAtHouse(2, true, true);
     }
 
     public void CreateOnPlanet_A_Tier_3()
     {
-        CreateCharacterAtHouse(3, true);
+        CreateCharacterAtHouse(3, true, true);
     }
 
     public void CreateOnPlanet_A_Tier_4()
     {
-        CreateCharacterAtHouse(4, true);
+        CreateCharacterAtHouse(4, true, true);
     }
 
     private IEnumerator CreateTestCharacter()
@@ -207,15 +244,19 @@ public class Population : MonoBehaviour
         {
             newChar.GetComponent<Character>().onPlanet_A = true;
             newChar.GetComponent<Character>().onSurface = true;
-            newChar.GetComponent<Character>().logging = false;
+            newChar.GetComponent<Character>().logging = true;
+            newChar.GetComponent<Character>().movingRight = true;
+
+            newChar.GetComponent<Character>().startingSpace = 7;
 
             newChar.GetComponent<Character>().tier = 1;
 
+            /*
             // create on random point for testing
             Vector3 direction = new Vector3();
-            direction.x = Random.Range(-10, 10);
+            direction.x = Random.Range(0, 10);
             if (direction.x == 0) direction.x = 1;
-            direction.y = Random.Range(-10, 10);
+            direction.y = Random.Range(0, 10);
             direction = direction.normalized;
 
             newChar.transform.localPosition += direction * transform.GetChild(0).localScale.x / 2f;
@@ -231,15 +272,18 @@ public class Population : MonoBehaviour
                 angle = 360f - Vector3.Angle(Vector3.up, direction);
             }
 
-            newChar.transform.Rotate(Vector3.forward, angle);
-
+            // newChar.transform.Rotate(Vector3.forward, angle);
+            */
             // Debug.Log(angle);
 
-            newChar.GetComponent<Character>().currentPosition = angle;
-            newChar.GetComponent<Character>().positionSinceLastGridSpace = angle % gameObject.GetComponent<PlanetGrid>().angleBetweenSpaces;
+            // float angle = newChar.GetComponent<Character>().startingSpace * gameObject.GetComponent<PlanetGrid>().angleBetweenSpaces;
+
+            // newChar.GetComponent<Character>().currentPosition = angle;
+            // newChar.GetComponent<Character>().positionSinceLastGridSpace = angle % gameObject.GetComponent<PlanetGrid>().angleBetweenSpaces;
         }
         else
         {
+            /*
             int i =  Random.Range(0, 2);
 
             if (i == 0)
@@ -254,6 +298,7 @@ public class Population : MonoBehaviour
             newChar.transform.localPosition += Vector3.up * transform.GetChild(0).localScale.x / 2f;
             newChar.GetComponent<Character>().onPlanet_A = false;
             newChar.GetComponent<Character>().onSurface = true;
+        */
         }
 
         characters.Add(newChar);

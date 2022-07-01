@@ -16,13 +16,13 @@ public class Character : MonoBehaviour
     private GameObject planet_A;
     private GameObject planet_B;
 
-    private float radiusPlanet_A;
-    private float radiusPlanet_B;
+    public float radiusPlanet_A;
+    public float radiusPlanet_B;
 
-    private float surfacePathDepth = 0.225f;
-    private float blackmarketPathDepth = 0.925f;
+    public float surfacePathDepth;
+    public float blackmarketPathDepth;
 
-    private List<SpriteRenderer> characterRenderer = new List<SpriteRenderer>();
+    public List<SpriteRenderer> characterRenderer = new List<SpriteRenderer>();
 
     public PlanetGrid planetGrid;
     private int gridSize;
@@ -64,6 +64,8 @@ public class Character : MonoBehaviour
     private int blackmarketStandPosition;
     private int blackmarketGasPerProduct = 18;
 
+    public bool goingHome; // true if character disappears next time they move by the house
+
     // visualising needs and time left to fulfill
     public GameObject thoughtBubble;
     public Image coolDownIndicator;
@@ -89,7 +91,13 @@ public class Character : MonoBehaviour
 
     private int characterNumber; // for sorting every character into their own layer to avoid conflicts
 
-    private Animator animator;
+    public Animator animator;
+
+    public SpriteMask spriteMask; // for blackmartket entry/exit animation
+    public SpriteMask spriteMask_1;
+    private BlackmarketAnimation blackmarketAnimation;
+
+    public int startingSpace;
 
     void Start()
     {
@@ -98,6 +106,9 @@ public class Character : MonoBehaviour
 
         radiusPlanet_A = planet_A.transform.GetChild(0).localScale.x / 2f;
         radiusPlanet_B = planet_B.transform.GetChild(0).localScale.x / 2f;
+
+        surfacePathDepth = 0.225f;
+        blackmarketPathDepth = 0.925f;
 
         speed = defaultSpeed;
 
@@ -110,16 +121,14 @@ public class Character : MonoBehaviour
         replacementCharacterTierChances.Add(replacementCharacterTierChance_2);
         replacementCharacterTierChances.Add(replacementCharacterTierChance_3);
 
-        characterRenderer.Add(transform.GetChild(0).GetComponent<SpriteRenderer>()); // placeholder
-
         SetupPlanetVariables();
         SetupConsumerVariables();
-
+        /*
         if (onSurface == false)
         {
             transform.Rotate(Vector3.forward, 180);
         }
-
+        */
         if (movingRight) directionMultiplier = (-1);
         else directionMultiplier = 1;
 
@@ -128,12 +137,89 @@ public class Character : MonoBehaviour
 
         // place character and thoughbubble in seperate sortingOrder to avoid conflicts
         GameState.totalCharacters++;
-        if (GameState.totalCharacters >= 150) GameState.totalCharacters = 0;
+        if (GameState.totalCharacters >= 100) GameState.totalCharacters = 0;
         characterNumber = GameState.totalCharacters;
+
+        characterRenderer.Add(transform.GetChild(0).GetComponent<SpriteRenderer>());
+        characterRenderer.Add(transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>());
+        characterRenderer.Add(transform.GetChild(0).GetChild(1).GetComponent<SpriteRenderer>());
+
+        foreach (SpriteRenderer renderer in characterRenderer)
+        {
+            renderer.sortingOrder = 510 + characterNumber;
+            renderer.flipX = true;
+        }
+
+        // setup sprite mask for blackmarket animation
+        spriteMask.frontSortingOrder = 510 + characterNumber;
+        spriteMask.backSortingOrder = 509 + characterNumber;
+
+        spriteMask_1.frontSortingOrder = 510 + characterNumber;
+        spriteMask_1.backSortingOrder = 509 + characterNumber;
+
         MoveToSurface();
 
         SetThoughtBubbleSortOrder();
         SetupAnimation();
+
+        PositionCharacterOnPlanet_A();
+    }
+
+    void Update()
+    {
+        MoveAroundPlanet();
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            // animator.SetBool("mount", true);
+        }
+    }
+
+    private void MoveAroundPlanet()
+    {
+        if (moving == false) return;
+
+        transform.parent.Rotate(Vector3.forward, speed * Time.deltaTime * directionMultiplier);
+
+        currentPosition += speed * Time.deltaTime * directionMultiplier;
+        if (movingRight == false && currentPosition > 360f) currentPosition -= 360f;
+        if (movingRight && currentPosition < 0f) currentPosition += 360f;
+
+        positionSinceLastGridSpace += speed * Time.deltaTime;
+        if (positionSinceLastGridSpace > distanceBetweenGridSpaces)
+        {
+            positionSinceLastGridSpace -= distanceBetweenGridSpaces;
+
+            int currentGridSpace = Mathf.RoundToInt(currentPosition / distanceBetweenGridSpaces);
+            if (currentGridSpace >= gridSize) currentGridSpace -= gridSize;
+
+            if (logging)
+            {
+                // Debug.Log(currentGridSpace);
+                if (planetGrid.gridSpaces[currentGridSpace].GetComponent<GridSpace>().building == null) return;
+                string newName = planetGrid.gridSpaces[currentGridSpace].GetComponent<GridSpace>().building.GetComponent<Building>().buildingName;
+                Debug.Log("Passed: " + newName);
+            }
+
+            if (goingHome)
+            {
+                GoHome(currentGridSpace);
+                return;
+            }
+
+            if (tier == 1) WaterTree(currentGridSpace);
+            if (goingToRocket) GoToRocket(currentGridSpace);
+            if (goingToBlackmarket) GoToBlackmarket(currentGridSpace);
+            Consume(currentGridSpace);
+            SpawnNewCharacters(currentGridSpace);
+        }
+    }
+
+    private void GoHome(int currentGridSpace)
+    {
+        if (currentGridSpace != gridSize * 0.5f || onPlanet_A == false) return;
+        planet_A.GetComponent<Population>().characters.Remove(gameObject);
+        Destroy(gameObject);
     }
 
     private IEnumerator CreateNeed()
@@ -152,7 +238,7 @@ public class Character : MonoBehaviour
         }
 
         int random;
-        if (speed == defaultSpeed) 
+        if (speed == defaultSpeed)
         {
             random = Random.Range(0, 5);
         }
@@ -166,17 +252,17 @@ public class Character : MonoBehaviour
         if (random <= 1)
         {
             wantsFood = true;
-            duration = 60;
+            duration = 61;
         }
         else if (random <= 3)
         {
             wantsPower = true;
-            duration = 60;
+            duration = 61;
         }
         else
         {
             wantsMobility = true;
-            duration = 90;
+            duration = 91;
         }
 
         UpdateThoughtBubble();
@@ -199,6 +285,14 @@ public class Character : MonoBehaviour
         {
             if ((wantsFood && goodFood) || (wantsPower && goodPower) || (wantsMobility && goodMobility))
             {
+                if (onPlanet_A)
+                {
+                    StartCoroutine(CreateNeed());
+                    planet_A.GetComponent<Ecosystem>().AddGas(blackmarketGasPerProduct * 0.5f);
+
+                    yield break;
+                }
+
                 // thoughtBubble.SetActive(false);
                 goingToRocket = true;
 
@@ -295,7 +389,6 @@ public class Character : MonoBehaviour
         wantsPower = false;
         wantsMobility = false;
 
-
         if (onPlanet_A == false) stationary = true;
         goingToRocket = false;
         planetGrid.gridSpaces[0].GetComponent<GridSpace>().building.GetComponent<SpaceStation>().AddEnteringPassenger(gameObject);
@@ -379,11 +472,8 @@ public class Character : MonoBehaviour
             else currentPlanet = planet_B;
 
             // check when char is over part that fits need
-            if (currentGridSpace > blackmarketStandPosition && (currentGridSpace <= blackmarketStandPosition + 6 || currentGridSpace == 0))
+            if (currentGridSpace > blackmarketStandPosition && (currentGridSpace < blackmarketStandPosition + 6 || currentGridSpace == 0))
             {
-                onSurface = false;
-                transform.Rotate(Vector3.forward, 180f);
-
                 MoveToBlackmarket();
 
                 currentPlanet.GetComponent<Ecosystem>().AddGas(blackmarketGasPerProduct);
@@ -392,6 +482,7 @@ public class Character : MonoBehaviour
                 if (wantsMobility)
                 {
                     SetSpeed(mountSpeed);
+                    // animator.SetBool("mount", true);
                     StartCoroutine(ResetVehicleAfter(vehicleDuration));
                 }
 
@@ -409,53 +500,11 @@ public class Character : MonoBehaviour
             // check if character can get blackmarket product
             if (currentGridSpace == blackmarketStandPosition)
             {
-                onSurface = true;
-                transform.Rotate(Vector3.forward, 180f);
-
                 MoveToSurface();
 
                 goingToBlackmarket = false;
                 StartCoroutine(CreateNeed());
             }
-        }
-    }
-
-    void Update()
-    {
-        MoveAroundPlanet();
-    }
-
-    private void MoveAroundPlanet()
-    {
-        if (moving == false) return;
-
-        transform.parent.Rotate(Vector3.forward, speed * Time.deltaTime * directionMultiplier);
-
-        currentPosition += speed * Time.deltaTime * directionMultiplier;
-        if (movingRight == false && currentPosition > 360f) currentPosition -= 360f;
-        if (movingRight && currentPosition < 0f) currentPosition += 360f;
-
-        positionSinceLastGridSpace += speed * Time.deltaTime;
-        if (positionSinceLastGridSpace > distanceBetweenGridSpaces)
-        {
-            positionSinceLastGridSpace -= distanceBetweenGridSpaces;
-
-            int currentGridSpace = Mathf.RoundToInt(currentPosition / distanceBetweenGridSpaces);
-            if (currentGridSpace >= gridSize) currentGridSpace -= gridSize;
-
-            if (logging)
-            {
-                Debug.Log(currentGridSpace);
-                // if (planetGrid.gridSpaces[currentGridSpace].GetComponent<GridSpace>().building == null) return;
-                // string newName = planetGrid.gridSpaces[currentGridSpace].GetComponent<GridSpace>().building.GetComponent<Building>().buildingName;
-                // Debug.Log("Passed: " + newName);
-            }
-
-            if (tier == 1) WaterTree(currentGridSpace);
-            if (goingToRocket) GoToRocket(currentGridSpace);
-            if (goingToBlackmarket) GoToBlackmarket(currentGridSpace);
-            Consume(currentGridSpace);
-            SpawnNewCharacters(currentGridSpace);
         }
     }
 
@@ -540,6 +589,11 @@ public class Character : MonoBehaviour
 
                 SetSpeed(carSpeed);
                 StartCoroutine(ResetVehicleAfter(vehicleDuration));
+                animator.SetBool("car", true);
+
+                characterRenderer[1].enabled = true;
+                characterRenderer[2].enabled = true;
+
             }
         }
     }
@@ -563,8 +617,10 @@ public class Character : MonoBehaviour
     private IEnumerator WaterAnimation()
     {
         moving = false;
+        animator.SetBool("watering", true);
         yield return new WaitForSeconds(1.5f);
-        moving = true;
+        animator.SetBool("watering", false);
+        if (GameState.gameOver == false || onPlanet_A == false) moving = true;
     }
 
     private IEnumerator ResetVehicleAfter(int duration)
@@ -572,6 +628,12 @@ public class Character : MonoBehaviour
         yield return new WaitForSeconds(duration);
 
         animator.SetBool("bike", false);
+        animator.SetBool("mount", false);
+        animator.SetBool("car", false);
+
+        characterRenderer[1].enabled = false;
+        characterRenderer[2].enabled = false;
+
         SetSpeed(defaultSpeed);
         yield break;
     }
@@ -584,7 +646,7 @@ public class Character : MonoBehaviour
         else currentPlanet = planet_B;
 
         GameObject newParent = Instantiate(emptyGameObject, currentPlanet.transform);
-        newParent.transform.Rotate(Vector3.forward, 360f - currentPosition);
+        newParent.transform.Rotate(Vector3.forward, currentPosition);
         transform.parent = newParent.transform;
         newParent.AddComponent<FlyIntoSpace>();
 
@@ -597,28 +659,41 @@ public class Character : MonoBehaviour
 
     private void MoveToSurface()
     {
-        transform.localPosition = Vector3.up * (radiusPlanet_A - surfacePathDepth);
-
-        foreach(SpriteRenderer renderer in characterRenderer)
+        if (onSurface)
         {
-            renderer.sortingOrder = 510 + characterNumber;
-            renderer.flipX = true;
+            // transform.Rotate(Vector3.forward, 180f);
+            transform.localPosition = Vector3.up * (radiusPlanet_A - surfacePathDepth);
+        }
+        else
+        {
+            blackmarketAnimation.StartExitAnimation();
         }
 
         if (onPlanet_A == false) thoughtBubble.SetActive(true);
+        onSurface = true;
     }
 
     private void MoveToBlackmarket()
     {
-        transform.localPosition = Vector3.up * (radiusPlanet_A - blackmarketPathDepth);
-        
+        // transform.Rotate(Vector3.forward, 180f);
+        // transform.localPosition = Vector3.up * (radiusPlanet_A - blackmarketPathDepth);
+
+        if (wantsMobility) blackmarketAnimation.getsMount = true;
+        blackmarketAnimation.StartEnterAnimation();
+        /*
         foreach (SpriteRenderer renderer in characterRenderer)
         {
             renderer.sortingOrder = 210 + characterNumber;
             renderer.flipX = false;
         }
 
+        // setup sprite mask for blackmarket animation
+        spriteMask.frontSortingOrder = 210 + characterNumber;
+        spriteMask.backSortingOrder = 209 + characterNumber;
+        
         thoughtBubble.SetActive(false);
+        */
+        onSurface = false;
     }
 
 
@@ -704,6 +779,8 @@ public class Character : MonoBehaviour
 
     private void SetupAnimation()
     {
+        blackmarketAnimation = gameObject.GetComponent<BlackmarketAnimation>();
+
         animator = transform.GetChild(0).GetComponent<Animator>();
 
         switch (tier)
@@ -728,5 +805,14 @@ public class Character : MonoBehaviour
     public void SetMoving(bool move)
     {
         moving = move;
+    }
+
+    private void PositionCharacterOnPlanet_A()
+    {
+        if (startingSpace == 0) return;
+        currentPosition = startingSpace * distanceBetweenGridSpaces;
+        transform.parent.Rotate(Vector3.forward, currentPosition);
+
+        transform.localRotation = Quaternion.identity;
     }
 }

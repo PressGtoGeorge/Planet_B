@@ -52,7 +52,7 @@ public class RotatePlanet : MonoBehaviour
         // placeholder
         if (Input.GetKeyDown(KeyCode.L) && collapsing == false)
         {
-            StartCoroutine(Collapse());
+            // StartCoroutine(Collapse());
         }
 
         StartCoroutine(GetRocket());
@@ -68,6 +68,7 @@ public class RotatePlanet : MonoBehaviour
     {
         if (gameObject.tag == "Planet_A") yield break;
 
+        GameState.gameOver = true;
         collapsing = true;
 
         // make rocket fly into outer space

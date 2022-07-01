@@ -47,9 +47,10 @@ public class PlanetGrid : MonoBehaviour
             GameObject newRocket = Instantiate(rocketPrefab, gridSpaces[0].transform);
             newRocket.transform.parent = transform;
         }
-
-        CreateTrees();
-
+        else
+        {
+            CreateTrees();
+        }
         /*
         for (int i = 0; i < 3; i++)
         {

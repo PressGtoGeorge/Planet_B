@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ButtonAnimation : MonoBehaviour
 {
-    private Collider2D collider2d;
+    public Collider2D collider2d;
     private SpriteRenderer backgroundRenderer;
     private SpriteRenderer textRenderer;
 

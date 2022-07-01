@@ -7,14 +7,19 @@ public class GameState : MonoBehaviour
 {
     public Slider gameSpeedSlider;
 
-    public static int totalCharacters = 0;
+    public static int totalCharacters;
     public static bool dragging; // true if dragging an object onto planet_b
 
     public List<GameObject> spawnButtons = new List<GameObject>();
 
+    public static bool gameOver;
+
     private void Start()
     {
-        Time.timeScale = 1;
+        Time.timeScale = 2;
+        totalCharacters = 0;
+
+        gameOver = false;
     }
 
     public void ChangeGameSpeed()
@@ -25,9 +30,19 @@ public class GameState : MonoBehaviour
 
     public void FadeInAllButtons()
     {
-        foreach(GameObject spawnButton in spawnButtons)
+        foreach (GameObject spawnButton in spawnButtons)
         {
-            spawnButton.GetComponent<ButtonAnimation>().StartFadeIn();
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            bool overButton = spawnButton.GetComponent<ButtonAnimation>().collider2d.OverlapPoint(mousePosition);
+
+            if (overButton == false)
+            {
+                spawnButton.GetComponent<ButtonAnimation>().StartFadeIn();
+            }
+            else
+            {
+                spawnButton.GetComponent<ButtonAnimation>().StartFadeOut();
+            }
         }
     }
 }
