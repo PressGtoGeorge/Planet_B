@@ -182,7 +182,7 @@ public class PlanetGrid : MonoBehaviour
     }
 
     // copied from stackoverflow to have less work
-    private int[] GetUniqueRandomArray(int min, int max, int count)
+    public static int[] GetUniqueRandomArray(int min, int max, int count)
     {
         int[] result = new int[count];
         List<int> numbersInOrder = new List<int>();

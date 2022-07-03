@@ -160,7 +160,7 @@ public class BlackmarketAnimation : MonoBehaviour
 
         holeSprite.localScale = Vector3.zero;
 
-        if (GameState.gameOver == false || charScript.onPlanet_A == false) charScript.SetMoving(true);
+        if (GameState.gameOver == false || charScript.onPlanet_A) charScript.SetMoving(true);
         animating = false;
         
         if (getsMount)
@@ -275,7 +275,7 @@ public class BlackmarketAnimation : MonoBehaviour
 
         holeSprite.localScale = Vector3.zero;
 
-        if (GameState.gameOver == false || charScript.onPlanet_A == false) charScript.SetMoving(true);
+        if (GameState.gameOver == false || charScript.onPlanet_A) charScript.SetMoving(true);
         animating = false;
 
         yield break;

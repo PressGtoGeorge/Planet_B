@@ -10193,6 +10193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49c7e575c49ba8549bc6beb5d8ec0005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentGas: 0
   startGas: 0
   fields: []
   gasAmountText: {fileID: 289440974}
@@ -11093,7 +11094,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49c7e575c49ba8549bc6beb5d8ec0005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startGas: 500
+  currentGas: 0
+  startGas: 0
   fields: []
   gasAmountText: {fileID: 0}
   test: 0

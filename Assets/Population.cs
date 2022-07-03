@@ -38,7 +38,15 @@ public class Population : MonoBehaviour
             StartCoroutine(CreateTestCharacter());
         }
         */
-        StartCoroutine(CreateStartCharacters());
+        StartCoroutine(CreateStartCharacters_B());
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            RemoveCharacterPlanet_A();
+        }
     }
 
     private void CreateStartCharacters_A()
@@ -74,10 +82,39 @@ public class Population : MonoBehaviour
             {
                 charScript.tier = 4;
             }
+
+            characters.Add(newChar);
         }
     }
 
-    private IEnumerator CreateStartCharacters()
+    public void RemoveCharacterPlanet_A()
+    {
+        if (gameObject.tag != "Planet_A") return;
+
+        // find worst tier character
+        int worstTier = 0;
+        GameObject replacedCharacter = null;
+
+        foreach (GameObject character in characters)
+        {
+            Character charScript = character.GetComponent<Character>();
+
+            if (charScript.goingToRocket == false && charScript.goingHome == false && charScript.tier > worstTier)
+            {
+                worstTier = character.GetComponent<Character>().tier;
+                replacedCharacter = character;
+            }
+        }
+
+        // make them go home
+        if (replacedCharacter != null)
+        {
+            replacedCharacter.GetComponent<Character>().goingHome = true;
+            // replacedCharacter.transform.localPosition += Vector3.up; //placeholder
+        }
+    }
+
+    private IEnumerator CreateStartCharacters_B()
     {
         // yield break; // placeholder
 

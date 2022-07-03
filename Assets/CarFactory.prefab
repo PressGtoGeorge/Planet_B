@@ -170,7 +170,7 @@ MonoBehaviour:
   house: 0
   spaceStation: 0
   buildingName: carFactory
-  productPrefab: {fileID: 3729967383974157830, guid: cc9e98e78515db04f8e72600d13667db, type: 3}
+  productPrefab: {fileID: 3729967383974157830, guid: 6818782cff8613441bdf096ebd4a86c8, type: 3}
   level: 0
   productionTimeOnLevel:
   - 120
@@ -183,6 +183,7 @@ MonoBehaviour:
   storedAmount: 0
   ecosystem: {fileID: 0}
   startOnPlanet: 0
+  emptyGameObject: {fileID: 3072696478694291483, guid: 12a89fa45d0d53a4f9a0358518987aae, type: 3}
 --- !u!82 &-7643575818581834811
 AudioSource:
   m_ObjectHideFlags: 0

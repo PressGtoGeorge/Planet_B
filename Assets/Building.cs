@@ -35,6 +35,8 @@ public class Building : MonoBehaviour
     public bool startOnPlanet;
     private float buildingCost = 12f;
 
+    public GameObject emptyGameObject;
+
     void Start()
     {
         maximumStorage = 4;
@@ -122,10 +124,26 @@ public class Building : MonoBehaviour
 
     private void InstantiateProduct()
     {
+        GameObject emptyParent = Instantiate(emptyGameObject, transform);
         GameObject newProduct = Instantiate(productPrefab, transform);
 
-        newProduct.transform.localScale = Vector3.one;
-        newProduct.transform.localPosition += Vector3.up * -0.03f + Vector3.up * storedAmount * -0.06f;
+        emptyParent.transform.localScale = new Vector3(1f / transform.localScale.x, 1f / transform.localScale.y, 1f / transform.localScale.z);
+        emptyParent.transform.position = ecosystem.transform.position;
+
+        newProduct.transform.localScale = new Vector3(1f / transform.localScale.x, 1f / transform.localScale.y, 1f / transform.localScale.z) * 0.6f;
+
+        emptyParent.transform.parent = null;
+        newProduct.transform.parent = emptyParent.transform;
+
+        float rotate = -1.5f + storedAmount;
+        emptyParent.transform.Rotate(Vector3.forward, rotate * -5f);
+        newProduct.transform.localPosition += Vector3.up * -0.5f;
+
+        newProduct.transform.parent = transform;
+        newProduct.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder -= storedAmount;
+
+        Destroy(emptyParent);
+        // newProduct.transform.localPosition += Vector3.up * -0.03f + Vector3.up * storedAmount * -0.06f;
 
         storedProducts.Push(newProduct);
 
@@ -148,7 +166,7 @@ public class Building : MonoBehaviour
 
         if (tree == false)
         {
-            ecosystem.AddGas(buildingCost);
+            // ecosystem.AddGas(buildingCost);
         }
 
         Produce();

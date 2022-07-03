@@ -408,7 +408,9 @@ public class Character : MonoBehaviour
 
         Population planet_A_Population = planet_A.GetComponent<Population>();
         Population planet_B_Population = planet_B.GetComponent<Population>();
-        
+
+        planet_A_Population.RemoveCharacterPlanet_A();
+
         if (planet_B_Population.characters.Count < planet_B_Population.maxPopulation - planet_B_Population.populationComingWithNextRocket - 1)
         {
             // create two semi-random replacements
@@ -620,7 +622,7 @@ public class Character : MonoBehaviour
         animator.SetBool("watering", true);
         yield return new WaitForSeconds(1.5f);
         animator.SetBool("watering", false);
-        if (GameState.gameOver == false || onPlanet_A == false) moving = true;
+        if (GameState.gameOver == false || onPlanet_A) moving = true;
     }
 
     private IEnumerator ResetVehicleAfter(int duration)

@@ -604,7 +604,7 @@ MonoBehaviour:
   house: 0
   spaceStation: 0
   buildingName: windWheel
-  productPrefab: {fileID: 3729967383974157830, guid: cc9e98e78515db04f8e72600d13667db, type: 3}
+  productPrefab: {fileID: 3729967383974157830, guid: 27de5c02f11d41f4180f8010a1a42220, type: 3}
   level: 0
   productionTimeOnLevel:
   - 120
@@ -617,6 +617,7 @@ MonoBehaviour:
   storedAmount: 0
   ecosystem: {fileID: 0}
   startOnPlanet: 0
+  emptyGameObject: {fileID: 3072696478694291483, guid: 12a89fa45d0d53a4f9a0358518987aae, type: 3}
 --- !u!82 &-2640941443372659401
 AudioSource:
   m_ObjectHideFlags: 0

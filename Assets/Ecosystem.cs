@@ -8,7 +8,7 @@ public class Ecosystem : MonoBehaviour
     private float currentTemp;
     private float startTemp = 37.5f;
 
-    private float currentGas;
+    public float currentGas;
     public int startGas = 0;
     private int endGas = 1000;
 
@@ -18,10 +18,16 @@ public class Ecosystem : MonoBehaviour
 
     [Range(0, 1000)] public float test;
 
+    private Planet_A_Behaviour planet_A_Behaviour;
+    private float planetProgress = 0;
+    private float changeProgressAfter = 50;
+
     void Start()
     {
         currentTemp = startTemp;
         currentGas = startGas;
+
+        if (gameObject.tag == "Planet_B") planet_A_Behaviour = GameObject.FindGameObjectWithTag("Planet_A").GetComponent<Planet_A_Behaviour>();
     }
 
     public void AddGas(float amount)
@@ -32,6 +38,9 @@ public class Ecosystem : MonoBehaviour
         currentTemp = startTemp + 0.0035f * currentGas;
         // Debug.Log(currentGas);
         if (gasAmountText != null) gasAmountText.text = currentGas.ToString();
+
+        planetProgress += amount;
+        if (planet_A_Behaviour != null) CheckPlanetProgress();
     }
 
     private void Update0() // for testing, remove 0
@@ -54,6 +63,15 @@ public class Ecosystem : MonoBehaviour
     public float GetCurrentGas()
     {
         return currentGas;
+    }
+
+    private void CheckPlanetProgress()
+    {
+        if (planetProgress > changeProgressAfter)
+        {
+            planetProgress -= changeProgressAfter;
+            planet_A_Behaviour.ProgressPlanet();
+        }
     }
 
 }

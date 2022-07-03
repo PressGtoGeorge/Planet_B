@@ -415,6 +415,7 @@ MonoBehaviour:
   storedAmount: 0
   ecosystem: {fileID: 0}
   startOnPlanet: 1
+  emptyGameObject: {fileID: 3072696478694291483, guid: 12a89fa45d0d53a4f9a0358518987aae, type: 3}
 --- !u!114 &4619977416763269594
 MonoBehaviour:
   m_ObjectHideFlags: 0
