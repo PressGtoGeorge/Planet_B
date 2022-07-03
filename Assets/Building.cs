@@ -136,7 +136,13 @@ public class Building : MonoBehaviour
         newProduct.transform.parent = emptyParent.transform;
 
         float rotate = -1.5f + storedAmount;
-        emptyParent.transform.Rotate(Vector3.forward, rotate * -5f);
+
+        float angle;
+
+        if (bikeFactory || carFactory) angle = -4f;
+        else angle = -3f;
+
+        emptyParent.transform.Rotate(Vector3.forward, rotate * angle);
         newProduct.transform.localPosition += Vector3.up * -0.5f;
 
         newProduct.transform.parent = transform;
