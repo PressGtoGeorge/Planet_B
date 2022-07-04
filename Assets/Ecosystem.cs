@@ -22,16 +22,22 @@ public class Ecosystem : MonoBehaviour
     private float planetProgress = 0;
     private float changeProgressAfter = 50;
 
+    private RotatePlanet rotatePlanet;
+
     void Start()
     {
         currentTemp = startTemp;
         currentGas = startGas;
 
         if (gameObject.tag == "Planet_B") planet_A_Behaviour = GameObject.FindGameObjectWithTag("Planet_A").GetComponent<Planet_A_Behaviour>();
+
+        rotatePlanet = gameObject.GetComponent<RotatePlanet>();
     }
 
     public void AddGas(float amount)
     {
+        if (rotatePlanet.collapsed || rotatePlanet.collapsing) return;
+
         currentGas += amount;
         currentGas = Mathf.Clamp(currentGas, (-1f) * Mathf.Infinity, endGas);
 
