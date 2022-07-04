@@ -23,9 +23,18 @@ public class RotatePlanet : MonoBehaviour
     private Ecosystem ecosystem;
     private GameObject rocket;
 
+    private AudioSource collapseSource;
+
+    [Range(0, 1)] public float minVolume;
+    [Range(0, 1)] public float maxVolume;
+
+    [Range(-3, 3)] public float minPitch;
+    [Range(-3, 3)] public float maxPitch;
+
     private void Start()
     {
         gridSize = gameObject.GetComponent<PlanetGrid>().gridSize;
+        if (gameObject.tag == "Planet_B") collapseSource = gameObject.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -52,7 +61,7 @@ public class RotatePlanet : MonoBehaviour
         // placeholder
         if (Input.GetKeyDown(KeyCode.L) && collapsing == false)
         {
-            // StartCoroutine(Collapse());
+            StartCoroutine(Collapse());
         }
 
         StartCoroutine(GetRocket());
@@ -71,6 +80,8 @@ public class RotatePlanet : MonoBehaviour
         GameState.gameOver = true;
         collapsing = true;
 
+        collapseSource.Play();
+
         // make rocket fly into outer space
         rocket.GetComponent<FlyIntoSpace>().Fly();
 
@@ -85,8 +96,15 @@ public class RotatePlanet : MonoBehaviour
         {
             currentSpeed += acceleration * Time.unscaledDeltaTime; // always unscaled
             transform.Rotate(Vector3.forward, currentSpeed * Time.unscaledDeltaTime); // always unscaled
+
+            collapseSource.volume = minVolume + (currentSpeed / goalSpeed) * (maxVolume - minVolume);
+            collapseSource.pitch = minPitch + (currentSpeed / goalSpeed) * (maxPitch - minPitch);
+
             yield return null;
         }
+
+        collapseSource.volume = maxVolume;
+        collapseSource.pitch = maxPitch;
 
         // make objects on planet fly into space
         float timer = 0f;
@@ -117,8 +135,16 @@ public class RotatePlanet : MonoBehaviour
         {
             currentSpeed -= acceleration * deltaTime;
             transform.Rotate(Vector3.forward, currentSpeed * Time.unscaledDeltaTime); // always unscaled
+
+            collapseSource.volume = (currentSpeed / 360f) * maxVolume;
+            collapseSource.pitch = minPitch + (currentSpeed / 360f) * (maxPitch - minPitch);
+
             yield return null;
         }
+
+        collapseSource.volume = 0;
+        collapseSource.pitch = minPitch;
+        collapseSource.Stop();
 
         collapsing = false;
         collapsed = true;
