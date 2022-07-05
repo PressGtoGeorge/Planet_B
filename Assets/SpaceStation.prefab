@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1046568634461195334}
   - component: {fileID: 6102657070842407326}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: -2753573411817212315}
   - component: {fileID: -732352016790579348}
   - component: {fileID: 4497296835766494662}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpaceStation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,6 +157,7 @@ MonoBehaviour:
   storedAmount: 0
   ecosystem: {fileID: 0}
   startOnPlanet: 0
+  emptyGameObject: {fileID: 0}
 --- !u!114 &4497296835766494662
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7413094665430869854}
   - component: {fileID: 8976966428078275804}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 903593877170391831}
   - component: {fileID: 4057112254755835307}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,7 +174,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5198475343889295768}
   - component: {fileID: 5198475343889295769}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -259,7 +259,7 @@ GameObject:
   - component: {fileID: 3406650345020250129}
   - component: {fileID: 3393772474189820794}
   - component: {fileID: 1977902046439120184}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PowerPlant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -454,7 +454,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2177744194597463137}
   - component: {fileID: 8933496092012300094}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -536,7 +536,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2218486320012327639}
   - component: {fileID: 2706860901615244186}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CurrentSpaceIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}

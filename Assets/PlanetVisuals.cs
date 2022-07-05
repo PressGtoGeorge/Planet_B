@@ -45,6 +45,11 @@ public class PlanetVisuals : MonoBehaviour
     public AudioSource wheelSource;
     private float maxVolume = 0.2f;
 
+    public Camera planet_B_Camera;
+
+    private bool switchedLastFrame;
+    private bool switchingLastFrame;
+
     private void Start()
     {
         ecosystem = gameObject.GetComponent<Ecosystem>();
@@ -177,22 +182,26 @@ public class PlanetVisuals : MonoBehaviour
 
     private void UpdateForegroundTransparency()
     {
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
+        Vector2 mousePosition = planet_B_Camera.ScreenToWorldPoint(Input.mousePosition);
         overPlanet = collider2d.OverlapPoint(mousePosition);
 
-        if (overPlanet && overPlanetLastFrame == false && fadingWhileJustSwitched == false)
+        if ((overPlanet && overPlanetLastFrame == false && fadingWhileJustSwitched == false && GameState.switched == false && GameState.switching == false) 
+            || (overPlanet && switchingLastFrame && GameState.switched == false && GameState.switching == false && fadingWhileJustSwitched == false))
         {
             if (fadeIn != null) StopCoroutine(fadeIn);
             fadeOut = StartCoroutine(FadeOut());
         }
-        else if (overPlanet == false && overPlanetLastFrame && fadingWhileJustSwitched == false)
+        else if ((overPlanet == false && overPlanetLastFrame && fadingWhileJustSwitched == false && GameState.switched == false)
+            || (GameState.switched == false && GameState.switching && switchingLastFrame == false && fadingWhileJustSwitched == false))
         {
             if (fadeOut != null) StopCoroutine(fadeOut);
             fadeIn = StartCoroutine(FadeIn());
         }
 
         if (fadingWhileJustSwitched == false) overPlanetLastFrame = overPlanet;
+
+        switchedLastFrame = GameState.switched;
+        switchingLastFrame = GameState.switching;
     }
 
     private IEnumerator FadeOut()

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4893243092817580486}
   - component: {fileID: 8684239293399008020}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprites (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 1875472307035138591}
   - component: {fileID: 9163364923704469859}
   - component: {fileID: 2042090545995593463}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 4987364002410608285}
   - component: {fileID: 3086973146513590140}
   - component: {fileID: 111072014956222469}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,7 +286,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5799939915004043726}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -318,7 +318,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7663500717834854863}
   - component: {fileID: 3176011709905825552}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprites (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -402,7 +402,7 @@ GameObject:
   - component: {fileID: 7054869452389175400}
   - component: {fileID: 419286624506026517}
   - component: {fileID: 5269873706315010674}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -502,7 +502,7 @@ GameObject:
   - component: {fileID: 7539748453058116177}
   - component: {fileID: 5361939966400439474}
   - component: {fileID: -2640941443372659401}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WindWheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -724,7 +724,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6028725043689419097}
   - component: {fileID: 6028725043689419096}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprites
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -808,7 +808,7 @@ GameObject:
   - component: {fileID: 2527475401276287989}
   - component: {fileID: 8211455730814041881}
   - component: {fileID: 7314825649918735633}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -904,7 +904,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4020708415936455059}
   - component: {fileID: 7232482331923728690}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprites (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

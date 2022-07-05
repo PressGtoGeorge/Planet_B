@@ -61,7 +61,7 @@ public class RotatePlanet : MonoBehaviour
         // placeholder
         if (Input.GetKeyDown(KeyCode.L) && collapsing == false)
         {
-            StartCoroutine(Collapse());
+            // StartCoroutine(Collapse());
         }
 
         StartCoroutine(GetRocket());

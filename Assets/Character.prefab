@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6874759174785815824}
   - component: {fileID: 7216901589410487334}
   - component: {fileID: 2361722099561601443}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wheel (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5502747506872188255}
   - component: {fileID: 4614302214775602063}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpriteMask_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 3144626619932899888}
   - component: {fileID: 6214412933090290179}
   - component: {fileID: 1437980813549175009}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,7 +285,7 @@ GameObject:
   m_Component:
   - component: {fileID: 649253979857142930}
   - component: {fileID: 1932928191255990226}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Symbol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -368,7 +368,7 @@ GameObject:
   - component: {fileID: 272284794862643022}
   - component: {fileID: 399261923414025051}
   - component: {fileID: 2620042319240608777}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: PercentIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -444,7 +444,7 @@ GameObject:
   - component: {fileID: 6255835017399396674}
   - component: {fileID: 1298880136751131101}
   - component: {fileID: 8522125753351532274}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -543,7 +543,7 @@ GameObject:
   - component: {fileID: 6409922237126398584}
   - component: {fileID: 5997710321266331886}
   - component: {fileID: 1196989248708699952}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -642,7 +642,7 @@ GameObject:
   - component: {fileID: 6409922237604512694}
   - component: {fileID: 6409922237604512695}
   - component: {fileID: 8890092126921093318}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -746,7 +746,7 @@ GameObject:
   - component: {fileID: 4650151371566161836}
   - component: {fileID: 3176887869350316454}
   - component: {fileID: 5313002988277868390}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ThoughtBubbleBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -851,7 +851,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3411348491426187939}
   - component: {fileID: 6106204558499789493}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpriteMask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -932,7 +932,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2872979645568111207}
   - component: {fileID: 6488172767396053596}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hole
   m_TagString: Untagged
   m_Icon: {fileID: 0}

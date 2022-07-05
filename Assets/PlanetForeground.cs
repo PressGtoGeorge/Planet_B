@@ -15,6 +15,10 @@ public class PlanetForeground : MonoBehaviour
     public AudioSource wheelSource;
     private float maxVolume = 0.2f;
 
+    public Camera planet_A_Camera;
+    private bool switchedLastFrame;
+    private bool switchingLastFrame;
+
     private void Start()
     {
         renderer2d = gameObject.GetComponent<SpriteRenderer>();
@@ -25,22 +29,24 @@ public class PlanetForeground : MonoBehaviour
 
     private void Update()
     {
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
+        Vector2 mousePosition = planet_A_Camera.ScreenToWorldPoint(Input.mousePosition);
         overPlanet = collider2d.OverlapPoint(mousePosition);
 
-        if (overPlanet && overPlanetLastFrame == false)
+        if ((overPlanet && overPlanetLastFrame == false && GameState.switched && GameState.switching == false) || (overPlanet && switchingLastFrame && GameState.switched && GameState.switching == false))
         {
             StopAllCoroutines();
             StartCoroutine(FadeOut());
         }
-        else if (overPlanet == false && overPlanetLastFrame)
+        else if ((overPlanet == false && overPlanetLastFrame && GameState.switched) || (GameState.switched && GameState.switching && switchingLastFrame == false))
         {
             StopAllCoroutines();
             StartCoroutine(FadeIn());
         }
 
         overPlanetLastFrame = overPlanet;
+
+        switchedLastFrame = GameState.switched;
+        switchingLastFrame = GameState.switching;
     }
 
     private IEnumerator FadeOut()

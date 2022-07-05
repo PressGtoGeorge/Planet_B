@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7592796684017900283}
   - component: {fileID: 7119626374151852675}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: IndicatorSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8046578678129310200}
   - component: {fileID: 2487188897424456597}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: TreeSprite (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: -8485450500132653414}
   - component: {fileID: 152759962558406945}
   - component: {fileID: -4627716481908791451}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: Tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -416,7 +416,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2769427456237047575}
   - component: {fileID: 444056001071976087}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: TreeSprite (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -498,7 +498,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2387366865103915462}
   - component: {fileID: 4626819321858503010}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: TreeSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -580,7 +580,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1446321824213306219}
   - component: {fileID: 8716419504724863181}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: GrowingSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -662,7 +662,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6585241225222010738}
   - component: {fileID: 225469343342065844}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: CurrentSpaceIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}

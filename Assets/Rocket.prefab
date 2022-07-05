@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1074430244046405702}
   - component: {fileID: 713592732885340201}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2091978846354650347}
   - component: {fileID: 2091978846354650346}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Backside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -176,7 +176,7 @@ GameObject:
   - component: {fileID: -5378627207414295907}
   - component: {fileID: -4614781802147279144}
   - component: {fileID: 7354296193908021380}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Rocket
   m_TagString: Rocket
   m_Icon: {fileID: 0}

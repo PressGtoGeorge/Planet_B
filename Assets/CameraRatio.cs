@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class CameraRatio : MonoBehaviour
 {
+    public float orthographicStartSize;
+
     private void Update()
     {
         float aspectRatioDesign = (16f / 9f);
-        float orthographicStartSize = 5f;
 
         float inverseAspectRatio = 1 / aspectRatioDesign;
         float currentAspectRatio = (float)Screen.width / (float)Screen.height;

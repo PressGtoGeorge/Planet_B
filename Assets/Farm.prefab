@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2666012258062981509}
   - component: {fileID: 1899354874016675985}
   - component: {fileID: -1559519511900947525}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Farm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,7 +208,7 @@ GameObject:
   m_Component:
   - component: {fileID: 488839238020286604}
   - component: {fileID: 488839238020286605}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,7 +290,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7032852371900088942}
   - component: {fileID: 7484086525688015952}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,7 +372,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8113936040301771146}
   - component: {fileID: 1026047838917281731}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -453,7 +453,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7586532119809662471}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CurrentSpaceIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -485,7 +485,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6029400634556808241}
   - component: {fileID: 8071046294908058959}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: IndicatorSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

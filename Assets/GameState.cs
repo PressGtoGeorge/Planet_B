@@ -13,6 +13,8 @@ public class GameState : MonoBehaviour
     public List<GameObject> spawnButtons = new List<GameObject>();
 
     public static bool gameOver;
+    public static bool switched;
+    public static bool switching;
 
     private void Start()
     {
@@ -20,6 +22,8 @@ public class GameState : MonoBehaviour
         totalCharacters = 0;
 
         gameOver = false;
+        switched = false;
+        switching = false;
     }
 
     public void ChangeGameSpeed()

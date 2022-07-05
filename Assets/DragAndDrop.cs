@@ -68,6 +68,7 @@ public class DragAndDrop : MonoBehaviour
         foreach (SpriteRenderer renderer in spriteRenderers)
         {
             renderer.sortingOrder += 10000;
+            renderer.gameObject.layer = 0;
         }
 
         dropSource = gameObject.GetComponent<AudioSource>();
@@ -261,6 +262,7 @@ public class DragAndDrop : MonoBehaviour
         foreach (SpriteRenderer renderer in spriteRenderers)
         {
             renderer.sortingOrder -= 10000;
+            renderer.gameObject.layer = 6;
         }
 
         GameObject currentGridSpace = planetGrid.NextGridSpace(transform.position);

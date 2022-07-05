@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2024002828640264995}
   - component: {fileID: 5064286038922534895}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8424815840454518739}
   - component: {fileID: 3221481423999675807}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: IndicatorSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: -398810373475361932}
   - component: {fileID: 1733081433748654632}
   - component: {fileID: -7094351490434399819}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BikeFactory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,7 +372,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4699346937915733949}
   - component: {fileID: 4699346937915733950}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -454,7 +454,7 @@ GameObject:
   m_Component:
   - component: {fileID: 697225235225740178}
   - component: {fileID: 9221687725520983911}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -535,7 +535,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3950115107926304217}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CurrentSpaceIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}

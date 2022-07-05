@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6681073570070443361}
   - component: {fileID: 7454523499206280631}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GridSpaceEdge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5704742360826959878}
   - component: {fileID: 4302995552564323018}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

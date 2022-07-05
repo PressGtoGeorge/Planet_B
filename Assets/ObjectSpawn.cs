@@ -15,6 +15,8 @@ public class ObjectSpawn : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (GameState.switching || GameState.switched) return;
+
         GameObject newObject = Instantiate(prefab, transform);
         newObject.transform.parent = null;
 

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 834765289596148141}
   - component: {fileID: 834765289596148140}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: -7308109250781649716}
   - component: {fileID: 2725709877181196198}
   - component: {fileID: -7643575818581834811}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CarFactory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,7 +290,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1195970681891294827}
   - component: {fileID: 8597033084828572103}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CurrentSpaceIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -373,7 +373,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2618265243590759882}
   - component: {fileID: 3198531864358131887}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -455,7 +455,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1939425926800046561}
   - component: {fileID: 985622562939346182}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: IndicatorSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -537,7 +537,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5326551032911496347}
   - component: {fileID: 5558903589802969635}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
