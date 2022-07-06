@@ -23,5 +23,6 @@ public class PauseMenuButton : MonoBehaviour
     {
         pauseMenu.SetActive(true);
         GameState.pauseMenuOpen = true;
+        GameState.gameSpeedSlider.interactable = false;
     }
 }

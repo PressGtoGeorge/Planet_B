@@ -6,7 +6,8 @@ using UnityEngine.Audio;
 
 public class GameState : MonoBehaviour
 {
-    public Slider gameSpeedSlider;
+    public Slider setGameSpeedSlider;
+    public static Slider gameSpeedSlider;
 
     public static int totalCharacters;
     public static bool dragging; // true if dragging an object onto planet_b
@@ -30,6 +31,8 @@ public class GameState : MonoBehaviour
         Time.timeScale = 2;
         totalCharacters = 0;
 
+        gameSpeedSlider = setGameSpeedSlider;
+
         gameOver = false;
         switched = false;
         switching = false;
@@ -39,7 +42,7 @@ public class GameState : MonoBehaviour
         effectsGroup = setEffectsGroup;
     }
 
-    public void ChangeGameSpeed()
+    public void ChangeGameSpeed() // called by event system when slider changes value
     {
         float newGameSpeed = gameSpeedSlider.value;
         Time.timeScale = newGameSpeed;

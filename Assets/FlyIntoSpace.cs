@@ -17,6 +17,7 @@ public class FlyIntoSpace : MonoBehaviour
         source = gameObject.AddComponent<AudioSource>();
         source.clip = GameState.flyAudio;
         source.outputAudioMixerGroup = GameState.effectsGroup;
+        source.playOnAwake = false;
     }
 
     public void Fly()
@@ -27,7 +28,7 @@ public class FlyIntoSpace : MonoBehaviour
 
     private IEnumerator Flying()
     {
-        source.pitch = Random.Range(0.8f, 1.2f);
+        source.pitch = Random.Range(0.5f, 1.5f);
         if (gameObject.GetComponent<RocketAnimation>() == null) source.Play();
 
         transform.parent = null;

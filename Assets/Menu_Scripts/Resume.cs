@@ -23,6 +23,7 @@ public class Resume : MonoBehaviour
     {
         pauseMenu.SetActive(false);
         GameState.pauseMenuOpen = false;
+        GameState.gameSpeedSlider.interactable = true;
 
         gameObject.GetComponent<SpriteRenderer>().sprite = disabledSprite;
     }
