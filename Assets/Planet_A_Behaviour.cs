@@ -29,6 +29,8 @@ public class Planet_A_Behaviour : MonoBehaviour
 
     private int[] replacementOrder;
 
+    public GameObject explosionPrefab;
+
     void Start()
     {
         gridSpaces = gameObject.GetComponent<PlanetGrid>().gridSpaces;
@@ -173,6 +175,10 @@ public class Planet_A_Behaviour : MonoBehaviour
 
     private void DestroyBuilding(int pos)
     {
+        // instantiate explosion
+        GameObject newExplosion = Instantiate(explosionPrefab, gridSpaces[pos].GetComponent<GridSpace>().building.transform);
+        newExplosion.transform.parent = null;
+
         if (gridSpaces[pos].GetComponent<GridSpace>().building.GetComponent<Building>().field)
             gameObject.GetComponent<Ecosystem>().fields.Remove(gridSpaces[pos].GetComponent<GridSpace>().building);
 

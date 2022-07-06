@@ -32,7 +32,8 @@ public class PlanetForeground : MonoBehaviour
         Vector2 mousePosition = planet_A_Camera.ScreenToWorldPoint(Input.mousePosition);
         overPlanet = collider2d.OverlapPoint(mousePosition);
 
-        if ((overPlanet && overPlanetLastFrame == false && GameState.switched && GameState.switching == false) || (overPlanet && switchingLastFrame && GameState.switched && GameState.switching == false))
+        if (((overPlanet && overPlanetLastFrame == false && GameState.switched && GameState.switching == false) || (overPlanet && switchingLastFrame && GameState.switched && GameState.switching == false))
+            && GameState.pauseMenuOpen == false)
         {
             StopAllCoroutines();
             StartCoroutine(FadeOut());

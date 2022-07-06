@@ -18,6 +18,8 @@ public class Demolish : MonoBehaviour
 
     private GameState gameState;
 
+    public GameObject explosionPrefab;
+
     private void Start()
     {
         planet_B = GameObject.FindGameObjectWithTag("Planet_B");
@@ -107,6 +109,10 @@ public class Demolish : MonoBehaviour
         Destroy(currentGridSpace.GetComponent<GridSpace>().building);
         currentGridSpace.GetComponent<GridSpace>().building = null;
         currentGridSpace.GetComponent<GridSpace>().occupied = false;
+
+        // instantiate explosion
+        GameObject newExplosion = Instantiate(explosionPrefab, currentGridSpaceIndicator.transform);
+        newExplosion.transform.parent = null;
 
         Destroy(gameObject);
     }

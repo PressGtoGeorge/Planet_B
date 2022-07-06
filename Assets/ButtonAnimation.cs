@@ -29,7 +29,7 @@ public class ButtonAnimation : MonoBehaviour
 
         overButton = collider2d.OverlapPoint(mousePosition);
 
-        if (overButton && overButtonLastFrame == false && GameState.dragging == false)
+        if (overButton && overButtonLastFrame == false && GameState.dragging == false && GameState.pauseMenuOpen == false)
         {
             StartFadeOut();
         }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class GameState : MonoBehaviour
 {
@@ -16,6 +17,14 @@ public class GameState : MonoBehaviour
     public static bool switched;
     public static bool switching;
 
+    public static bool pauseMenuOpen;
+
+    public static AudioClip flyAudio;
+    public AudioClip setFlyAudio;
+
+    public static AudioMixerGroup effectsGroup;
+    public AudioMixerGroup setEffectsGroup;
+
     private void Start()
     {
         Time.timeScale = 2;
@@ -24,6 +33,10 @@ public class GameState : MonoBehaviour
         gameOver = false;
         switched = false;
         switching = false;
+        pauseMenuOpen = false;
+
+        flyAudio = setFlyAudio;
+        effectsGroup = setEffectsGroup;
     }
 
     public void ChangeGameSpeed()

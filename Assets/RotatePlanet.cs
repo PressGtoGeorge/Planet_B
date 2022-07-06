@@ -13,7 +13,7 @@ public class RotatePlanet : MonoBehaviour
 
     private int gridSize;
 
-    public bool rotating;
+    // public bool rotating;
 
     private float yearDuration = 120f;
     private float timePassedSinceLastYear;
@@ -43,7 +43,7 @@ public class RotatePlanet : MonoBehaviour
 
         SetDeltaTime();
 
-        if (collapsed == false && rotating) transform.Rotate(Vector3.forward, speed * deltaTime);
+        if (collapsed == false && !Settings.stopRotation) transform.Rotate(Vector3.forward, speed * deltaTime);
 
         timePassedSinceLastYear += Time.deltaTime; // always unscaled
         if (timePassedSinceLastYear >= yearDuration)
@@ -61,7 +61,7 @@ public class RotatePlanet : MonoBehaviour
         // placeholder
         if (Input.GetKeyDown(KeyCode.L) && collapsing == false)
         {
-            // StartCoroutine(Collapse());
+            StartCoroutine(Collapse());
         }
 
         StartCoroutine(GetRocket());

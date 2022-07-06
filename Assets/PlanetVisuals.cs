@@ -23,8 +23,8 @@ public class PlanetVisuals : MonoBehaviour
     private float rest = 1;
 
     // for fading foreground in/out
-    private bool overPlanet;
-    private bool overPlanetLastFrame;
+    private bool overPlanet = true;
+    private bool overPlanetLastFrame = true;
 
     private bool passedSwitchPoint;
     private bool justSwitched;
@@ -185,8 +185,9 @@ public class PlanetVisuals : MonoBehaviour
         Vector2 mousePosition = planet_B_Camera.ScreenToWorldPoint(Input.mousePosition);
         overPlanet = collider2d.OverlapPoint(mousePosition);
 
-        if ((overPlanet && overPlanetLastFrame == false && fadingWhileJustSwitched == false && GameState.switched == false && GameState.switching == false) 
+        if (((overPlanet && overPlanetLastFrame == false && fadingWhileJustSwitched == false && GameState.switched == false && GameState.switching == false)
             || (overPlanet && switchingLastFrame && GameState.switched == false && GameState.switching == false && fadingWhileJustSwitched == false))
+            && GameState.pauseMenuOpen == false)
         {
             if (fadeIn != null) StopCoroutine(fadeIn);
             fadeOut = StartCoroutine(FadeOut());

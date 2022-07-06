@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentGridSpaceIndicator: {fileID: 7890897031015099000}
+  explosionPrefab: {fileID: 7362643891661292182, guid: 55781afde2e9bb845b635d1082c99a16, type: 3}
 --- !u!1 &7890897031015099000
 GameObject:
   m_ObjectHideFlags: 0

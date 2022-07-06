@@ -1,9 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
+
 public class FlyIntoSpace : MonoBehaviour
 {
     private float speed = 8f;
+
+    private AudioSource source;
+
+    IEnumerator Start()
+    {
+        yield return null;
+        yield return null;
+
+        source = gameObject.AddComponent<AudioSource>();
+        source.clip = GameState.flyAudio;
+        source.outputAudioMixerGroup = GameState.effectsGroup;
+    }
 
     public void Fly()
     {
@@ -13,6 +27,9 @@ public class FlyIntoSpace : MonoBehaviour
 
     private IEnumerator Flying()
     {
+        source.pitch = Random.Range(0.8f, 1.2f);
+        if (gameObject.GetComponent<RocketAnimation>() == null) source.Play();
+
         transform.parent = null;
 
         if (transform.GetChild(0).GetComponent<Character>() != null)
