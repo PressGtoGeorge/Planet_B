@@ -40,6 +40,7 @@ public class ButtenBackgroundAnimation : MonoBehaviour
             distance = 0;
         }
 
+        /*
         if (GameState.switched == false && switchingLastFrame == false && GameState.switching)
         {
             foreach (SpriteRenderer renderer in allChildrenRenderers)
@@ -57,5 +58,7 @@ public class ButtenBackgroundAnimation : MonoBehaviour
 
         switchedLastFrame = GameState.switched;
         switchingLastFrame = GameState.switching;
+    */
+
     }
 }

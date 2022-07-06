@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Options : MonoBehaviour
 {
+    public bool inGameOptions;
+    public GameObject pauseMenu;
+
     public Sprite disabledSprite;
     public Sprite enabledSprite;
 
@@ -21,6 +24,8 @@ public class Options : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (inGameOptions) pauseMenu.SetActive(false);
+        gameObject.GetComponent<SpriteRenderer>().sprite = disabledSprite;
         optionScreen.SetActive(true);
     }
 }

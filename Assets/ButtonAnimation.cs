@@ -12,6 +12,7 @@ public class ButtonAnimation : MonoBehaviour
     private bool overButtonLastFrame;
 
     private GameState gameState;
+    private bool switchingLastFrame;
 
     void Start()
     {
@@ -29,16 +30,18 @@ public class ButtonAnimation : MonoBehaviour
 
         overButton = collider2d.OverlapPoint(mousePosition);
 
-        if (overButton && overButtonLastFrame == false && GameState.dragging == false && GameState.pauseMenuOpen == false)
+        if (overButton && (overButtonLastFrame == false || switchingLastFrame) && !GameState.dragging && !GameState.pauseMenuOpen && !GameState.switched && !GameState.switching && !GameState.gameOver)
         {
             StartFadeOut();
         }
-        else if (overButton == false && overButtonLastFrame && GameState.dragging == false)
+        else if (overButton == false && overButtonLastFrame && !GameState.dragging)
         {
             StartFadeIn();
         }
 
         overButtonLastFrame = overButton;
+
+        switchingLastFrame = GameState.switching;
     }
 
     public void StartFadeIn()

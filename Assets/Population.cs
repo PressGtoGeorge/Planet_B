@@ -45,7 +45,7 @@ public class Population : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            RemoveCharacterPlanet_A();
+            // RemoveCharacterPlanet_A();
         }
     }
 
@@ -107,7 +107,7 @@ public class Population : MonoBehaviour
         }
 
         // make them go home
-        if (replacedCharacter != null)
+        if (replacedCharacter != null && worstTier > 1)
         {
             replacedCharacter.GetComponent<Character>().goingHome = true;
             // replacedCharacter.transform.localPosition += Vector3.up; //placeholder
@@ -250,6 +250,11 @@ public class Population : MonoBehaviour
     {
         amountOfCharactersOfTier[tier - 1] += amount;
         counters[tier - 1].text = amountOfCharactersOfTier[tier - 1].ToString();
+    }
+
+    public void CreateGoodBoy_A()
+    {
+        CreateCharacterAtHouse(1, true, false);
     }
 
     public void CreateOnPlanet_A_Tier_1()

@@ -56,6 +56,7 @@ public class Character : MonoBehaviour
     private float mountSpeed = 5f;
 
     private int vehicleDuration = 180;
+    private Coroutine resetSpeed;
 
     // variables for rocket travel
     public bool goingToRocket;
@@ -185,13 +186,15 @@ public class Character : MonoBehaviour
         if (movingRight == false && currentPosition > 360f) currentPosition -= 360f;
         if (movingRight && currentPosition < 0f) currentPosition += 360f;
 
+        int currentGridSpace = Mathf.RoundToInt(currentPosition / distanceBetweenGridSpaces);
+        if (currentGridSpace >= gridSize) currentGridSpace -= gridSize;
+
         positionSinceLastGridSpace += speed * Time.deltaTime;
         if (positionSinceLastGridSpace > distanceBetweenGridSpaces)
         {
             positionSinceLastGridSpace -= distanceBetweenGridSpaces;
 
-            int currentGridSpace = Mathf.RoundToInt(currentPosition / distanceBetweenGridSpaces);
-            if (currentGridSpace >= gridSize) currentGridSpace -= gridSize;
+            // old position of block
 
             if (logging)
             {
@@ -201,7 +204,7 @@ public class Character : MonoBehaviour
                 Debug.Log("Passed: " + newName);
             }
 
-            if (goingHome)
+            if (goingHome && onSurface)
             {
                 GoHome(currentGridSpace);
                 return;
@@ -210,9 +213,10 @@ public class Character : MonoBehaviour
             if (tier == 1) WaterTree(currentGridSpace);
             if (goingToRocket) GoToRocket(currentGridSpace);
             if (goingToBlackmarket) GoToBlackmarket(currentGridSpace);
-            Consume(currentGridSpace);
             SpawnNewCharacters(currentGridSpace);
         }
+
+        Consume(currentGridSpace);
     }
 
     private void GoHome(int currentGridSpace)
@@ -474,7 +478,7 @@ public class Character : MonoBehaviour
             else currentPlanet = planet_B;
 
             // check when char is over part that fits need
-            if (currentGridSpace > blackmarketStandPosition && (currentGridSpace < blackmarketStandPosition + 6 || currentGridSpace == 0))
+            if ((currentGridSpace > blackmarketStandPosition && (currentGridSpace < blackmarketStandPosition + 6 || currentGridSpace == 0)) && goingHome == false)
             {
                 MoveToBlackmarket();
 
@@ -485,7 +489,7 @@ public class Character : MonoBehaviour
                 {
                     SetSpeed(mountSpeed);
                     // animator.SetBool("mount", true);
-                    StartCoroutine(ResetVehicleAfter(vehicleDuration));
+                    resetSpeed = StartCoroutine(ResetVehicleAfter(vehicleDuration));
                 }
 
                 wantsFood = false;
@@ -499,7 +503,7 @@ public class Character : MonoBehaviour
         }
         else
         {
-            // check if character can get blackmarket product
+            // check if character reached end of blackmarket section
             if (currentGridSpace == blackmarketStandPosition)
             {
                 MoveToSurface();
@@ -579,7 +583,7 @@ public class Character : MonoBehaviour
                 thoughtBubble.SetActive(false);
 
                 SetSpeed(bikeSpeed);
-                StartCoroutine(ResetVehicleAfter(vehicleDuration));
+                resetSpeed = StartCoroutine(ResetVehicleAfter(vehicleDuration));
                 animator.SetBool("bike", true);
             }
 
@@ -590,7 +594,7 @@ public class Character : MonoBehaviour
                 thoughtBubble.SetActive(false);
 
                 SetSpeed(carSpeed);
-                StartCoroutine(ResetVehicleAfter(vehicleDuration));
+                resetSpeed = StartCoroutine(ResetVehicleAfter(vehicleDuration));
                 animator.SetBool("car", true);
 
                 characterRenderer[1].enabled = true;
@@ -711,6 +715,9 @@ public class Character : MonoBehaviour
         distanceBetweenGridSpaces = planetGrid.angleBetweenSpaces;
 
         currentPosition = 0f;
+
+        if (resetSpeed != null) StopCoroutine(resetSpeed);
+        SetSpeed(defaultSpeed);
 
         StartCoroutine(CreateNeed());
 

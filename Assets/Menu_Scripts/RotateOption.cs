@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class RotateOption : MonoBehaviour
 {
-    public Sprite disabledSprite;
-    public Sprite enabledSprite;
+    // public Sprite disabledSprite;
+    // public Sprite enabledSprite;
 
     public GameObject checkMark;
     public Sprite notRotatingCheckMark;
@@ -23,6 +23,20 @@ public class RotateOption : MonoBehaviour
         }
     }
 
+    private void OnMouseDown()
+    {
+        Settings.stopRotation = !Settings.stopRotation;
+        if (Settings.stopRotation)
+        {
+            checkMark.GetComponent<SpriteRenderer>().sprite = notRotatingCheckMark;
+        }
+        else
+        {
+            checkMark.GetComponent<SpriteRenderer>().sprite = rotatingCheckMark;
+        }
+    }
+
+    /*
     private void OnMouseEnter()
     {
         gameObject.GetComponent<SpriteRenderer>().sprite = enabledSprite;
@@ -32,6 +46,7 @@ public class RotateOption : MonoBehaviour
     {
         gameObject.GetComponent<SpriteRenderer>().sprite = disabledSprite;
     }
+
 
     private void OnMouseDown()
     {
@@ -45,4 +60,5 @@ public class RotateOption : MonoBehaviour
             checkMark.GetComponent<SpriteRenderer>().sprite = rotatingCheckMark;
         }
     }
+    */
 }

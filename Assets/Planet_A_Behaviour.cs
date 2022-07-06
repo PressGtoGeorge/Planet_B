@@ -31,11 +31,15 @@ public class Planet_A_Behaviour : MonoBehaviour
 
     public GameObject explosionPrefab;
 
+    private Population population;
+
     void Start()
     {
         gridSpaces = gameObject.GetComponent<PlanetGrid>().gridSpaces;
         CreateStartBuildings();
         replacementOrder = PlanetGrid.GetUniqueRandomArray(0, 16, 16);
+
+        population = gameObject.GetComponent<Population>();
     }
 
     void Update()
@@ -84,6 +88,9 @@ public class Planet_A_Behaviour : MonoBehaviour
 
     public void ProgressPlanet()
     {
+        population.RemoveCharacterPlanet_A();
+        population.CreateGoodBoy_A();
+
         if (progression > 15) return;
 
         int progress = replacementOrder[progression];

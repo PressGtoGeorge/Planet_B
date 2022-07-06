@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class Back : MonoBehaviour
 {
+    public bool inGameOptions;
+
     public Sprite disabledSprite;
     public Sprite enabledSprite;
 
     private GameObject screen;
+    public GameObject pauseMenu;
 
     private void Start()
     {
@@ -27,6 +30,9 @@ public class Back : MonoBehaviour
     private void OnMouseDown()
     {
         Settings.SaveSettings();
+        gameObject.GetComponent<SpriteRenderer>().sprite = disabledSprite;
+
+        if (inGameOptions) pauseMenu.SetActive(true);
         screen.SetActive(false);
     }
 }
