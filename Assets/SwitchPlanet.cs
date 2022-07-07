@@ -52,8 +52,8 @@ public class SwitchPlanet : MonoBehaviour
 
         while (currentDistance < goalDistance)
         {
-            transform.parent.position += (goalPos - startPos).normalized * speed * Time.unscaledDeltaTime;
-            currentDistance += speed * Time.unscaledDeltaTime;
+            transform.parent.position += (goalPos - startPos).normalized * speed * (Time.deltaTime / Time.timeScale);
+            currentDistance += speed * (Time.deltaTime / Time.timeScale);
 
             yield return null;
         }

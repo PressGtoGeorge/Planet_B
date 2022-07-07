@@ -62,7 +62,7 @@ public class ButtonAnimation : MonoBehaviour
 
         while (trans > 0)
         {
-            trans -= 2f * Time.unscaledDeltaTime;
+            trans -= 2f * (Time.deltaTime / Time.timeScale);
             trans = Mathf.Clamp(trans, 0, 1);
             Color col = backgroundRenderer.GetComponent<SpriteRenderer>().color;
             col.a = trans;
@@ -83,7 +83,7 @@ public class ButtonAnimation : MonoBehaviour
 
         while (trans < 1)
         {
-            trans += 2f * Time.unscaledDeltaTime;
+            trans += 2f * (Time.deltaTime / Time.timeScale);
             trans = Mathf.Clamp(trans, 0, 1);
             Color col = backgroundRenderer.GetComponent<SpriteRenderer>().color;
             col.a = trans;

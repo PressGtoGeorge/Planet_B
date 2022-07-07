@@ -10,7 +10,7 @@ public class Rotate : MonoBehaviour
 
     void Update()
     {
-        if (unscaledTime) transform.Rotate(Vector3.forward, speed * Time.unscaledDeltaTime);
+        if (unscaledTime) transform.Rotate(Vector3.forward, speed * (Time.deltaTime / Time.timeScale));
         else transform.Rotate(Vector3.forward, speed * Time.deltaTime);
     }
 }

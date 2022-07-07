@@ -66,10 +66,10 @@ public class Music : MonoBehaviour
 
         while (currentVolume <= maxVolume)
         {
-            tracks[trackNumber].volume += 0.1f * Time.unscaledDeltaTime;
-            tracks[currentTrack].volume -= 0.1f * Time.unscaledDeltaTime;
+            tracks[trackNumber].volume += 0.1f * (Time.deltaTime / Time.timeScale);
+            tracks[currentTrack].volume -= 0.1f * (Time.deltaTime / Time.timeScale);
 
-            currentVolume += 0.1f * Time.unscaledDeltaTime;
+            currentVolume += 0.1f * (Time.deltaTime / Time.timeScale);
             yield return null;
         }
 

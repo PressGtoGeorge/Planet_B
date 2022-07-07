@@ -94,8 +94,8 @@ public class RotatePlanet : MonoBehaviour
 
         while (currentSpeed < goalSpeed)
         {
-            currentSpeed += acceleration * Time.unscaledDeltaTime; // always unscaled
-            transform.Rotate(Vector3.forward, currentSpeed * Time.unscaledDeltaTime); // always unscaled
+            currentSpeed += acceleration * (Time.deltaTime / Time.timeScale); // always unscaled
+            transform.Rotate(Vector3.forward, currentSpeed * (Time.deltaTime / Time.timeScale)); // always unscaled
 
             collapseSource.volume = minVolume + (currentSpeed / goalSpeed) * (maxVolume - minVolume);
             collapseSource.pitch = minPitch + (currentSpeed / goalSpeed) * (maxPitch - minPitch);
@@ -123,7 +123,7 @@ public class RotatePlanet : MonoBehaviour
                 if (element.GetComponent<FlyIntoSpace>() != null) element.GetComponent<FlyIntoSpace>().Fly();
             }
 
-            transform.Rotate(Vector3.forward, goalSpeed * Time.unscaledDeltaTime); // always unscaled
+            transform.Rotate(Vector3.forward, goalSpeed * (Time.deltaTime / Time.timeScale)); // always unscaled
             yield return null;
         }
 
@@ -134,7 +134,7 @@ public class RotatePlanet : MonoBehaviour
         while (currentSpeed > goalSpeed)
         {
             currentSpeed -= acceleration * deltaTime;
-            transform.Rotate(Vector3.forward, currentSpeed * Time.unscaledDeltaTime); // always unscaled
+            transform.Rotate(Vector3.forward, currentSpeed * (Time.deltaTime / Time.timeScale)); // always unscaled
 
             collapseSource.volume = (currentSpeed / 360f) * maxVolume;
             collapseSource.pitch = minPitch + (currentSpeed / 360f) * (maxPitch - minPitch);
@@ -158,7 +158,8 @@ public class RotatePlanet : MonoBehaviour
         }
         else
         {
-            deltaTime = Time.unscaledDeltaTime;
+            // deltaTime = (Time.deltaTime / Time.timeScale);
+            deltaTime = Time.deltaTime / Time.timeScale;
         }
     }
 }

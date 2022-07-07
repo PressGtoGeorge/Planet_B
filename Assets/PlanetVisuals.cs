@@ -85,7 +85,7 @@ public class PlanetVisuals : MonoBehaviour
 
         while (trans > 0)
         {
-            trans -= switchEdgeSpeed * Time.unscaledDeltaTime;
+            trans -= switchEdgeSpeed * (Time.deltaTime / Time.timeScale);
             trans = Mathf.Clamp(trans, 0, 1);
 
             foreach (GameObject edge in gridSpaceEdges)
@@ -110,7 +110,7 @@ public class PlanetVisuals : MonoBehaviour
 
         while (trans < 1)
         {
-            trans += switchEdgeSpeed * Time.unscaledDeltaTime;
+            trans += switchEdgeSpeed * (Time.deltaTime / Time.timeScale);
             trans = Mathf.Clamp(trans, 0, 1);
 
             foreach (GameObject edge in gridSpaceEdges)
@@ -136,7 +136,7 @@ public class PlanetVisuals : MonoBehaviour
 
         while (trans > 0)
         {
-            trans -= switchEdgeSpeed * Time.unscaledDeltaTime;
+            trans -= switchEdgeSpeed * (Time.deltaTime / Time.timeScale);
             trans = Mathf.Clamp(trans, 0, 1);
 
             foreach (GameObject edge in gridSpaceEdges)
@@ -161,7 +161,7 @@ public class PlanetVisuals : MonoBehaviour
 
         while (trans < 1)
         {
-            trans += switchEdgeSpeed * Time.unscaledDeltaTime;
+            trans += switchEdgeSpeed * (Time.deltaTime / Time.timeScale);
             trans = Mathf.Clamp(trans, 0, 1);
 
             foreach (GameObject edge in gridSpaceEdges)
@@ -243,13 +243,13 @@ public class PlanetVisuals : MonoBehaviour
 
         while (foreGround0trans > 0)
         {
-            cloud0trans -= 1f * startCloud0trans * Time.unscaledDeltaTime;
+            cloud0trans -= 1f * startCloud0trans * (Time.deltaTime / Time.timeScale);
             cloud0trans = Mathf.Clamp(cloud0trans, 0, 1);
 
-            cloud1trans -= 1f * startCloud1trans * Time.unscaledDeltaTime;
+            cloud1trans -= 1f * startCloud1trans * (Time.deltaTime / Time.timeScale);
             cloud1trans = Mathf.Clamp(cloud1trans, 0, 1);
 
-            foreGround0trans -= 1f * startForeGround0trans * Time.unscaledDeltaTime;
+            foreGround0trans -= 1f * startForeGround0trans * (Time.deltaTime / Time.timeScale);
             foreGround0trans = Mathf.Clamp(foreGround0trans, 0, 1);
 
             Color col = Color.white;
@@ -266,7 +266,7 @@ public class PlanetVisuals : MonoBehaviour
             foreground1.color = col;
             cloud1.color = col;
 
-            wheelSource.volume += maxVolume * Time.unscaledDeltaTime;
+            wheelSource.volume += maxVolume * (Time.deltaTime / Time.timeScale);
             wheelSource.volume = Mathf.Clamp(wheelSource.volume, 0, maxVolume);
 
             yield return null;
@@ -361,13 +361,13 @@ public class PlanetVisuals : MonoBehaviour
 
         while (foreground0trans < 1)
         {
-            cloud0trans += 1f * rest * Time.unscaledDeltaTime;
+            cloud0trans += 1f * rest * (Time.deltaTime / Time.timeScale);
             cloud0trans = Mathf.Clamp(cloud0trans, 0, 1);
 
-            cloud1trans += 1f * progress * Time.unscaledDeltaTime;
+            cloud1trans += 1f * progress * (Time.deltaTime / Time.timeScale);
             cloud1trans = Mathf.Clamp(cloud1trans, 0, 1);
 
-            foreground0trans += 1f * goalForeground0trans * Time.unscaledDeltaTime;
+            foreground0trans += 1f * goalForeground0trans * (Time.deltaTime / Time.timeScale);
             foreground0trans = Mathf.Clamp(foreground0trans, 0, 1);
 
             Color col = Color.white;
@@ -384,7 +384,7 @@ public class PlanetVisuals : MonoBehaviour
             foreground1.color = col;
             cloud1.color = col;
 
-            wheelSource.volume -= maxVolume * Time.unscaledDeltaTime;
+            wheelSource.volume -= maxVolume * (Time.deltaTime / Time.timeScale);
             wheelSource.volume = Mathf.Clamp(wheelSource.volume, 0, maxVolume);
 
             yield return null;

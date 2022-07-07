@@ -56,14 +56,14 @@ public class PlanetForeground : MonoBehaviour
 
         while (trans > 0)
         {
-            trans -= 1f * Time.unscaledDeltaTime;
+            trans -= 1f * (Time.deltaTime / Time.timeScale);
             trans = Mathf.Clamp(trans, 0, 1);
             Color col = renderer2d.GetComponent<SpriteRenderer>().color;
             col.a = trans;
             renderer2d.GetComponent<SpriteRenderer>().color = col;
             cloudRenderer2d.GetComponent<SpriteRenderer>().color = col;
 
-            wheelSource.volume += maxVolume * Time.unscaledDeltaTime;
+            wheelSource.volume += maxVolume * (Time.deltaTime / Time.timeScale);
             wheelSource.volume = Mathf.Clamp(wheelSource.volume, 0, maxVolume);
 
             yield return null;
@@ -80,14 +80,14 @@ public class PlanetForeground : MonoBehaviour
 
         while (trans < 1)
         {
-            trans += 1f * Time.unscaledDeltaTime;
+            trans += 1f * (Time.deltaTime / Time.timeScale);
             trans = Mathf.Clamp(trans, 0, 1);
             Color col = renderer2d.GetComponent<SpriteRenderer>().color;
             col.a = trans;
             renderer2d.GetComponent<SpriteRenderer>().color = col;
             cloudRenderer2d.GetComponent<SpriteRenderer>().color = col;
 
-            wheelSource.volume -= maxVolume * Time.unscaledDeltaTime;
+            wheelSource.volume -= maxVolume * (Time.deltaTime / Time.timeScale);
             wheelSource.volume = Mathf.Clamp(wheelSource.volume, 0, maxVolume);
 
             yield return null;

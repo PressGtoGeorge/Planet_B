@@ -43,8 +43,8 @@ public class Marker : MonoBehaviour
 
             while (currentPos < maxPos)
             {
-                currentPos += (1f / loopTime) * Time.unscaledDeltaTime * maxPos;
-                transform.position += Vector3.up * (1f / loopTime) * Time.unscaledDeltaTime * maxPos;
+                currentPos += (1f / loopTime) * (Time.deltaTime / Time.timeScale) * maxPos;
+                transform.position += Vector3.up * (1f / loopTime) * (Time.deltaTime / Time.timeScale) * maxPos;
                 yield return null;
             }
 
@@ -52,8 +52,8 @@ public class Marker : MonoBehaviour
 
             while (currentPos > 0)
             {
-                currentPos -= (1f / loopTime) * Time.unscaledDeltaTime * maxPos;
-                transform.position -= Vector3.up * (1f / loopTime) * Time.unscaledDeltaTime * maxPos;
+                currentPos -= (1f / loopTime) * (Time.deltaTime / Time.timeScale) * maxPos;
+                transform.position -= Vector3.up * (1f / loopTime) * (Time.deltaTime / Time.timeScale) * maxPos;
                 yield return null;
             }
 

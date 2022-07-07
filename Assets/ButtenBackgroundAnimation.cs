@@ -31,8 +31,8 @@ public class ButtenBackgroundAnimation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.localPosition += transform.right * speed * Time.unscaledDeltaTime;
-        distance += speed * Time.unscaledDeltaTime;
+        transform.localPosition += transform.right * speed * (Time.deltaTime / Time.timeScale);
+        distance += speed * (Time.deltaTime / Time.timeScale);
 
         if (distance >= 2.4f)
         {

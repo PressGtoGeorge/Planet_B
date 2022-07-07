@@ -84,14 +84,14 @@ public class SwitchPlanet_2 : MonoBehaviour
 
         while (currentSize <= endSize)
         {
-            planet_B_Camera.orthographicSize += Time.unscaledDeltaTime * speed * dir;
-            planet_B_Ratio.orthographicStartSize += Time.unscaledDeltaTime * speed * dir;
+            planet_B_Camera.orthographicSize += (Time.deltaTime / Time.timeScale) * speed * dir;
+            planet_B_Ratio.orthographicStartSize += (Time.deltaTime / Time.timeScale) * speed * dir;
 
-            planet_A_Camera.orthographicSize -= Time.unscaledDeltaTime * speed * dir;
-            planet_A_Ratio.orthographicStartSize -= Time.unscaledDeltaTime * speed * dir;
+            planet_A_Camera.orthographicSize -= (Time.deltaTime / Time.timeScale) * speed * dir;
+            planet_A_Ratio.orthographicStartSize -= (Time.deltaTime / Time.timeScale) * speed * dir;
 
-            planet_B_Camera.transform.position -= cameraOffset * Time.unscaledDeltaTime * speed / (endSize - startSize) * dir;
-            planet_A_Camera.transform.position += (cameraOffset + Vector3.right * (1.1f)) * Time.unscaledDeltaTime * speed / (endSize - startSize) * dir;
+            planet_B_Camera.transform.position -= cameraOffset * (Time.deltaTime / Time.timeScale) * speed / (endSize - startSize) * dir;
+            planet_A_Camera.transform.position += (cameraOffset + Vector3.right * (1.1f)) * (Time.deltaTime / Time.timeScale) * speed / (endSize - startSize) * dir;
 
             if (switched == false)
             {
@@ -112,11 +112,11 @@ public class SwitchPlanet_2 : MonoBehaviour
             /*
             if (currentSize <= 10)
             {
-                backgroundPost.profile.GetSetting<LensDistortion>().intensity.value -= Time.unscaledDeltaTime * speed * 20;
+                backgroundPost.profile.GetSetting<LensDistortion>().intensity.value -= (Time.deltaTime / Time.timeScale) * speed * 20;
             }
             else
             {
-                backgroundPost.profile.GetSetting<LensDistortion>().intensity.value += Time.unscaledDeltaTime * speed * 20;
+                backgroundPost.profile.GetSetting<LensDistortion>().intensity.value += (Time.deltaTime / Time.timeScale) * speed * 20;
             }
             */
             yield return null;
