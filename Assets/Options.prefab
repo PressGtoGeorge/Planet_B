@@ -850,7 +850,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e1aefc18852ab0c428dddd0194c0661c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8a4c9645e29391f42932ef8414629e80, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -873,9 +873,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.14521837}
+  m_Offset: {x: 0, y: 0.025453568}
   serializedVersion: 2
-  m_Radius: 6.440771
+  m_Radius: 6.5496483
 --- !u!114 &6696766728734921988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -888,8 +888,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7eaca7d15a0c444e8ef0e9070c38c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disabledSprite: {fileID: 21300000, guid: e1aefc18852ab0c428dddd0194c0661c, type: 3}
-  enabledSprite: {fileID: 21300000, guid: f7b22b346e1ae1b4baec45aa57d5fce0, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 8a4c9645e29391f42932ef8414629e80, type: 3}
+  enabledSprite: {fileID: 21300000, guid: a207fd18f80a68d4f856b64f50112f3c, type: 3}
 --- !u!1 &7267397093765026205
 GameObject:
   m_ObjectHideFlags: 0
@@ -1064,6 +1064,9 @@ MonoBehaviour:
   checkMark: {fileID: 7416079669377766896}
   noTutorialCheckMark: {fileID: 21300000, guid: 5799bd67e3b93a84ab74f5faa7267c05, type: 3}
   tutorialCheckMark: {fileID: 21300000, guid: bdafe192d78ad3644afc4690e7c8675e, type: 3}
+  tutorialMarker: {fileID: 0}
+  tutorialText: {fileID: 0}
+  inGame: 0
 --- !u!61 &4571381217736157591
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1259,7 +1262,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e1aefc18852ab0c428dddd0194c0661c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8a4c9645e29391f42932ef8414629e80, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1282,9 +1285,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.034679174}
+  m_Offset: {x: -0.000001625581, y: 0.011968613}
   serializedVersion: 2
-  m_Radius: 6.3956356
+  m_Radius: 6.5511312
 --- !u!114 &8640694982362102244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1297,8 +1300,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7eaca7d15a0c444e8ef0e9070c38c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disabledSprite: {fileID: 21300000, guid: e1aefc18852ab0c428dddd0194c0661c, type: 3}
-  enabledSprite: {fileID: 21300000, guid: f7b22b346e1ae1b4baec45aa57d5fce0, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 8a4c9645e29391f42932ef8414629e80, type: 3}
+  enabledSprite: {fileID: 21300000, guid: a207fd18f80a68d4f856b64f50112f3c, type: 3}
 --- !u!1 &8011775882038107589
 GameObject:
   m_ObjectHideFlags: 0
