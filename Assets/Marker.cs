@@ -24,6 +24,11 @@ public class Marker : MonoBehaviour
     private WaitForSecondsRealtime pause = new WaitForSecondsRealtime(3f);
     private WaitForSecondsRealtime delay = new WaitForSecondsRealtime(0.05f);
 
+    private void Awake()
+    {
+        startPos = transform.localPosition;
+    }
+
     private void OnEnable()
     {
         StartCoroutine(Animation());
@@ -31,10 +36,11 @@ public class Marker : MonoBehaviour
 
     IEnumerator Animation()
     {
-        startPos = transform.position;
 
         for (int i = 0; i < 2; i++)
         {
+            currentPos = 0;
+
             while (currentPos < maxPos)
             {
                 currentPos += (1f / loopTime) * Time.unscaledDeltaTime * maxPos;
@@ -42,7 +48,7 @@ public class Marker : MonoBehaviour
                 yield return null;
             }
 
-            transform.position = startPos + Vector3.up * maxPos;
+            transform.localPosition = startPos + Vector3.up * maxPos;
 
             while (currentPos > 0)
             {
@@ -51,7 +57,7 @@ public class Marker : MonoBehaviour
                 yield return null;
             }
 
-            transform.position = startPos;
+            transform.localPosition = startPos;
             yield return delay;
         }
 

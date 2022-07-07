@@ -10,9 +10,14 @@ public class SatelliteMovement : MonoBehaviour
 
     private Vector3 startPos;
 
-    IEnumerator Start()
+    private void Awake()
     {
         startPos = transform.position;
+    }
+
+    IEnumerator Start()
+    {
+        currentPos = 0;
 
         while (currentPos < maxPos)
         {

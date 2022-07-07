@@ -12,6 +12,7 @@ public class TutorialText : MonoBehaviour
     private WaitForSecondsRealtime delay = new WaitForSecondsRealtime(0.015f);
 
     private Coroutine completeTextCo;
+    private bool pauseMenuOpenLastFrame;
 
     private void OnEnable()
     {
@@ -49,7 +50,7 @@ public class TutorialText : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && GameState.pauseMenuOpen == false && pauseMenuOpenLastFrame == false)
         {
             if (clickAway && completed)
             {
@@ -64,5 +65,14 @@ public class TutorialText : MonoBehaviour
                 gameObject.GetComponent<Text>().text = completeText;
             }
         }
+
+        pauseMenuOpenLastFrame = GameState.pauseMenuOpen;
+    }
+
+    public void DisableText()
+    {
+        clickAway = false;
+        completed = false;
+        transform.parent.gameObject.SetActive(false);
     }
 }

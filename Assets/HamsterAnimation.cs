@@ -30,6 +30,7 @@ public class HamsterAnimation : MonoBehaviour
             sweating = false;
             stressed = false;
 
+            animator.SetBool("relaxed", true);
             animator.SetBool("sweating", false);
             animator.SetBool("stressed", false);
 
@@ -45,6 +46,7 @@ public class HamsterAnimation : MonoBehaviour
             sweating = true;
             stressed = false;
 
+            animator.SetBool("relaxed", false);
             animator.SetBool("sweating", true);
             animator.SetBool("stressed", false);
 
@@ -60,6 +62,7 @@ public class HamsterAnimation : MonoBehaviour
             sweating = false;
             stressed = true;
 
+            animator.SetBool("relaxed", false);
             animator.SetBool("sweating", false);
             animator.SetBool("stressed", true);
 
