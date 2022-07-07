@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class RotateOption : MonoBehaviour
 {
-    // public Sprite disabledSprite;
-    // public Sprite enabledSprite;
-
     public GameObject checkMark;
     public Sprite notRotatingCheckMark;
     public Sprite rotatingCheckMark;

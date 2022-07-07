@@ -7,6 +7,7 @@ public class Settings : MonoBehaviour
     public static GameObject instance;
 
     public static bool stopRotation = false;
+    public static bool stopTutorial = false;
 
     public static float musicVolume = 1;
     public static float effectsVolume = 1;
@@ -46,6 +47,7 @@ public class Settings : MonoBehaviour
         PlayerPrefs.SetFloat("musicVolume", musicVolume);
 
         PlayerPrefs.SetString("stopRotation", stopRotation.ToString());
+        PlayerPrefs.SetString("stopTutorial", stopTutorial.ToString());
     }
 
     public static void LoadSettings()
@@ -55,6 +57,9 @@ public class Settings : MonoBehaviour
 
         if (PlayerPrefs.GetString("stopRotation", "False") == "True") stopRotation = true;
         else stopRotation = false;
+
+        if (PlayerPrefs.GetString("stopTutorial", "False") == "True") stopTutorial = true;
+        else stopTutorial = false;
     }
 
 }

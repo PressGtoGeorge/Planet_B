@@ -325,6 +325,8 @@ public class DragAndDrop : MonoBehaviour
         else gameObject.GetComponent<Trees>().enabled = true;
 
         gameObject.GetComponent<Building>().ecosystem = transform.parent.GetComponent<Ecosystem>();
+
+        if (Tutorial.GetIndex() != 1) Tutorial.SetIndex(1);
     }
 
     private void RotateTowardsSurface(GameObject currentGridSpace)

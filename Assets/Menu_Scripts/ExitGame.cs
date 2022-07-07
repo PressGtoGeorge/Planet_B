@@ -19,6 +19,7 @@ public class ExitGame : MonoBehaviour
 
     private void OnMouseDown()
     {
+        Debug.Log("Pressed exit.");
         Application.Quit();
     }
 }

@@ -123,6 +123,8 @@ public class Population : MonoBehaviour
         // yield return new WaitForEndOfFrame();
         yield return new WaitForSeconds(6f);
 
+        Tutorial.SetIndex(0);
+
         int amount = 0;
 
         while (amount < planet_B_startPopulation)

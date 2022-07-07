@@ -302,7 +302,11 @@ public class Character : MonoBehaviour
 
                 UpdateThoughtBubble();
 
-                if (onPlanet_A == false) CreateReplacementCharacters();
+                if (onPlanet_A == false)
+                {
+                    CreateReplacementCharacters();
+                    if (Tutorial.GetIndex() != 2) Tutorial.SetIndex(2);
+                }
             }
             else
             {
@@ -310,6 +314,11 @@ public class Character : MonoBehaviour
                 goingToBlackmarket = true;
                 UpdateThoughtBubble();
                 FindBlackmarketStand();
+
+                if (onPlanet_A == false)
+                {
+                    if (Tutorial.GetIndex() != 3) Tutorial.SetIndex(3);
+                }
             }
         }
         else
