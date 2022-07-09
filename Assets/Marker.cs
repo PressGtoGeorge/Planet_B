@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Marker : MonoBehaviour
 {
     public Tutorial tutorial;
-    public Text textField;
+
+    // public Text textField;
+    public TextMeshProUGUI textField;
 
     private string text;
 

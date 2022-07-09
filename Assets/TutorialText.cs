@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class TutorialText : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class TutorialText : MonoBehaviour
 
     IEnumerator CompleteText()
     {
-        completeText = gameObject.GetComponent<Text>().text;
+        completeText = gameObject.GetComponent<TextMeshProUGUI>().text;
         string shownText = "";
 
         int completeLength = completeText.Length;
@@ -33,7 +34,7 @@ public class TutorialText : MonoBehaviour
             shownLength++;
             shownText += completeText[shownLength - 1];
 
-            gameObject.GetComponent<Text>().text = shownText;
+            gameObject.GetComponent<TextMeshProUGUI>().text = shownText;
             yield return delay;
         }
 
@@ -62,7 +63,7 @@ public class TutorialText : MonoBehaviour
             {
                 StopCoroutine(completeTextCo);
                 completed = true;
-                gameObject.GetComponent<Text>().text = completeText;
+                gameObject.GetComponent<TextMeshProUGUI>().text = completeText;
             }
         }
 
