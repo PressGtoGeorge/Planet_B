@@ -8771,7 +8771,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   setGameSpeedSlider: {fileID: 1214221302}
   spawnButtons: []
-  setFlyAudio: {fileID: 8300000, guid: f6ea0f6de730dad44a7dc0fbaf166443, type: 3}
+  setFlyAudio: {fileID: 8300000, guid: 4741d9458146fd249a8e5b5cf240b867, type: 3}
   setEffectsGroup: {fileID: 8296020356221705163, guid: c8799edd8b3f6424ea0a648318d5e726, type: 2}
 --- !u!1 &1052758185
 GameObject:

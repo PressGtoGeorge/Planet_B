@@ -28,7 +28,7 @@ public class FlyIntoSpace : MonoBehaviour
 
     private IEnumerator Flying()
     {
-        source.pitch = Random.Range(0.5f, 1.5f);
+        source.pitch = Random.Range(0.75f, 1.25f);
         if (gameObject.GetComponent<RocketAnimation>() == null) source.Play();
 
         transform.parent = null;

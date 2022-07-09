@@ -72,6 +72,7 @@ public class Marker : MonoBehaviour
         textField.text = text;
         tutorial.UpdateSeenTutorials();
         satellite.GetComponent<SpriteRenderer>().sprite = disabledSprite;
+        satellite.GetComponent<AudioSource>().Play();
 
         StartCoroutine(SetTextFieldActive());
     }
