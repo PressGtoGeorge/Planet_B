@@ -36,7 +36,7 @@ public class BlackmarketAnimation : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G))
+       /* if (Input.GetKeyDown(KeyCode.G))
         {
             StartCoroutine(EnterAnimation());
         }
@@ -44,7 +44,7 @@ public class BlackmarketAnimation : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.H))
         {
             StartCoroutine(ExitAnimation());
-        }
+        }*/
     }
 
     public void StartEnterAnimation()
