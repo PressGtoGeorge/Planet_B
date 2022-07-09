@@ -24,10 +24,6 @@ public class Settings : MonoBehaviour
         }
 
         DontDestroyOnLoad(gameObject);
-    }
-
-    private void Start()
-    {
         LoadSettings();
     }
 

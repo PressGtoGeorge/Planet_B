@@ -28,13 +28,13 @@ public class AudioVolume : MonoBehaviour
         musicSlider.value = Settings.musicVolume;
     }
 
-    public void SetEffectsVolume(float value)
+    public void SetEffectsVolume(float value) // called by event system on slider
     {
         mixer.SetFloat("EffectsVolume", Mathf.Log10(value) * 20f);
         Settings.SetEffectsVolume(value);
     }
 
-    public void SetMusicVolume(float value)
+    public void SetMusicVolume(float value) // called by event system on slider
     {
         mixer.SetFloat("MusicVolume", Mathf.Log10(value) * 20f);
         Settings.SetMusicVolume(value);
