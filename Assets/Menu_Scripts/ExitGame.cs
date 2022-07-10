@@ -10,6 +10,7 @@ public class ExitGame : MonoBehaviour
     private void OnMouseEnter()
     {
         gameObject.GetComponent<SpriteRenderer>().sprite = enabledSprite;
+        Settings.PlayHover();
     }
 
     private void OnMouseExit()
@@ -19,6 +20,7 @@ public class ExitGame : MonoBehaviour
 
     private void OnMouseDown()
     {
+        Settings.PlayClick();
         Debug.Log("Pressed exit.");
         Application.Quit();
     }

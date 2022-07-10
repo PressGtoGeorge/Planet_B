@@ -12,6 +12,7 @@ public class Resume : MonoBehaviour
     private void OnMouseEnter()
     {
         gameObject.GetComponent<SpriteRenderer>().sprite = enabledSprite;
+        Settings.PlayHover();
     }
 
     private void OnMouseExit()
@@ -26,5 +27,6 @@ public class Resume : MonoBehaviour
         GameState.gameSpeedSlider.interactable = true;
 
         gameObject.GetComponent<SpriteRenderer>().sprite = disabledSprite;
+        Settings.PlayClick();
     }
 }

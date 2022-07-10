@@ -41,5 +41,7 @@ public class TutorialOption : MonoBehaviour
             tutorialMarker.SetActive(false);
             tutorialText.DisableText();
         }
+
+        Settings.PlayClick();
     }
 }

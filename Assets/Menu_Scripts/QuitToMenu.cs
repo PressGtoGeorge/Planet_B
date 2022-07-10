@@ -11,6 +11,7 @@ public class QuitToMenu : MonoBehaviour
     private void OnMouseEnter()
     {
         gameObject.GetComponent<SpriteRenderer>().sprite = enabledSprite;
+        Settings.PlayHover();
     }
 
     private void OnMouseExit()
@@ -20,5 +21,6 @@ public class QuitToMenu : MonoBehaviour
     private void OnMouseDown()
     {
         SceneManager.LoadScene("Menu");
+        Settings.PlayClick();
     }
 }

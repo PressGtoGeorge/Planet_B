@@ -12,6 +12,7 @@ public class Credits : MonoBehaviour
     private void OnMouseEnter()
     {
         gameObject.GetComponent<SpriteRenderer>().sprite = enabledSprite;
+        Settings.PlayHover();
     }
 
     private void OnMouseExit()
@@ -22,5 +23,6 @@ public class Credits : MonoBehaviour
     private void OnMouseDown()
     {
         creditsScreen.SetActive(true);
+        Settings.PlayClick();
     }
 }

@@ -19,11 +19,17 @@ public class SliderKnob : MonoBehaviour
     private void OnMouseEnter()
     {
         image.sprite = enabledSprite;
+        // Settings.PlayHover();
     }
 
     private void OnMouseExit()
     {
         image.sprite = disabledSprite;
+    }
+
+    private void OnMouseDown()
+    {
+        Settings.PlayClick();
     }
 
 }

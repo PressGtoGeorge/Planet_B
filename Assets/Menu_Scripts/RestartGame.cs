@@ -11,6 +11,7 @@ public class RestartGame : MonoBehaviour
     private void OnMouseEnter()
     {
         gameObject.GetComponent<SpriteRenderer>().sprite = enabledSprite;
+        Settings.PlayHover();
     }
 
     private void OnMouseExit()
@@ -20,5 +21,6 @@ public class RestartGame : MonoBehaviour
     private void OnMouseDown()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Settings.PlayClick();
     }
 }

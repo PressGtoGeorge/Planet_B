@@ -12,6 +12,7 @@ public class PauseMenuButton : MonoBehaviour
     private void OnMouseEnter()
     {
         gameObject.GetComponent<SpriteRenderer>().sprite = enabledSprite;
+        Settings.PlayHover();
     }
 
     private void OnMouseExit()
@@ -24,5 +25,6 @@ public class PauseMenuButton : MonoBehaviour
         pauseMenu.SetActive(true);
         GameState.pauseMenuOpen = true;
         GameState.gameSpeedSlider.interactable = false;
+        Settings.PlayClick();
     }
 }

@@ -12,6 +12,12 @@ public class Settings : MonoBehaviour
     public static float musicVolume = 1;
     public static float effectsVolume = 1;
 
+    public AudioSource setHoverSource;
+    public AudioSource setClickSource;
+
+    public static AudioSource hoverSource;
+    public static AudioSource clickSource;
+
     void Awake()
     {
         if (instance == null)
@@ -25,6 +31,12 @@ public class Settings : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
         LoadSettings();
+    }
+
+    private void Start()
+    {
+        hoverSource = setHoverSource;
+        clickSource = setClickSource;
     }
 
     public static void SetEffectsVolume(float value)
@@ -56,6 +68,16 @@ public class Settings : MonoBehaviour
 
         if (PlayerPrefs.GetString("stopTutorial", "False") == "True") stopTutorial = true;
         else stopTutorial = false;
+    }
+
+    public static void PlayHover()
+    {
+        hoverSource.Play();
+    }
+
+    public static void PlayClick()
+    {
+        clickSource.Play();
     }
 
 }

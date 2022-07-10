@@ -31,6 +31,8 @@ public class RotateOption : MonoBehaviour
         {
             checkMark.GetComponent<SpriteRenderer>().sprite = rotatingCheckMark;
         }
+
+        Settings.PlayClick();
     }
 
     /*

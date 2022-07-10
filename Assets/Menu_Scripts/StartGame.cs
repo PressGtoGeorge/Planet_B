@@ -11,6 +11,7 @@ public class StartGame : MonoBehaviour
     private void OnMouseEnter()
     {
         gameObject.GetComponent<SpriteRenderer>().sprite = enabledSprite;
+        Settings.PlayHover();
     }
 
     private void OnMouseExit()
@@ -21,5 +22,6 @@ public class StartGame : MonoBehaviour
     private void OnMouseDown()
     {
         SceneManager.LoadScene("Game");
+        Settings.PlayClick();
     }
 }

@@ -20,6 +20,7 @@ public class Back : MonoBehaviour
     private void OnMouseEnter()
     {
         gameObject.GetComponent<SpriteRenderer>().sprite = enabledSprite;
+        Settings.PlayHover();
     }
 
     private void OnMouseExit()
@@ -31,6 +32,8 @@ public class Back : MonoBehaviour
     {
         Settings.SaveSettings();
         gameObject.GetComponent<SpriteRenderer>().sprite = disabledSprite;
+
+        Settings.PlayClick();
 
         if (inGameOptions) pauseMenu.SetActive(true);
         screen.SetActive(false);
