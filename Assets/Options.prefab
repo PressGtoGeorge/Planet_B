@@ -1015,7 +1015,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8a4c9645e29391f42932ef8414629e80, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6ad7d958b4ab9a44294f837ae374393b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1053,8 +1053,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7eaca7d15a0c444e8ef0e9070c38c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disabledSprite: {fileID: 21300000, guid: 8a4c9645e29391f42932ef8414629e80, type: 3}
-  enabledSprite: {fileID: 21300000, guid: a207fd18f80a68d4f856b64f50112f3c, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 6ad7d958b4ab9a44294f837ae374393b, type: 3}
+  enabledSprite: {fileID: 21300000, guid: 829661827c5814841ab7051a26b46705, type: 3}
 --- !u!1 &7267397093765026205
 GameObject:
   m_ObjectHideFlags: 0
@@ -1203,7 +1203,7 @@ SpriteRenderer:
   m_SortingLayerID: 735822799
   m_SortingLayer: 1
   m_SortingOrder: 30001
-  m_Sprite: {fileID: 21300000, guid: bdafe192d78ad3644afc4690e7c8675e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 19b3557470734fd40860c961a9ad6709, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1227,8 +1227,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkMark: {fileID: 7416079669377766896}
-  noTutorialCheckMark: {fileID: 21300000, guid: 5799bd67e3b93a84ab74f5faa7267c05, type: 3}
-  tutorialCheckMark: {fileID: 21300000, guid: bdafe192d78ad3644afc4690e7c8675e, type: 3}
+  noTutorialCheckMark: {fileID: 21300000, guid: 068c327cafbbc8d4ea0d85eac389e964, type: 3}
+  tutorialCheckMark: {fileID: 21300000, guid: 19b3557470734fd40860c961a9ad6709, type: 3}
   tutorialMarker: {fileID: 0}
   tutorialText: {fileID: 0}
   inGame: 0
@@ -1427,7 +1427,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8a4c9645e29391f42932ef8414629e80, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6ad7d958b4ab9a44294f837ae374393b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1465,8 +1465,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7eaca7d15a0c444e8ef0e9070c38c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disabledSprite: {fileID: 21300000, guid: 8a4c9645e29391f42932ef8414629e80, type: 3}
-  enabledSprite: {fileID: 21300000, guid: a207fd18f80a68d4f856b64f50112f3c, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 6ad7d958b4ab9a44294f837ae374393b, type: 3}
+  enabledSprite: {fileID: 21300000, guid: 829661827c5814841ab7051a26b46705, type: 3}
 --- !u!1 &8177368988717473317
 GameObject:
   m_ObjectHideFlags: 0
@@ -1879,7 +1879,7 @@ SpriteRenderer:
   m_SortingLayerID: 735822799
   m_SortingLayer: 1
   m_SortingOrder: 30001
-  m_Sprite: {fileID: 21300000, guid: 56a5b9fea8b98394fa30ba1d23efd0e7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1242269ceeb7be44e9b6dd1f87e48c4c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1903,8 +1903,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inGameOptions: 0
-  disabledSprite: {fileID: 21300000, guid: 56a5b9fea8b98394fa30ba1d23efd0e7, type: 3}
-  enabledSprite: {fileID: 21300000, guid: e66d795847feae4438a57d19b4363d27, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 1242269ceeb7be44e9b6dd1f87e48c4c, type: 3}
+  enabledSprite: {fileID: 21300000, guid: 74689ea9e53c4c04b98a85ee1ca974cc, type: 3}
   pauseMenu: {fileID: 0}
 --- !u!60 &598395585
 PolygonCollider2D:
@@ -2008,7 +2008,7 @@ SpriteRenderer:
   m_SortingLayerID: 735822799
   m_SortingLayer: 1
   m_SortingOrder: 30001
-  m_Sprite: {fileID: 21300000, guid: bdafe192d78ad3644afc4690e7c8675e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 19b3557470734fd40860c961a9ad6709, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2032,8 +2032,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkMark: {fileID: 9187866231196843072}
-  notRotatingCheckMark: {fileID: 21300000, guid: 5799bd67e3b93a84ab74f5faa7267c05, type: 3}
-  rotatingCheckMark: {fileID: 21300000, guid: bdafe192d78ad3644afc4690e7c8675e, type: 3}
+  notRotatingCheckMark: {fileID: 21300000, guid: 068c327cafbbc8d4ea0d85eac389e964, type: 3}
+  rotatingCheckMark: {fileID: 21300000, guid: 19b3557470734fd40860c961a9ad6709, type: 3}
 --- !u!61 &1854186709790896765
 BoxCollider2D:
   m_ObjectHideFlags: 0

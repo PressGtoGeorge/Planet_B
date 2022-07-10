@@ -694,7 +694,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2ba182b83064c904c93094f5e951c476, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c47ef034d46c47e4fa86fb6547c927e5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10677,7 +10677,7 @@ PrefabInstance:
     - target: {fileID: 9206670136113174671, guid: d882ce32f4a07774e9d4d7ea080329a8, type: 3}
       propertyPath: tutorialText
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1376093925}
     - target: {fileID: 9206670136113174671, guid: d882ce32f4a07774e9d4d7ea080329a8, type: 3}
       propertyPath: tutorialMarker
       value: 
@@ -20644,7 +20644,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.33333334, y: 0.7266667}
+    oldSize: {x: 0.33333334, y: 0.73}
     newSize: {x: 0.33333334, y: 0.7266667}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -20717,7 +20717,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 8d73da0f196057c46aa9697d0684d2c2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 39a7f1d6c52999e4d9cf19d7d0a4b646, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
