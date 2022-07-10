@@ -25,9 +25,10 @@ public class Options : MonoBehaviour
 
     private void OnMouseDown()
     {
+        Settings.PlayClick();
+
         if (inGameOptions) pauseMenu.SetActive(false);
         gameObject.GetComponent<SpriteRenderer>().sprite = disabledSprite;
         optionScreen.SetActive(true);
-        Settings.PlayClick();
     }
 }

@@ -32,4 +32,8 @@ public class SliderKnob : MonoBehaviour
         Settings.PlayClick();
     }
 
+    private void OnMouseUp()
+    {
+        Settings.PlayHover();
+    }
 }
