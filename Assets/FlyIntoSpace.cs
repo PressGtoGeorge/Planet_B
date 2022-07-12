@@ -31,13 +31,16 @@ public class FlyIntoSpace : MonoBehaviour
         source.pitch = Random.Range(0.75f, 1.25f);
         if (gameObject.GetComponent<RocketAnimation>() == null) source.Play();
 
-        transform.parent = null;
-
         if (transform.GetChild(0).GetComponent<Character>() != null)
             transform.GetChild(0).GetComponent<Character>().SetMoving(false);
 
         if (gameObject.GetComponent<RocketAnimation>() != null)
+        {
+            if (gameObject.GetComponent<RocketAnimation>().flying) transform.parent.parent = null;
             gameObject.GetComponent<RocketAnimation>().StopAnimation();
+        }
+
+        transform.parent = null;
 
         float currentDistance = 0f;
         float goalDistance = 9001f;

@@ -23,7 +23,7 @@ public class RocketAnimation : MonoBehaviour
 
     private float lastDotProduct = 0f; // for determining switch point
 
-    private bool flying;
+    public bool flying;
 
     public bool OnPlanet_A()
     {
@@ -40,6 +40,8 @@ public class RocketAnimation : MonoBehaviour
         radiusPlanet_B = planet_B.transform.GetChild(0).localScale.x / 2f;
 
         distanceBetweenPlanetCores = Mathf.Abs((planet_A.transform.position - planet_B.transform.position).magnitude);
+
+        // Application.targetFrameRate = 5; // to test low framerate behaviour
     }
 
     private void Update()
@@ -60,19 +62,20 @@ public class RocketAnimation : MonoBehaviour
 
     public void StopAnimation()
     {
+
         StopAllCoroutines();
     }
 
     private IEnumerator Animation()
     {
-        flying = true;
-
         // check if flight is possible (not necessary if size is predetermined by design)
         if (distanceBetweenPlanetCores < radiusPlanet_A + safeHeightPlanet_A + radiusPlanet_B + safeHeightPlanet_B)
         {
             Debug.Log("No route found.");
             yield break;
         }
+
+        flying = true;
 
         float speed = defaultSpeed;
 
@@ -128,7 +131,7 @@ public class RocketAnimation : MonoBehaviour
         transform.rotation = qDir;
         transform.Rotate(Vector3.forward, 90f);
 
-        // Debug.Log("In orbit.\nAnimation 1 finished.");
+        Debug.Log("In orbit.\nAnimation 1 finished.");
 
         // second part of animation: rotate with rising radius around planet until reaching the middle between both planets
         // newParent.transform.parent = null;
@@ -148,7 +151,7 @@ public class RocketAnimation : MonoBehaviour
         tempDir = (transform.position - currentPlanet.transform.position).normalized;
         transform.position = currentPlanet.transform.position + tempDir * (goalHeight + planetRadius);
 
-        // Debug.Log("Reached target height.\nAnimation 2 finished.");
+        Debug.Log("Reached target height.\nAnimation 2 finished.");
 
         // wait for moment to turn onto the other planet
         Vector3 vectorBetweenPlanets = (planet_A.transform.position - planet_B.transform.position); // points from b to a
@@ -164,7 +167,7 @@ public class RocketAnimation : MonoBehaviour
             {
                 lastDotProduct = 0f;
 
-                // Debug.Log("Switch point passed.\nAnimation 3 finished.");
+                Debug.Log("Switch point passed.\nAnimation 3 finished.");
                 break;
             }
             else
@@ -177,12 +180,15 @@ public class RocketAnimation : MonoBehaviour
 
         // fix position
         transform.position = currentPlanet.transform.position + (-1f) * vectorBetweenPlanets.normalized * (goalHeight + planetRadius);
+        currentHeight = goalHeight;
 
         // fix rotation
         qDir = new Quaternion();
         qDir.SetLookRotation(Vector3.forward, (-1f) * vectorBetweenPlanets);
         transform.rotation = qDir;
         transform.Rotate(Vector3.forward, 90f);
+
+        newParent.transform.rotation = Quaternion.identity;
 
         // check currentheight for both planets
         // Debug.Log((transform.position - planet_A.transform.position).magnitude - radiusPlanet_A);
@@ -227,7 +233,13 @@ public class RocketAnimation : MonoBehaviour
         tempDir = (transform.position - currentPlanet.transform.position).normalized;
         transform.position = currentPlanet.transform.position + tempDir * (goalHeight + planetRadius);
 
-        // Debug.Log("Reached target height.\nAnimation 4 finished.");
+        // fix rotation
+        qDir = new Quaternion();
+        qDir.SetLookRotation(Vector3.forward, tempDir);
+        transform.rotation = qDir;
+        transform.Rotate(Vector3.forward, -90f);
+
+        Debug.Log("Reached target height.\nAnimation 4 finished.");
 
         // look for position of space station
         Vector3 spaceStationPosition;
@@ -244,7 +256,7 @@ public class RocketAnimation : MonoBehaviour
             {
                 lastDotProduct = 0f;
 
-                // Debug.Log("Found space station.\nAnimation 5 finished.");
+                Debug.Log("Found space station.\nAnimation 5 finished.");
                 break;
             }
             else
@@ -277,7 +289,7 @@ public class RocketAnimation : MonoBehaviour
         // fix position
         transform.position += (transform.up) * (lastCircleRadius - currentPos);
 
-        // Debug.Log("Prepared final circle.\nAnimation 6 finished.");
+        Debug.Log("Prepared final circle.\nAnimation 6 finished.");
 
         // do final circle until above space station
         transform.parent = null;
@@ -309,7 +321,7 @@ public class RocketAnimation : MonoBehaviour
             spaceStationPosition = currentPlanet.GetComponent<PlanetGrid>().GetSpaceStationPosition();
             transform.position = currentPlanet.transform.position + (spaceStationPosition - currentPlanet.transform.position).normalized * (planetRadius + goalHeight + lastCircleRadius);
         }
-        // Debug.Log("Over space station.\nAnimation 7 finished.");
+        Debug.Log("Over space station.\nAnimation 7 finished.");
 
         // land rocket on space station
         float undergroundAmount = 0.5f;
@@ -332,7 +344,7 @@ public class RocketAnimation : MonoBehaviour
             // rotate 180
             transform.Rotate(Vector3.forward, 180);
 
-            // Debug.Log("Rocket in space station.\nAnimation 8 finished.");
+            Debug.Log("Rocket in space station.\nAnimation 8 finished.");
 
             // redeploy rocket on space station
 
@@ -358,7 +370,7 @@ public class RocketAnimation : MonoBehaviour
         startingOnPlanet_A = !startingOnPlanet_A;
         flying = false;
 
-        // Debug.Log("Rocket ready for new take off.\nAnimation 9 finished.");
+        Debug.Log("Rocket ready for new take off.\nAnimation 9 finished.");
 
         if (currentPlanet.GetComponent<RotatePlanet>().collapsed == false && currentPlanet.GetComponent<RotatePlanet>().collapsing == false) gameObject.GetComponent<Rocket>().StartTravelSchedule();
 

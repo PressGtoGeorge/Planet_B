@@ -403,6 +403,7 @@ public class PlanetVisuals : MonoBehaviour
     private void UpdatePlanetVisuals(bool skipReturn)
     {
         float currentGas = ecosystem.GetCurrentGas();
+        currentGas = Mathf.Clamp(currentGas, 0, 1000);
 
         if (skipReturn == false && lastGas == currentGas) return;
 
